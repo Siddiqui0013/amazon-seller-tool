@@ -19,7 +19,7 @@ function SignIn() {
   
   return (
     <div className="min-h-screen flex items-center justify-center ">
-      <div className="flex gap-24">
+      <div className="flex gap-24 ">
         <div className="">
           <img src={signinImage} alt="Sign In" className="w-[637px] h-full object-cover" />
         </div>

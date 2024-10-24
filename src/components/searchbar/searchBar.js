@@ -5,6 +5,7 @@ import { AiOutlineSearch } from "react-icons/ai";
 
 export default function searchBar() {
   return (
+    <div className='sticky top-0 z-50'>
             <div className="bg-blue-600 p-4 flex items-center">
             <div className="relative flex w-1/2 mx-auto">
               <input
@@ -19,5 +20,7 @@ export default function searchBar() {
               <FaUserCircle size={30} />
             </div>
           </div>
+
+    </div>
   )
 }

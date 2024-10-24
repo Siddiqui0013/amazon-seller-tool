@@ -1,11 +1,10 @@
 import { Outlet } from "react-router-dom";
-import ProductResearchRoutes from "./productResearchRoutes"
-
+import InventoryManagementRoutes from "./InvertoryManagementRoutes"
 
 function ProductResearch() {
   return (
     <div>
-      <ProductResearchRoutes />
+      <InventoryManagementRoutes />
       <Outlet />
     </div>
   );

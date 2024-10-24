@@ -145,7 +145,6 @@ const COLORS = [
 
 const CustomizedContent = (props) => {
   const { root, depth, x, y, width, height, index, colors, name, value } = props;
-  console.log(value);
 
   return (
     <g>

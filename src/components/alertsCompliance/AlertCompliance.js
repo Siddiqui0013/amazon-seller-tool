@@ -1,11 +1,10 @@
 import { Outlet } from "react-router-dom";
-import ProductResearchRoutes from "./productResearchRoutes"
-
+import AlertComplianceRoutes from "./alertComplianceRoutes";
 
 function ProductResearch() {
   return (
     <div>
-      <ProductResearchRoutes />
+      <AlertComplianceRoutes />
       <Outlet />
     </div>
   );

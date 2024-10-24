@@ -6,43 +6,43 @@ export default function Navbar() {
     <div className='border-b-2 border-gray-500 p-0 m-0'>
       <nav className="flex mt-3 ">
         <NavLink
-          to="/product-research/product-finder"
+          to="/inventory-management/overview"
           className={({ isActive }) =>
             `p-3 rounded-lg flex gap-2 items-normal ${isActive ? 'text-blue-500' : ''}`
           }
           end
         >
-          <p className="p-px">Product Finder</p>
+          <p className="p-px">Overview</p>
         </NavLink>
 
         <NavLink
-          to="/product-research/niche-analysis"
+          to="/inventory-management/forecasting"
           className={({ isActive }) =>
             `p-3 rounded-lg flex gap-2 items-normal ${isActive ? 'text-blue-500' : ''}`
           }
           end
         >
-          <p className="p-px">Niche Analysis</p>
+          <p className="p-px">Forecasting</p>
         </NavLink>
 
         <NavLink
-          to="/product-research/competitor-research"
+          to="/inventory-management/reordering"
           className={({ isActive }) =>
             `p-3 rounded-lg flex gap-2 items-normal ${isActive ? 'text-blue-500' : ''}`
           }
           end
         >
-          <p className="p-px">Competitor Research</p>
+          <p className="p-px">Reordering</p>
         </NavLink>
 
         <NavLink
-          to="/product-research/bulk-analysis"
+          to="/inventory-management/fba-management"
           className={({ isActive }) =>
             `p-3 rounded-lg flex gap-2 items-normal ${isActive ? 'text-blue-500' : ''}`
           }
           end
         >
-          <p className="p-px">Bulk Analysis</p>
+          <p className="p-px">FBA Management</p>
         </NavLink>
       </nav>
     </div>

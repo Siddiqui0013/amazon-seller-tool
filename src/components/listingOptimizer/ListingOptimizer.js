@@ -1,11 +1,11 @@
 import { Outlet } from "react-router-dom";
-import ProductResearchRoutes from "./productResearchRoutes"
+import ListingOptimizerRoutes from "./ListingOptimizerRoutes";
 
 
 function ProductResearch() {
   return (
     <div>
-      <ProductResearchRoutes />
+      <ListingOptimizerRoutes />
       <Outlet />
     </div>
   );

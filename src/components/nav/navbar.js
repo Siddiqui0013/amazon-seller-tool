@@ -5,12 +5,16 @@ import { FiBox } from "react-icons/fi";
 import { FaArrowTrendDown } from "react-icons/fa6";
 import { IoMdTime } from "react-icons/io";
 import { LuGamepad } from "react-icons/lu";
+import {auth} from "../../firebase"
+import { } from "firebase/auth"
 
 export default function Navbar() {
 
+
+
   const nav = useNavigate();
   return (
-    <div className="m-w-[50%] h-screen sticky top-0 bg-white shadow">
+    <div className=" h-screen sticky top-0 bg-white shadow">
       <div className="p-6  cursor-pointer text-xl font-bold text-blue-700" onClick={() => nav('/') }>Logo</div>
       <nav className="flex flex-col mt-3">
         <NavLink

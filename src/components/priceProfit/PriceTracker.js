@@ -40,17 +40,19 @@ const PriceTracker = () => {
     </div>
 
     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-      <div className="p-4 bg-white rounded-lg shadow-md">
-        <h3 className="text-lg font-medium mb-4">Price Volatility Indicator</h3>
-        <div className="h-40 bg-gray-100 rounded-lg">
-        </div>
-      </div>
-      <div className="p-4 bg-white rounded-lg shadow-md">
-        <h3 className="text-lg font-medium mb-4">Price Volatility Indicator</h3>
-        <div className="h-40 bg-gray-100 rounded-lg">
 
+<div>
+<h3 className="text-lg font-medium mb-4">Price Volatility Indicator</h3>
+        <div className="h-80 bg-gray-50  border-[1px] border-gray-200 shadow-md rounded-lg">
+        </div>
+</div>
+
+<div>
+<h3 className="text-lg font-medium mb-4">Price Volatility Indicator</h3>
+        <div className="h-80 bg-gray-50 border-[1px] border-gray-200 shadow-md rounded-lg">
         </div>
       </div>
+
     </div>
 
 

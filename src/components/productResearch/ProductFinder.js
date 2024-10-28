@@ -1,9 +1,36 @@
 import React, { useState } from 'react';
-import Rater from 'react-rater'
 import 'react-rater/lib/react-rater.css'
 import EarthbornImg from '../../assets/productFinder.jpg'
+import LineChart from "../charts/linechart"
+import Popup from "./Popup"
 
 function ProductFinder() {
+
+  const [isPopupOpen, setIsPopupOpen] = useState(false);
+
+  const openPopup = () => {
+    setIsPopupOpen(true);
+    console.log(isPopupOpen)
+
+  }
+  const closePopup = () => 
+    {
+      setIsPopupOpen(false);
+      console.log(isPopupOpen)
+    }
+
+
+  const lines3data = [
+    { name: "Page A", LastMonth: 4000, ThisMonth: 2400, amt: 2400 },
+    { name: "Page B", LastMonth: 3000, ThisMonth: 1398, amt: 2210 },
+    { name: "Page C", LastMonth: 2000, ThisMonth: 9800, amt: 2290 },
+  ];
+
+  const line3 = [
+    { dataKey: "ThisMonth", stroke: "#8884d8", activeDot: { r: 8 } },
+    { dataKey: "LastMonth", stroke: "#ffc658" },
+  ];
+
   const [filters, setFilters] = useState({
     category: '',
     priceRange: { min: '', max: '' },
@@ -117,65 +144,37 @@ function ProductFinder() {
             <span>{filters.reviewRating}%</span>
           </div>
 
-          <div className="mb-4">
-            <label className="block mb-2 text-lg font-medium">Fulfillment Method</label>
-            <Rater className="flex space-x-3 text-4xl" total={5} rating={2} />
+          <div className="mt-4 flex gap-2 flex-col">
+            <label className="block mb-2 mt-4 text-lg font-medium">Fulfillment Method</label>
+            
+            <div className='space-x-2'>
+            <input type="checkbox" className="toggle" />
+            <label className="text-lg ">FBA</label>
+            </div>
+
+            <div className='space-x-2'>
+            <input type="checkbox" className="toggle" />
+            <label className="text-lg ">FBM</label>
+            </div>
+
+            <div className='space-x-2'>
+            <input type="checkbox" className="toggle" />
+            <label className="text-lg ">Amazon</label>
+            </div>
+
           </div>
+          <button onClick={openPopup} className="bg-[#FF9900] text-white p-2 mt-6 rounded">Find Products</button>
         </div>
 
-        {/* <div className="bg-white w-3/4 p-4 shadow-md rounded-md">
-          <h2 className="text-xl font-semibold mb-4">Results</h2>
-
-          <div className="bg-gray-50 p-4 rounded-md shadow mb-4 flex justify-between items-center">
-            <div>
-              <h3 className="text-lg font-semibold">Earthborn</h3>
-              <p className="text-sm">Price: $13.20</p>
-              <p className="text-sm">Estimated Sales: 12k (12%)</p>
-              <p className="text-sm">Profit Potential: $0.115</p>
-            </div>
-            <img
-              src="https://via.placeholder.com/100"
-              alt="Product"
-              className="w-16 h-16 rounded-md"
-            />
-          </div> */}
 
 <div className="bg-white w-[33%] p-4 shadow-md rounded-md">
   <h2 className="text-xl font-semibold mb-4">Results</h2>
 
-  {/* Toggle between Card View / List View */}
   <div className="flex items-center justify-between mb-4">
     <label className="text-sm font-medium">Card View / List View</label>
     <input type="checkbox" className="toggle" />
   </div>
 
-  {/* Dropdown filters */}
-  {/* <div className="mb-4">
-    <select className="w-full border border-gray-300 rounded p-2 mb-2">
-      <option>Best Sellers Rank</option>
-      <option>Price</option>
-      <option>Estimated Sales</option>
-      <option>Profit Potential</option>
-    </select>
-    <select className="w-full border border-gray-300 rounded p-2 mb-2">
-      <option>Price</option>
-      <option>Best Sellers Rank</option>
-      <option>Estimated Sales</option>
-      <option>Profit Potential</option>
-    </select>
-    <select className="w-full border border-gray-300 rounded p-2 mb-2">
-      <option>Estimated Sales</option>
-      <option>Best Sellers Rank</option>
-      <option>Price</option>
-      <option>Profit Potential</option>
-    </select>
-    <select className="w-full border border-gray-300 rounded p-2 mb-2">
-      <option>Profit Potential</option>
-      <option>Best Sellers Rank</option>
-      <option>Price</option>
-      <option>Estimated Sales</option>
-    </select>
-  </div> */}
 
 <div className="mb-4">
             <label className="block mb-2 text-sm font-medium">Best Sellers Rank</label>
@@ -237,21 +236,16 @@ function ProductFinder() {
 
     <div className='flex '>
       <p>Price : </p>
-      <p>$ 13.20 </p>
+      <p> $13.20 </p>
     </div>
 
 
   <div className="bg-gray-50 p-4 rounded-md shadow mb-4">
     <div className="flex items-center space-x-4">
-      <img
-        src="https://via.placeholder.com/100"
-        alt="Earthborn Product"
-        className="w-16 h-16 rounded-md"
-      />
       <div>
         <h3 className="text-lg font-semibold">Earthborn</h3>
-        <p className="text-sm">Price: $13.20</p>
-        <div className="flex justify-between">
+        <p className="text-sm pb-2">Price: $13.20</p>
+        <div className="flex justify-between m-auto">
           <p className="text-sm">BSR: 12k (1%)</p>
           <p className="text-sm">Est. Sales: 12k (1%)</p>
           <p className="text-sm">Max Cost: $10.15</p>
@@ -261,12 +255,11 @@ function ProductFinder() {
     </div>
     </div>
 
-    {/* Buttons at the bottom */}
-    {/* <div className="flex justify-between mt-4">
-      <button className="bg-yellow-500 text-white px-4 py-2 rounded-md">Track</button>
-      <button className="bg-blue-500 text-white px-4 py-2 rounded-md">Analyze</button>
-      <button className="bg-gray-800 text-white px-4 py-2 rounded-md">View on Amazon</button>
-    </div> */}
+    <div className='flex justify-between text-white'>
+      <button className='bg-[#FF9900] rounded-md py-2 px-[10px]'>Track</button>
+      <button className='bg-[#FF9900] rounded-md py-2 px-[10px]'>Analyze</button>
+      <button className='bg-[#FF9900] rounded-md py-2 px-[10px]'>View on Amazon</button>
+    </div>
 </div>
 
 
@@ -274,40 +267,99 @@ function ProductFinder() {
 
   <div className="p-4 shadow bg-white w-[33%] rounded-md">
     <h2 className="text-xl font-semibold mb-4">Detailed View</h2>
+    
+    <div className='border-2 border-gray-300'>
     <img
-      src="https://via.placeholder.com/100"
+      src={EarthbornImg}
       alt="Detailed Product"
-      className="w-24 h-24 mx-auto rounded-md mb-4"
+      className="w-40 h-40 mx-auto rounded-md mb-4"
     />
-    <p className="text-sm font-semibold">Earthborn Holistic Primitive Feline</p>
-    <p className="text-sm">Price: $13.20</p>
-    <p className="text-sm">ASIN: B0051GBKZM</p>
 
-    <div className="mt-4">
+    </div>
+    
+    <p className="text-xl pb-2 font-semibold">Earthborn Holistic Primitive Feline Grain-free Dry Cat Food 5 pound (Pack of 1)</p>
+    <p className="text-lg text-gray-700">ASIN: B0051GBKZM</p>
+
+    <div className="mt-4 bg-gray-100 rounded p-2">
       <h3 className="text-lg font-semibold">Sales Rank History</h3>
+      <div className="w-full    mt-2 rounded">
+      <LineChart data={lines3data} lines={line3} width = {300} height = {200}/>        
+        </div>
+
       <div className="flex justify-between">
-        <p className="text-sm">Last Month: $3,004</p>
-        <p className="text-sm">This Month: $4,504</p>
       </div>
 
-      <div className="w-full h-40 bg-gray-100 mt-2 rounded">[Chart]</div>
     </div>
 
     <div className="mt-4">
       <h3 className="text-lg font-semibold">Estimated Sales Calculator</h3>
-      <div className="flex gap-2 mt-2">
-        <input
+
+<div className='flex flex-col gap-4'>
+<div className="w-full">
+
+  <div className='mt-2 flex gap-1'>
+    <div>
+    <h3 className='my-2'>Price</h3>
+  <input
           type="text"
           placeholder="Price"
-          className="border border-gray-300 p-2 rounded-md w-1/2"
+          className="border border-gray-300 p-2 rounded-md w-full"
         />
+    </div>
+    <div>
+    <h3 className='my-2'>Sales Rank</h3>  
         <input
           type="text"
           placeholder="Sales Rank"
-          className="border border-gray-300 p-2 rounded-md w-1/2"
+          className="border border-gray-300 p-2 rounded-md w-full"
         />
+
+    </div>
+  </div>
+
+  
       </div>
-      <button className="bg-blue-500 text-white p-2 mt-2 rounded">Calculate</button>
+      <h3>Category</h3>
+      <input
+          type="text"
+          placeholder="Category"
+          className="border border-gray-300 p-2 rounded-md w-full"
+        />
+      <h3>Sales Velocity</h3>        
+                <input
+        type="text"
+        placeholder="Sales Velocity"
+        className="border border-gray-300 p-2 rounded-md w-full"
+      />
+</div>
+
+      <button className="bg-[#FF9900] text-white p-2 mt-2 rounded">Calculate Sales</button>
+
+
+      <Popup isOpen={isPopupOpen} onClose={closePopup}>
+        <h2 className="text-lg font-semibold mb-2">List of All Products</h2>
+        <div className="overflow-auto max-h-96">
+          {Array.from({ length: 10 }, (_, index) => (
+            <div
+              key={index}
+              className="border-b border-gray-200 py-2 flex items-center"
+            >
+              <img
+                src={EarthbornImg}
+                alt="Product"
+                className="w-20 h-20 mr-4"
+              />
+              <div>
+                <p>Earthborn Holistic Primitive Feline Cat Food</p>
+                <p className="text-sm text-gray-500">ASIN: B0051G8KZM</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </Popup>
+
+
+
     </div>
   </div>
 </div>

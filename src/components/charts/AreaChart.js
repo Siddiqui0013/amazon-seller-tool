@@ -1,33 +1,37 @@
 import React from "react";
-import {
-  AreaChart,
-  Area,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  Tooltip,
-} from "recharts";
+import Chart from "react-apexcharts";
 
-const CustomAreaChart = ({ data, width, height, areaKey, strokeColor, fillColor }) => {
+const AreaChart = ({ data }) => {
+  const options = {
+    chart: {
+      type: 'area',
+      height: 100,
+      zoom: {
+        enabled: false,
+      },
+    },
+    dataLabels: {
+      enabled: false,
+    },
+    stroke: {
+      curve: 'smooth',
+    },
+    xaxis: {
+      categories: ["Jan", "Feb", "Mar"],
+    },
+    colors: ['#0E4DA4'],
+  };
+
+  const series = [{
+    name: 'Sales',
+    data: data,
+  }];
+
   return (
-    <AreaChart
-      width={width}
-      height={height}
-      data={data}
-      margin={{
-        top: 10,
-        right: 30,
-        left: 0,
-        bottom: 0,
-      }}
-    >
-      <CartesianGrid strokeDasharray="3 3" />
-      <XAxis dataKey="name" />
-      <YAxis />
-      <Tooltip />
-      <Area type="monotone" dataKey={areaKey} stroke={strokeColor} fill={fillColor} />
-    </AreaChart>
+    <div>
+      <Chart options={options} series={series} type="area" height={100} />
+    </div>
   );
 };
 
-export default CustomAreaChart;
+export default AreaChart;

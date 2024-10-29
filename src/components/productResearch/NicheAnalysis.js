@@ -1,8 +1,8 @@
 import React from 'react'
-import LineChart from "../charts/linechart"
-import Barchart from "../charts/barChart"
-import GaugeChart from "../charts/gaugeChart"
-import Treemap from "../charts/treemap"
+import LineChart from "../charts/LineChart"
+import Barchart from "../charts/BarChart"
+import GaugeChart from "../charts/GaugeChart"
+import Treemap from "../charts/Treemap"
 import { AiOutlineSearch } from "react-icons/ai";
 
 
@@ -21,9 +21,13 @@ export default function NicheAnalysis() {
   ];
 
   const BarData = [
-    { name: "Jan", sales: 1000 },
-    { name: "Feb", sales: 2000 },
-    { name: "Mar", sales: 1500 },
+    { name: "Jan", SalesA: 1000, SalesB: 1200 },
+    { name: "Feb", SalesA: 2000, SalesB: 1800 },
+    { name: "Mar", SalesA: 1500, SalesB: 1700 },
+  ]
+  const bars = [
+    { dataKey: "SalesA", color: "#0E4DA4" },
+    { dataKey: "SalesB", color: "#FF9900" }, 
   ];
 
   const GaugeData = [
@@ -103,14 +107,11 @@ export default function NicheAnalysis() {
         <div className="bg-white w-[45%] p-4  shadow-md rounded-md">
           <p className='font-semibold text-lg px-2  py-4'>Top sellers in niche</p>
           <Barchart 
-          
           data={BarData} 
-          dataKey="sales" 
           width={400} 
           height={300} 
-          color="#0E4DA4" 
+          bars={bars}
           barSize={20} 
-          
           />
         </div>
         

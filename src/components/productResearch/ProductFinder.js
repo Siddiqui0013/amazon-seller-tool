@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import 'react-rater/lib/react-rater.css'
 import EarthbornImg from '../../assets/productFinder.jpg'
-import LineChart from "../charts/linechart"
+import LineChart from "../charts/LineChart"
 import Popup from "./Popup"
 
 function ProductFinder() {
@@ -255,11 +255,19 @@ function ProductFinder() {
     </div>
     </div>
 
-    <div className='flex justify-between text-white'>
-      <button className='bg-[#FF9900] rounded-md py-2 px-[10px]'>Track</button>
-      <button className='bg-[#FF9900] rounded-md py-2 px-[10px]'>Analyze</button>
-      <button className='bg-[#FF9900] rounded-md py-2 px-[10px]'>View on Amazon</button>
+    <div className='flex justify-between text-white gap-1'>
+      <button className='bg-[#FF9900] rounded-md py-2 w-[33%] '>Track</button>
+      <button className='bg-[#FF9900] rounded-md py-2 w-[33%] '>Analyze</button>
+      <button className='bg-[#FF9900] rounded-md  w-[33%] '>View on Amazon</button>
     </div>
+
+    {/* <div className='flex justify-between text-white'>
+      <button className='bg-[#FF9900] rounded-md py-2 px-[10px]'>Track</button>
+      <button className='bg-[#FF9900] rounded-md py-2  px-[10px]'>Analyze</button>
+      <button className='bg-[#FF9900] rounded-md py-2 px-[10px]'>View on Amazon</button>
+    </div> */}
+
+
 </div>
 
 
@@ -333,7 +341,7 @@ function ProductFinder() {
       />
 </div>
 
-      <button className="bg-[#FF9900] text-white p-2 mt-2 rounded">Calculate Sales</button>
+      <button className="bg-[#FF9900] text-white p-2 mt-4 rounded">Calculate Sales</button>
 
 
       <Popup isOpen={isPopupOpen} onClose={closePopup}>

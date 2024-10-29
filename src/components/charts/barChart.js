@@ -1,25 +1,29 @@
-// BarChartComponent.js
-import React from "react";
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from "recharts";
+import React from 'react';
+import Chart from 'react-apexcharts';
 
-const BarChartComponent = ({ 
-  data, 
-  dataKey = "uv", 
-  width = 400, 
-  height = 300, 
-  barSize = 30, 
-  color = "#8884d8" 
-}) => {
-  return (
-    <BarChart width={width} height={height} data={data} barSize={barSize}>
-      <CartesianGrid strokeDasharray="3 3" />
-      <XAxis dataKey="name" />
-      <YAxis />
-      <Tooltip />
-      <Legend />
-      <Bar dataKey={dataKey} fill={color} />
-    </BarChart>
-  );
+const BarChartComponent = ({ data, width, height }) => {
+  const series = data.map((bar) => ({
+    name: bar.name,
+    data: bar.data,
+  }));
+
+  const options = {
+    chart: {
+      type: 'bar',
+      stacked: false,
+    },
+    xaxis: {
+      categories: ['Jan', 'Feb', 'Mar'],
+    },
+    colors: data.map((bar) => bar.color),
+    plotOptions: {
+      bar: {
+        columnWidth: '30%',
+      },
+    },
+  };
+
+  return <Chart options={options} series={series} type="bar" width={width} height={height} />;
 };
 
 export default BarChartComponent;

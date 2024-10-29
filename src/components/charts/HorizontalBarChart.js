@@ -1,46 +1,47 @@
 import React from "react";
-import {
-  ComposedChart,
-  Line,
-  Bar,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  Tooltip,
-  Legend,
-} from "recharts";
+import ReactApexChart from "react-apexcharts";
 
-const HorizontalBarChart = ({
-  data = [],
-  lines = [],
-  bars = [],
-  width = 500,
-  height = 400,
-  margin = { top: 20, right: 20, bottom: 20, left: 20 },
-}) => {
+export default function HorizontalBarChart({ data, width, height }) {
+  // Transforming the data to fit ApexCharts format
+  const categories = data.map((item) => item.name);
+  const seriesData = data.map((item) => item.pv); // Assuming 'pv' is the key for bar values
+
+  const chartOptions = {
+    chart: {
+      type: "bar",
+      toolbar: { show: false },
+    },
+    plotOptions: {
+      bar: {
+        horizontal: true, // Make it horizontal
+        barHeight: "50%",
+      },
+    },
+    dataLabels: {
+      enabled: false, // Hide data labels for a cleaner look
+    },
+    xaxis: {
+      categories, // Use the transformed categories
+    },
+    tooltip: {
+      y: {
+        formatter: (val) => `${val}`, // Format tooltip values if needed
+      },
+    },
+    colors: ["#413ea0"], // Custom color for the bars
+  };
+
+  const series = [{ name: "Value", data: seriesData }];
+
   return (
-    <ComposedChart
-      layout="vertical"
-      width={width}
-      height={height}
-      data={data}
-      margin={margin}
-    >
-      <CartesianGrid stroke="#f5f5f5" />
-      <XAxis type="number" />
-      <YAxis dataKey="name" type="category" scale="band" />
-      <Tooltip />
-      <Legend />
-      
-      {bars.map((bar, index) => (
-        <Bar key={index} dataKey={bar.dataKey} fill={bar.fill} barSize={bar.barSize || 20} />
-      ))}
-
-      {lines.map((line, index) => (
-        <Line key={index} dataKey={line.dataKey} stroke={line.stroke} />
-      ))}
-    </ComposedChart>
+    <div className="w-full">
+      <ReactApexChart
+        options={chartOptions}
+        series={series}
+        type="bar"
+        width={width}
+        height={height}
+      />
+    </div>
   );
-};
-
-export default HorizontalBarChart;
+}

@@ -1,6 +1,6 @@
 import React from 'react';
-import PieChart from "../charts/piechart"
-import LineChart from "../charts/linechart"
+import PieChart from "../charts/PieChart"
+import LineChart from "../charts/LineChart"
 import {AiOutlineSearch} from "react-icons/ai"
 
 const CompetitorResearch = () => {
@@ -52,15 +52,15 @@ const CompetitorResearch = () => {
   ];
 
   const PieChartdata = [
-    { name: "A", value: 400 },
-    { name: "B", value: 300 },
-    { name: "C", value: 300 },
-    { name: "D", value: 200 },
+    { name: "Competitor A", value: 400 },
+    { name: "Competitor B", value: 300 },
+    { name: "Competitor C", value: 300 },
+    { name: "Competitor D", value: 200 },
   ];
   const PieChartCOLORS = ["#0088FE", "#00C49F", "#FFBB28", "#FF8042"];
 
   return (
-    <div className="p-8 bg-gray-50 min-h-screen">
+    <div className="p-8 min-h-screen">
 
 
 <div className='flex my-6 flex-wrap w-[98%] items-center justify-between overflow-x-hidden'>
@@ -84,20 +84,20 @@ const CompetitorResearch = () => {
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
 
-        <div className="bg-gray-50 rounded-lg flex flex-col justify-between shadow-md p-6">
+        <div className="bg-gray-100 rounded-lg flex flex-col justify-between shadow-md p-6">
           <h3 className="text-lg font-medium mb-4">Market share breakdown</h3>
           <div className="">
             <PieChart
              data={PieChartdata}
-             width={500}
-             height={230}
+             width={300}
+             height={300}
              colors={PieChartCOLORS}
             />
           </div>
         </div>
 
 
-        <div className="bg-gray-50 rounded-lg flex flex-col justify-between shadow-md p-6">
+        <div className="bg-gray-100 rounded-lg flex flex-col justify-between shadow-md p-6">
           <h3 className="text-lg font-medium mb-4">Price positioning map</h3>
           <div className="box-border overflow-hidden ">
             <LineChart data={line1data} lines={line1} width = {500} height = {300}/>

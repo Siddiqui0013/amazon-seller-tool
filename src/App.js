@@ -39,9 +39,8 @@ function App() {
     return () => unsubscribe();
   }, [navigate, location.pathname, isAuthPage]);
 
-  // Show a loading indicator until Firebase resolves the user state
   if (loading) {
-    return <div>Loading...</div>;
+    return <div className="text-center text-3xl items-center ">Loading...</div>;
   }
 
   return (
@@ -53,10 +52,10 @@ function App() {
           <Route path="/signin" element={<SignIn />} />
           <Route path="/signup" element={<SignUp />} />
           <Route path="/" element={user ? <Dashboard /> : <SignIn />} />
-          <Route path="product-research/*" element={<ProductResearch />} />
+          {/* <Route path="product-research/*" element={<ProductResearch />} />
           <Route path="inventory-management/*" element={<InventoryManagement />} />
           <Route path="price-profit/*" element={<PriceProfit />} />
-          <Route path="listing-optimizer/*" element={<ListingOptimizer />} />
+          <Route path="listing-optimizer/*" element={<ListingOptimizer />} /> */}
 
           {/* Uncomment these routes when needed */}
           {/* <Route path="alerts-compliance/*" element={<AlertCompliance />} /> */}

@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
-import GaugeChart from '../charts/gaugeChart';
-import CustomBarChart from '../charts/CustomBarChart';
+import GaugeChart from '../charts/GaugeChart'; 
+import BarChart from '../charts/BarChart'; 
 
-const PriceTracker = () => {
-
+const ProfitCalculator = () => {
   const [purchasePrice, setPurchasePrice] = useState(0);
   const [salePrice, setSalePrice] = useState(0);
   const [fbaFee, setFbaFee] = useState(0);
@@ -22,27 +21,72 @@ const PriceTracker = () => {
     setRevenue((prevRevenue) => prevRevenue + currentRevenue);
     setNetProfit((prevProfit) => prevProfit + currentProfit);
 
+    // Reset inputs
     setPurchasePrice(0);
     setSalePrice(0);
     setFbaFee(0);
     setShippingCost(0);
   };
 
-  const GaugeData = [
-    { name: 'A', value: 80, color: '#ff0000' },
-    { name: 'B', value: 45, color: '#00ff00' },
-    { name: 'C', value: 25, color: '#0000ff' },
-  ];
+  // ApexCharts Gauge Data
+  const gaugeOptions = {
+    series: [((netProfit / totalCost) * 100) || 0], // Example calculation for the gauge
+    chart: {
+      type: 'radialBar',
+      offsetY: -10,
+    },
+    plotOptions: {
+      radialBar: {
+        startAngle: -135,
+        endAngle: 135,
+        track: {
+          background: '#f2f2f2',
+          strokeWidth: '100%',
+          margin: 0, // margin is in pixels
+        },
+        dataLabels: {
+          name: {
+            show: true,
+            fontSize: '22px',
+            color: '#888',
+            offsetY: 50,
+          },
+          value: {
+            show: true,
+            fontSize: '16px',
+            color: '#333',
+            offsetY: 0,
+          },
+        },
+      },
+    },
+    fill: {
+      colors: ['#00E396'],
+    },
+    labels: ['Profit Margin'],
+  };
 
-  const Bardata = [
-    { name: "Group A", uv: -4000 },
-    { name: "Group B", uv: 3000 },
-    { name: "Group C", uv: -2000 },
-    { name: "Group D", uv: 2780 },
-    { name: "Group E", uv: -1890 },
-    { name: "Group F", uv: 2390 },
-    { name: "Group G", uv: 3490 },
-  ];
+  // ApexCharts Bar Chart Data
+  const barOptions = {
+    series: [
+      {
+        name: 'Costs',
+        data: [
+          parseFloat(purchasePrice) || 0,
+          parseFloat(fbaFee) || 0,
+          parseFloat(shippingCost) || 0,
+        ],
+      },
+    ],
+    chart: {
+      type: 'bar',
+      height: 350,
+    },
+    xaxis: {
+      categories: ['Purchase Price', 'FBA Fees', 'Shipping Costs'],
+    },
+    colors: ['#0E4DA4'],
+  };
 
   return (
     <div className="p-8 bg-white rounded-lg shadow-lg">
@@ -54,6 +98,7 @@ const PriceTracker = () => {
             <label className="block text-sm font-medium mb-2">Purchase Price</label>
             <input
               type="number"
+              value={purchasePrice}
               onChange={(e) => setPurchasePrice(e.target.value)}
               placeholder="Enter price"
               className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -65,17 +110,19 @@ const PriceTracker = () => {
             <label className="block text-sm font-medium mb-2">Selling Price</label>
             <input
               type="number"
+              value={salePrice}
               onChange={(e) => setSalePrice(e.target.value)}
               placeholder="Enter price"
               className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
-            <p className="text-gray-500 text-sm mt-1">Enter the cost at which you selled the product.</p>
+            <p className="text-gray-500 text-sm mt-1">Enter the cost at which you sold the product.</p>
           </div>
 
           <div>
             <label className="block text-sm font-medium mb-2">FBA Fees</label>
             <input
               type="number"
+              value={fbaFee}
               onChange={(e) => setFbaFee(e.target.value)}
               placeholder="Enter fee"
               className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -87,6 +134,7 @@ const PriceTracker = () => {
             <label className="block text-sm font-medium mb-2">Shipping Costs</label>
             <input
               type="number"
+              value={shippingCost}
               onChange={(e) => setShippingCost(e.target.value)}
               placeholder="Enter cost"
               className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -128,28 +176,14 @@ const PriceTracker = () => {
         <div>
           <h3 className="text-lg font-medium mb-4">Profit Margin</h3>
           <div className="bg-white rounded-lg shadow-md">
-            <GaugeChart
-              data={GaugeData}
-              cx={200}
-              cy={200}
-              innerRadius={100}
-              outerRadius={150}
-              value={50}
-              width={400}
-              height={250}
-            />
+            <GaugeChart options={gaugeOptions} />
           </div>
         </div>
 
         <div>
           <h3 className="text-lg font-medium mb-4">Breakdown of Costs</h3>
           <div className="bg-white rounded-lg shadow-md">
-            <CustomBarChart
-              data={Bardata}
-              width={500}
-              height={250}
-              barColors={["#0E4DA4"]}
-            />
+            <BarChart options={barOptions} />
           </div>
         </div>
       </div>
@@ -157,7 +191,7 @@ const PriceTracker = () => {
   );
 };
 
-export default PriceTracker;
+export default ProfitCalculator;
 
 
 

@@ -1,6 +1,6 @@
 import React from "react";
-import GaugeChart from "../charts/gaugeChart"
-import BarChartComponent from "../charts/barChart";
+import GaugeChart from "../charts/GaugeChart";
+import BarChartComponent from "../charts/BarChart";
 
 const products = [
   {
@@ -41,66 +41,57 @@ const products = [
   },
 ];
 
-export default function App() {
-
-  const GaugeData = [
-    { name: 'A', value: 80, color: '#ff0000' },
-    { name: 'B', value: 45, color: '#00ff00' },
-    { name: 'C', value: 25, color: '#0000ff' },
-  ];
-
-  const BarData = [
+export default function Overview() {
+  const barData = [
     { name: "Jan", sales: 1000 },
     { name: "Feb", sales: 2000 },
     { name: "Mar", sales: 1500 },
   ];
 
   return (
-    <div className="p-8 bg-gray-50 min-h-screen">
+    <div className="p-8 min-h-screen">
       <h1 className="text-3xl font-bold mb-1">Inventory Health Dashboard</h1>
-      <p className="text-gray-500 mb-6">Track and Manage Inventory Levels and Reorders</p>
+      <p className="text-gray-500 mb-6">
+        Track and Manage Inventory Levels and Reorders
+      </p>
 
       <div className="grid grid-cols-2 gap-6 mb-8">
         <div className="bg-white shadow-md rounded-lg p-6">
           <h2 className="text-lg font-semibold mb-4">Inventory Health Score</h2>
           <div className="flex items-center justify-center">
-          <GaugeChart 
-           data={GaugeData} 
-           cx={200} 
-           cy={150} 
-           innerRadius={100} 
-           outerRadius={150} 
-           value={50} 
-           width={500} 
-           height={250} 
-          />
+            <GaugeChart value={50} />
           </div>
         </div>
 
         <div className="bg-white shadow-md rounded-lg p-6">
-          <h2 className="text-lg font-semibold mb-4">Inventory Health Score</h2>
+          <h2 className="text-lg font-semibold mb-4">Sales Performance</h2>
           <div className="h-52">
             <BarChartComponent
-                       data={BarData} 
-                       dataKey="sales" 
-                       width={400} 
-                       height={250} 
-                       color="#0E4DA4" 
-                       barSize={20} 
-             />
+              data={barData}
+              dataKey="sales"
+              width={400}
+              height={250}
+              color="#0E4DA4"
+              barSize={20}
+            />
           </div>
         </div>
       </div>
 
-<div className="flex justify-between pt-4">
-<h1 className="text-xl font-semibold">Product List with Key Metrics</h1>
-      <div className="flex gap-4 mb-4">
-        <button className="px-4 py-2 border-[2px] border-blue-500 rounded-full">Category</button>
-        <button className="px-4 py-2 border-[2px] border-blue-500 rounded-full">Supplier</button>
-        <button className="px-4 py-2 border-[2px] border-blue-500 rounded-full">Fulfillment Method</button>
+      <div className="flex justify-between pt-4">
+        <h1 className="text-xl font-semibold">Product List with Key Metrics</h1>
+        <div className="flex gap-4 mb-4">
+          <button className="px-4 py-2 border-[2px] border-blue-500 rounded-full">
+            Category
+          </button>
+          <button className="px-4 py-2 border-[2px] border-blue-500 rounded-full">
+            Supplier
+          </button>
+          <button className="px-4 py-2 border-[2px] border-blue-500 rounded-full">
+            Fulfillment Method
+          </button>
+        </div>
       </div>
-
-</div>
 
       <table className="w-full table-auto bg-white shadow-md rounded-lg">
         <thead className="bg-gray-100">

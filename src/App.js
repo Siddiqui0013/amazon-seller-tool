@@ -12,6 +12,8 @@ import ProductResearch from "./components/productResearch/ProductResearch";
 import InventoryManagement from "./components/inventoryManagement/InvertoryManagement";
 import PriceProfit from "./components/priceProfit/PriceProfit";
 import ListingOptimizer from "./components/listingOptimizer/ListingOptimizer";
+import AlertCompliance from "./components/alertsCompliance/AlertCompliance";
+
 import { auth, onAuthStateChanged } from "./firebase";
 
 function App() {
@@ -58,8 +60,7 @@ function App() {
           <Route path="price-profit/*" element={<PriceProfit />} />
           <Route path="listing-optimizer/*" element={<ListingOptimizer />} />
 
-          {/* Uncomment these routes when needed */}
-          {/* <Route path="alerts-compliance/*" element={<AlertCompliance />} /> */}
+          <Route path="alerts-compliance/*" element={<AlertCompliance />} />
           {/* <Route path="analytics/*" element={<Analytics />} /> */}
           {/* <Route path="settings/*" element={<Settings />} /> */}
         </Routes>

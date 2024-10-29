@@ -89,9 +89,9 @@ export default function NicheAnalysis() {
 </div>
 
 
-      <div className='flex gap-3  mb-6 flex-wrap m-auto justify-evenly'>
+      <div className='grid grid-cols-1 md:grid-cols-2 gap-3 mb-6 flex-wrap m-auto justify-evenly'>
 
-      <div className="bg-white w-[45%] p-4 shadow-md rounded-md">
+      <div className="bg-white p-4 shadow-md rounded-md">
         <p className='font-semibold text-lg px-2  py-4'>Trend Graph for niche growth</p>
         
         <div className='box-content overflow-hidden'>
@@ -100,10 +100,9 @@ export default function NicheAnalysis() {
         
         </div>
         
-        <div className="bg-white w-[45%] p-4  shadow-md rounded-md">
+        <div className="bg-white p-4  shadow-md rounded-md">
           <p className='font-semibold text-lg px-2  py-4'>Top sellers in niche</p>
           <Barchart 
-          
           data={BarData} 
           dataKey="sales" 
           width={400} 
@@ -114,21 +113,16 @@ export default function NicheAnalysis() {
           />
         </div>
         
-        <div className="bg-white w-[45%] p-4 shadow-md rounded-md">
+        <div className="bg-white p-4 shadow-md rounded-md">
           <p className='font-semibold text-lg px-2  py-4'>Niche Saturation Index</p>
           <GaugeChart 
            data={GaugeData} 
-           cx={200} 
-           cy={150} 
-           innerRadius={100} 
-           outerRadius={150} 
-           value={50} 
-           width={500} 
-           height={200} 
+           width="100%"
+           height={200}  
           />
         </div>
         
-        <div className="bg-white w-[45%] p-4 shadow-md h-[30%] rounded-md">
+        <div className="bg-white p-4 shadow-md  rounded-md">
           <p className='font-semibold text-lg px-2  py-4'>Seasonal Demand Chart</p>
           <Treemap
            data={TreeData}

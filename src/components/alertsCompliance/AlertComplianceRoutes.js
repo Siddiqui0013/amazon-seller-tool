@@ -1,5 +1,10 @@
 import { Routes, Route, Navigate } from "react-router-dom";
 import Navbar from "./navbar";
+import AlertCenter from "./AlertCenter";
+import BrandProtection from "./BrandProtection"
+import Compliance from "./ComplianceChecker"
+import FeedbackManager from "./FeedbackManager"
+
 
 
 function ProductResearchRoutes() {
@@ -9,8 +14,11 @@ function ProductResearchRoutes() {
     <Navbar/>
     </div>
     <Routes>
-      <Route path="/" element={<Navigate to="product-finder" />} />
-      <Route path="product-finder" element={<ProductFinder />} />
+      <Route path="/" element={<Navigate to="alert-center" />} />
+      <Route path="alert-center" element={<AlertCenter />} />
+      <Route path="brand-protection" element={<BrandProtection />} />
+      <Route path="compliance-checker" element={<Compliance />} />
+      <Route path="feedback-manager" element={<FeedbackManager />} />
     </Routes>
     </>
   );

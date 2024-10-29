@@ -1,5 +1,5 @@
-import React from 'react';
 import LineChart from '../charts/linechart';
+import GaugeChart from '../charts/gaugeChart';
 
 const PriceTracker = () => {
 
@@ -9,13 +9,18 @@ const PriceTracker = () => {
     { name: "Page C", buyBox: 2000, amazon: 9800, fba: 2290, fbm: 1800, amt: 2290 },
     { name: "Page D", buyBox: 6000, amazon: 3800, fba: 8290, fbm: 800, amt: 2290 },
   ];
-  
   const line4 = [
     { dataKey: "buyBox", stroke: "#8884d8", activeDot: { r: 8 } },  // Buy Box
     { dataKey: "amazon", stroke: "#82ca9d" },                        // Amazon
     { dataKey: "fba", stroke: "#ffc658" },                           // FBA
     { dataKey: "fbm", stroke: "#ff7300" },                           // FBM (New Line)
   ];
+
+  const GaugeData = [
+    { name: 'A', value: 80, color: '#ff0000' },
+    { name: 'B', value: 45, color: '#00ff00' },
+    { name: 'C', value: 25, color: '#0000ff' },
+  ]
   
 
   return (
@@ -43,13 +48,31 @@ const PriceTracker = () => {
 
 <div>
 <h3 className="text-lg font-medium mb-4">Price Volatility Indicator</h3>
-        <div className="h-80 bg-gray-50  border-[1px] border-gray-200 shadow-md rounded-lg">
+        <div className=" bg-gray-50 h-72 border-[1px] border-gray-200 shadow-md rounded-lg">
+        <GaugeChart 
+           data={GaugeData} 
+           cx={250} 
+           cy={200} 
+           innerRadius={100} 
+           outerRadius={150} 
+           value={50} 
+           width={500} 
+           height={250} 
+          />
         </div>
 </div>
 
 <div>
 <h3 className="text-lg font-medium mb-4">Price Volatility Indicator</h3>
-        <div className="h-80 bg-gray-50 border-[1px] border-gray-200 shadow-md rounded-lg">
+        <div className="bg-gray-50 h-72 border-[1px] border-gray-200 shadow-md rounded-lg">
+        <GaugeChart 
+           data={GaugeData} 
+           innerRadius={100} 
+           outerRadius={150} 
+           value={50} 
+           width={500} 
+           height={250} 
+          />
         </div>
       </div>
 
@@ -60,4 +83,4 @@ const PriceTracker = () => {
   );
 };
 
-export default PriceTracker;
+export default PriceTracker; 

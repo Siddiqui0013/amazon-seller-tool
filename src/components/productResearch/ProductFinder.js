@@ -48,8 +48,8 @@ function ProductFinder() {
 
   return (
     <div className="min-h-screen p-4">
-      <div className="flex gap-4">
-        <div className="bg-white w-[33%] p-4 shadow-md rounded-md">
+      <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+        <div className="bg-white p-4 shadow-md rounded-md">
           <h2 className="text-xl font-semibold mb-4">Filters</h2>
 
           <div className="mb-4">
@@ -167,7 +167,7 @@ function ProductFinder() {
         </div>
 
 
-<div className="bg-white w-[33%] p-4 shadow-md rounded-md">
+<div className="bg-white p-4 shadow-md rounded-md">
   <h2 className="text-xl font-semibold mb-4">Results</h2>
 
   <div className="flex items-center justify-between mb-4">
@@ -255,17 +255,22 @@ function ProductFinder() {
     </div>
     </div>
 
-    <div className='flex justify-between text-white'>
-      <button className='bg-[#FF9900] rounded-md py-2 px-[10px]'>Track</button>
-      <button className='bg-[#FF9900] rounded-md py-2 px-[10px]'>Analyze</button>
-      <button className='bg-[#FF9900] rounded-md py-2 px-[10px]'>View on Amazon</button>
+    <div className='flex justify-between text-white gap-1'>
+      <button className='bg-[#FF9900] rounded-md py-2 w-[33%] '>Track</button>
+      <button className='bg-[#FF9900] rounded-md py-2 w-[33%] '>Analyze</button>
+      <button className='bg-[#FF9900] rounded-md  w-[33%] '>View on Amazon</button>
     </div>
+
+    {/* <div className='flex justify-between text-white'>
+      <button className='bg-[#FF9900] rounded-md py-2 px-[10px]'>Track</button>
+      <button className='bg-[#FF9900] rounded-md py-2  px-[10px]'>Analyze</button>
+      <button className='bg-[#FF9900] rounded-md py-2 px-[10px]'>View on Amazon</button>
+    </div> */}
+
+
 </div>
 
-
-
-
-  <div className="p-4 shadow bg-white w-[33%] rounded-md">
+  <div className="p-4 shadow-md md:col-span-1 col-span-2 bg-white rounded-md">
     <h2 className="text-xl font-semibold mb-4">Detailed View</h2>
     
     <div className='border-2 border-gray-300'>
@@ -333,7 +338,7 @@ function ProductFinder() {
       />
 </div>
 
-      <button className="bg-[#FF9900] text-white p-2 mt-2 rounded">Calculate Sales</button>
+      <button className="bg-[#FF9900] text-white p-2 mt-4 rounded">Calculate Sales</button>
 
 
       <Popup isOpen={isPopupOpen} onClose={closePopup}>

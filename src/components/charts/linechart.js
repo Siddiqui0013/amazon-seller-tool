@@ -1,33 +1,28 @@
+// ../charts/linechart.js
 import React from "react";
-import {
-  LineChart,
-  Line,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  Tooltip,
-  Legend,
-} from "recharts";
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from "recharts";
 
-const LineChartComponent = ({ data, width = 500, height = 300, lines }) => {
+const CustomLineChart = ({ data, lines }) => {
   return (
-    <LineChart width={width} height={height} data={data}>
-      <CartesianGrid strokeDasharray="3 3" />
-      <XAxis dataKey="name" padding={{ left: 30, right: 30 }} />
-      <YAxis />
-      {/* <Tooltip /> */}
-      <Legend />
-      {lines.map((line, index) => (
-        <Line
-          key={index}
-          type="monotone"
-          dataKey={line.dataKey}
-          stroke={line.stroke}
-          activeDot={line.activeDot}
-        />
-      ))}
-    </LineChart>
+    <ResponsiveContainer width="100%" height={300}>
+      <LineChart data={data}>
+        <CartesianGrid strokeDasharray="3 3" />
+        <XAxis dataKey="name" />
+        <YAxis />
+        <Tooltip />
+        <Legend />
+        {lines.map((line, index) => (
+          <Line
+            key={index}
+            type="monotone"
+            dataKey={line.dataKey}
+            stroke={line.stroke}
+            activeDot={line.activeDot}
+          />
+        ))}
+      </LineChart>
+    </ResponsiveContainer>
   );
 };
 
-export default LineChartComponent;
+export default CustomLineChart;

@@ -89,8 +89,8 @@ const CompetitorResearch = () => {
           <div className="">
             <PieChart
              data={PieChartdata}
-             width={500}
-             height={230}
+             width={400}
+             height={300}
              colors={PieChartCOLORS}
             />
           </div>
@@ -100,7 +100,7 @@ const CompetitorResearch = () => {
         <div className="bg-gray-50 rounded-lg flex flex-col justify-between shadow-md p-6">
           <h3 className="text-lg font-medium mb-4">Price positioning map</h3>
           <div className="box-border overflow-hidden ">
-            <LineChart data={line1data} lines={line1} width = {500} height = {300}/>
+            <LineChart data={line1data} lines={line1} width = {300} height = {200}/>
           </div>
         </div>
 

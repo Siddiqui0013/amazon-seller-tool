@@ -72,7 +72,7 @@ function Dashboard() {
 
 
   return (
-      <div className="p-4 m-auto flex flex-col bg-gray-50 ">
+      <div className="p-4 m-auto flex flex-col">
 
         <div className="flex mb-1 flex-row justify-between ">
           <h1 className="font-medium text-xl">Dashboard</h1>
@@ -90,8 +90,8 @@ function Dashboard() {
                   
         </div>
 
-        <div className="flex justify-between flex-auto gap-4 w-full mb-4 text-gray-700 ">
-          <div className="border border-gray-200 bg-white m-auto w-2/6 rounded-md">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-2 mb-4 text-gray-700 ">
+          <div className="border border-gray-200 bg-white rounded-md">
           
           <div className="flex justify-between p-2 ">
           <p>TODAYS'S SALE</p>
@@ -103,7 +103,7 @@ function Dashboard() {
           </div>
           </div>
 
-          <div className="border border-gray-200 m-auto bg-white w-2/6 rounded-md">
+          <div className="border border-gray-200 bg-white rounded-md">
           <div className="flex justify-between p-2 ">
           <p>WEEK-TO-DATE</p>
           <p>36 % </p>
@@ -113,7 +113,7 @@ function Dashboard() {
           <Dashboard3charts/>
           </div>
           </div>
-          <div className="border border-gray-200 m-auto bg-white w-2/6 rounded-md">
+          <div className="border border-gray-200 bg-white rounded-md">
           <div className="flex justify-between p-2 ">
           <p>MONTH-TO-DATE</p>
           <p>36 % </p>
@@ -128,17 +128,16 @@ function Dashboard() {
         <div className="border border-gray-200 m-auto w-full flex bg-white flex-col rounded-md">
           <h1 className="p-3 font-bold text-2xl">Sales Overview</h1>
 
-          <LineChart data={lines3data} lines={line3} width = {1000} height = {300}/>
+          <LineChart data={lines3data} lines={line3} width = {500} height = {300}/>
 
         </div>
 
-        <div className="flex pt-2 gap-2 m-auto w-full ">
+        <div className="grid grid-cols-1 md:grid-cols-2 pt-2 gap-2 m-auto w-full ">
 
         <div className="border border-gray-200 p-3 flex-1 bg-white flex rounded-md justify-center">
         <PieChart
-        
         data={PieChartdata}
-        width={500}
+        width={300}
         height={230}
         colors={PieChartCOLORS}
         

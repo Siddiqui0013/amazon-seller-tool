@@ -1,5 +1,5 @@
 import { Outlet } from "react-router-dom";
-import AlertComplianceRoutes from "./alertComplianceRoutes";
+import AlertComplianceRoutes from "./AlertComplianceRoutes";
 
 function ProductResearch() {
   return (

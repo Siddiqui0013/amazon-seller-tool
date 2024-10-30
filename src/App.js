@@ -16,6 +16,8 @@ import AlertCompliance from "./components/alertsCompliance/AlertCompliance";
 import Settings from "./components/settings/Settings";
 import Analytics from "./components/analytics/Analytics";
 
+import "@fontsource/lato"
+
 import { auth, onAuthStateChanged } from "./firebase";
 
 function App() {
@@ -49,7 +51,7 @@ function App() {
   }
 
   return (
-    <div className="flex">
+    <div className="flex ">
       {!isAuthPage && <Navbar />}
       <div className="flex-1">
         {!isAuthPage && <SearchBar />}

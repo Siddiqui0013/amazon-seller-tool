@@ -30,13 +30,13 @@ export default function ListingAnalyzer() {
   const radarColors = ["#8884d8", "#82ca9d", "#ffc658"];
 
   return (
-    <div className='p-8'>
-      <h3 className="text-2xl font-bold mb-6">Listing Analyzer</h3>
-      <h2 className="text-xl font-semibold mb-6">Analyze and Improve Your Product Listing Performance</h2>
-      <p className="text-lg mb-6">Get a detailed breakdown of your product listing performance. See your overall score, section-by-section analysis, improvement suggestions, and competitor comparisons.</p>
+    <div className='p-6'>
+      <h1 className="text-2xl font-bold mb-6">Listing Analyzer</h1>
+      <h2 className="text-xl text-grey-800 mb-6">Analyze and Improve Your Product Listing Performance</h2>
+      <p className="text-lg text-gray-600 mb-6">Get a detailed breakdown of your product listing performance. See your overall score, section-by-section analysis, improvement suggestions, and competitor comparisons.</p>
 
       <div className="grid grid-cols-1 mt-8 md:grid-cols-2 gap-6">
-        <div className='border p-4 bg-gray-50 rounded-lg'>
+        <div className='p-4 bg-gray-50 border-gray-100 border-2 rounded-lg'>
           <h1 className='text-2xl my-2'>Overall Listing Score</h1>
           <div>
             <GaugeChart data={GaugeData} width="100%" height={300} />
@@ -44,7 +44,7 @@ export default function ListingAnalyzer() {
           <p>This score is based on your listing's title, images, keywords, and description.</p>
         </div>
 
-        <div className='border p-4 bg-gray-50 rounded-lg'>
+        <div className=' p-4 bg-gray-50 border-gray-100 border-2 rounded-lg'>
           <h1 className='text-2xl my-2'>Sales Over Time</h1>
           <div className='mt-4'>
 

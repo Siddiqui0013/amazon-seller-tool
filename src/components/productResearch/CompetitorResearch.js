@@ -60,12 +60,12 @@ const CompetitorResearch = () => {
   const PieChartCOLORS = ["#0088FE", "#00C49F", "#FFBB28", "#FF8042"];
 
   return (
-    <div className="p-8 bg-gray-50 min-h-screen">
+    <div className="p-8 bg-white-50 min-h-screen">
 
 
-<div className='flex my-6 flex-wrap w-[98%] items-center justify-between overflow-x-hidden'>
+<div className='flex my-4 flex-wrap items-center justify-between overflow-x-hidden'>
 
-<h2 className="text-2xl font-semibold mb-4">Competitor Research</h2>
+<h2 className="text-2xl font-semibold mb-2">Competitor Research</h2>
 
   <div className="relative flex border-2 rounded-3xl ml-auto">
     <AiOutlineSearch className="absolute top-1/2 left-3 transform -translate-y-1/2 text-gray-500" size={20} />
@@ -84,7 +84,7 @@ const CompetitorResearch = () => {
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
 
-        <div className="bg-gray-50 rounded-lg flex flex-col justify-between shadow-md p-6">
+        <div className="bg-gray-50 border-gray-100 border-2 rounded-lg flex flex-col justify-between shadow-md p-6">
           <h3 className="text-lg font-medium mb-4">Market share breakdown</h3>
           <div className="">
             <PieChart
@@ -97,7 +97,7 @@ const CompetitorResearch = () => {
         </div>
 
 
-        <div className="bg-gray-50 rounded-lg flex flex-col justify-between shadow-md p-6">
+        <div className="bg-gray-50 border-gray-100 border-2 rounded-lg flex flex-col justify-between shadow-md p-6">
           <h3 className="text-lg font-medium mb-4">Price positioning map</h3>
           <div className="box-border overflow-hidden ">
             <LineChart data={line1data} lines={line1} width = {300} height = {200}/>
@@ -108,8 +108,8 @@ const CompetitorResearch = () => {
 
       <h3 className="text-lg font-medium mt-8 ">Seller Comparison</h3>
 
-      <div className="bg-white shadow-md my-3">
-        <table className="w-full border-collapse border my-2 border-gray-300">
+      <div className="bg-gray-50  shadow-md my-3">
+        <table className="w-full rounded-lg p-4 border-collapse border my-2 border-gray-300">
           <thead>
             <tr className="bg-gray-100">
               <th className="border border-gray-300 p-2 text-left">Competitor</th>
@@ -137,7 +137,7 @@ const CompetitorResearch = () => {
 
       <div>
         <h3 className="text-lg font-medium mt-8 pb-6 ">Historical performance trends</h3>
-        <div className="bg-white shadow-sm p-2 rounded-lg my-3">
+        <div className="bg-gray-50 border-gray-100 border-2 shadow-sm p-4  rounded-lg my-3">
 
         <LineChart data={lines3data} lines={line3} width = {1000} height = {300}/>
 

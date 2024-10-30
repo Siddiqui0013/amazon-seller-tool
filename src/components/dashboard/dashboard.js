@@ -72,7 +72,7 @@ function Dashboard() {
 
 
   return (
-      <div className="p-4 m-auto flex flex-col">
+      <div className="p-6 bg-gray-50 m-auto flex flex-col">
 
         <div className="flex mb-1 flex-row justify-between ">
           <h1 className="font-medium text-xl">Dashboard</h1>

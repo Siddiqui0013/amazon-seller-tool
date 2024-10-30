@@ -12,7 +12,7 @@ import ProfitAnalytics from "./ProfitAnalytics";
 function ProductResearchRoutes() {
   return (
     <>
-    <div className="sticky top-[70px] z-50 bg-white">
+    <div className="sticky top-[55px] z-40 bg-white">
     <Navbar/>
     </div>
     <Routes>

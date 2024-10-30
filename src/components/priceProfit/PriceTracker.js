@@ -24,11 +24,11 @@ const PriceTracker = () => {
   
 
   return (
-    <div className="p-8 bg-white rounded-lg shadow-lg">
+    <div className="p-6 bg-white rounded-lg shadow-lg">
       <h1 className="text-2xl font-semibold mb-6">Price Tracker</h1>
 
 
-      <div className="mb-8 p-4 bg-gray-50 border-[1px] border-gray-200 rounded-lg">
+      <div className="mb-8 p-4 bg-gray-50 border-2 border-gray-100 rounded-lg">
       <div className="flex justify-between items-center mb-4">
         <h2 className="text-xl font-medium">Price History</h2>
         <div className="space-x-2">
@@ -48,7 +48,8 @@ const PriceTracker = () => {
 
 <div>
 <h3 className="text-lg font-medium mb-4">Price Volatility Indicator</h3>
-        <div className=" bg-gray-50 h-72 border-[1px] border-gray-200 shadow-md rounded-lg">
+        <div className=" bg-gray-50 h-72 border-2 border-gray-100 shadow-md rounded-lg">
+        <h3 className="text-md px-4 py-2 font-medium mb-4">Price Volatility Indicator</h3>
         <GaugeChart 
            data={GaugeData} 
            cx={250} 
@@ -64,7 +65,7 @@ const PriceTracker = () => {
 
 <div>
 <h3 className="text-lg font-medium mb-4">Price Volatility Indicator</h3>
-        <div className="bg-gray-50 h-72 border-[1px] border-gray-200 shadow-md rounded-lg">
+        <div className="bg-gray-50 h-72 border-2 border-gray-100 shadow-md rounded-lg">
         <GaugeChart 
            data={GaugeData} 
            innerRadius={100} 

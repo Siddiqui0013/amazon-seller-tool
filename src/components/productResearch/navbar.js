@@ -3,8 +3,8 @@ import { NavLink } from 'react-router-dom';
 
 export default function Navbar() {
   return (
-    <div className='border-b-2 border-gray-500 p-0 m-0'>
-      <nav className="flex mt-3 ">
+    <div className='border-b-2 border-gray-300 p-0 m-0'>
+      <nav className="flex ">
         <NavLink
           to="/product-research/product-finder"
           className={({ isActive }) =>

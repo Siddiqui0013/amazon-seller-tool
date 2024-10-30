@@ -45,7 +45,7 @@ const PriceTracker = () => {
   ];
 
   return (
-    <div className="p-8 bg-white rounded-lg shadow-lg">
+    <div className="p-6 rounded-lg shadow-lg">
       <h1 className="text-2xl font-semibold mb-6">Price Tracker</h1>
 
       <div className="flex gap-6 mb-8 m-auto">
@@ -96,7 +96,7 @@ const PriceTracker = () => {
         </div>
 
         <div className="flex flex-col w-[49%] gap-6 mb-8 self-end">
-          <div className="p-6 bg-gray-100 text-center rounded-lg">
+          <div className="p-6 bg-gray-50 border-gray-100 border-2 text-center rounded-lg">
             <div className="my-8">
               <h3 className="text-lg font-semibold">Total Costs</h3>
               <p className="text-3xl font-bold text-blue-600">${totalCost}</p>
@@ -127,7 +127,7 @@ const PriceTracker = () => {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div>
           <h3 className="text-lg font-medium mb-4">Profit Margin</h3>
-          <div className="bg-white rounded-lg shadow-md">
+          <div className="bg-gray-50 border-gray-100 border-2 rounded-lg shadow-md">
             <GaugeChart
               data={GaugeData}
               cx={200}
@@ -143,7 +143,7 @@ const PriceTracker = () => {
 
         <div>
           <h3 className="text-lg font-medium mb-4">Breakdown of Costs</h3>
-          <div className="bg-white rounded-lg shadow-md">
+          <div className="bg-gray-50 border-gray-100 border-2 rounded-lg shadow-md">
             <CustomBarChart
               data={Bardata}
               width={500}

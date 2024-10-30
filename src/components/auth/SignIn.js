@@ -4,8 +4,8 @@ import { TfiEmail } from "react-icons/tfi";
 import { SlLock } from "react-icons/sl";
 import { FaRegEye, FaRegEyeSlash } from "react-icons/fa";
 import { useNavigate, Link } from "react-router-dom";
-import { signInWithEmailAndPassword } from "firebase/auth"; // Firebase import
-import { auth } from "../../firebase"; // Your Firebase config
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { auth } from "../../firebase";
 import signinImage from "../../assets/signin.png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
@@ -13,7 +13,7 @@ function SignIn() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [passEye, setPassEye] = useState(false);
-  const [error, setError] = useState(""); // Track login errors
+  const [error, setError] = useState(""); 
 
   const navigate = useNavigate();
 
@@ -23,34 +23,34 @@ function SignIn() {
 
   const handleSignIn = async (e) => {
     e.preventDefault();
-    setError(""); // Clear any previous error
-
+    setError(""); 
     try {
       await signInWithEmailAndPassword(auth, email, password);
-      navigate("/"); // Redirect to dashboard on success
+      navigate("/"); 
     } catch (err) {
-      setError(err.message); // Set error message if login fails
+      setError(err.message); 
     }
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center">
-      <div className="gap-24 flex">
-        <div className="hidden md:block">
+    <div className="min-h-screen flex items-center justify-around">
+      <div className="gap-12 flex justify-around items-center">
+        <div className="hidden md:block w-[45%]">
           <img
             src={signinImage}
+            width="800px"
             alt="Sign In"
             className="h-full object-cover"
           />
         </div>
 
-        <div className="p-10 md:w-1/2 w-full">
+        <div className="p-10 md:w-[40%] w-full">
           <h2 className="text-3xl font-bold mb-6">Sign in</h2>
           <FontAwesomeIcon icon="fa-brands fa-facebook" style={{ color: "#0e75c4" }} />
 
           <p className="mb-6">
             <span>If you don’t have an account, </span>
-            <Link to="/signup" className="text-blue-500 font-bold">Register here!</Link>
+            <Link to="/signup" className="text-blue-500 font-semibold">Register here!</Link>
           </p>
 
           <form onSubmit={handleSignIn}>

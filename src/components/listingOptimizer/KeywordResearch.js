@@ -21,18 +21,13 @@ const KeywordResearch = () => {
 
 
   return (
-    <div className="p-8">
-      {/* Historical Keyword Rank Data */}
+    <div className="p-6">
       <section className="mb-8">
         <h2 className="text-xl font-semibold mb-4">Historical Keyword Rank Data</h2>
         <p className="text-gray-600 mb-4">Analyze the performance of your keywords over time.</p>
         <div className="overflow-auto rounded-lg">
           
           <table className="w-full border border-gray-200 rounded-lg text-left">
-
-
-
-
             <thead>
               <tr className="bg-gray-100 text-gray-600 uppercase text-sm font-semibold">
                 <th className="p-3 border-b border-gray-200">Keyword</th>
@@ -72,20 +67,19 @@ const KeywordResearch = () => {
       <section className="mb-8">
         <h2 className="text-xl font-semibold mb-4">Keyword Search Volume Trends</h2>
         <p className="text-gray-600 mb-4">Track how often people are searching for your keywords over time.</p>
-        <div className="bg-gray-50 border border-gray-200 rounded-lg p-4  ">
+        <div className="bg-gray-50 border-2 border-gray-100 rounded-lg p-4  ">
 
         <LineChart data={lines3data} lines={line3} width = {500} height = {300}/>
 
         </div>
       </section>
 
-      {/* Keyword Difficulty Score & Long-Tail Keyword Suggestions */}
       <section className="grid grid-cols-1 md:grid-cols-2 gap-6 items-center text-sm">
         <div className="">
           <h3 className="text-lg font-medium mb-4">Keyword Difficulty Score</h3>
           <p className="text-gray-600">Assess how challenging it is to rank for a specific keyword.</p>
 
-          <div className="bg-gray-100 rounded-lg mt-4 border border-gray-200 p-4">
+          <div className="bg-gray-50 rounded-lg mt-4 border-2 border-gray-100 p-4">
           <GaugeChart 
            data={GaugeData} 
            cx={250} 
@@ -103,7 +97,7 @@ const KeywordResearch = () => {
           <h3 className="text-lg font-medium mb-4">Long-Tail Keyword Suggestions</h3>
           <p className="text-gray-600">Discover less competitive long-tail keywords to enhance your listing's visibility.</p>
           {/* Suggestions Placeholder */}
-          <div className=" rounded-lg bg-gray-100 border p-4 mt-4">
+          <div className=" rounded-lg bg-gray-50 border-gray-100 border-2 p-4 mt-4">
           <GaugeChart 
            data={GaugeData} 
            cx={250} 

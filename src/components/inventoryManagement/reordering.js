@@ -47,10 +47,10 @@ const BarChartbars = [
 
 export default function App() {
   return (
-    <div className="p-4 md:p-8 bg-gray-50 min-h-screen">
+    <div className="p-6 min-h-screen">
       <h2 className="text-lg font-semibold mb-4">Reorder Recommendations Table</h2>
 
-      <div className="bg-white rounded-lg mb-8 overflow-x-auto">
+      <div className="bg-gray-50 border-gray-100 border-2 rounded-lg mb-8 overflow-x-auto">
         <table className="w-full table-auto shadow-md rounded-lg">
           <thead className="bg-gray-200">
             <tr>
@@ -85,7 +85,7 @@ export default function App() {
 
       <h2 className="text-lg font-semibold mb-4">Supplier Lead Time Tracker</h2>
 
-      <div className="bg-white shadow-md rounded-lg p-6">
+      <div className="bg-gray-50 border-gray-100 border-2 shadow-md rounded-lg p-6">
         <div className="flex justify-between items-center mb-2">
           <h3 className="text-md font-medium">Time Lead Tracker</h3>
           <div className="flex gap-2">

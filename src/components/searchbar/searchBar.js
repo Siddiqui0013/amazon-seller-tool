@@ -37,8 +37,8 @@ export default function SearchBar() {
 
   return (
     <div className="sticky top-0 z-50">
-      <div className="bg-blue-600 p-4 flex items-center">
-        <div className="relative flex w-1/2 mx-auto">
+      <div className="bg-blue-600 p-2 flex items-center">
+        <div className="relative flex w-[40%] mx-auto">
           <input
             type="text"
             placeholder="Search"
@@ -60,7 +60,7 @@ export default function SearchBar() {
             </div>
 
             {dropdownOpen && (
-              <div className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-2">
+              <div className="absolute right-0 mt-2 w-48 z-[51] bg-white rounded-md shadow-lg py-2">
                 <p className="px-4 py-2 text-gray-700">{userEmail}</p>
                 <button
                   onClick={handleSignOut}

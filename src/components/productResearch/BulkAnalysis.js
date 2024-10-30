@@ -41,8 +41,8 @@ export default function App() {
 
       {/* Results Section */}
       <h3 className="text-xl font-semibold mb-4">Results</h3>
-      <div className="overflow-x-auto"> {/* Added this div for horizontal scrolling */}
-        <table className="min-w-full table-auto border-collapse border border-gray-200">
+      <div className="overflow-x-auto rounded-md"> {/* Added this div for horizontal scrolling */}
+        <table className="min-w-full table-auto border border-gray-200">
           <thead>
             <tr className="bg-gray-100">
               <th className="border border-gray-200 px-2 sm:px-4 py-2 text-left">File Name</th>

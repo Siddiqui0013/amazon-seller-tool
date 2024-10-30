@@ -72,11 +72,11 @@ export default function NicheAnalysis() {
 
 
   return (
-    <div >
+    <div className='p-6'>
 
-<div className='flex m-6 flex-wrap w-[95%] items-center justify-between overflow-x-hidden'>
+<div className='flex mt-2 flex-wrap mx-4  items-center justify-between overflow-x-hidden'>
 
-  <h1 className='font-semibold text-2xl p-6'>Niche Analysis</h1>
+  <h1 className='font-semibold text-2xl '>Niche Analysis</h1>
 
   <div className="relative flex border-2 rounded-3xl ml-auto">
     <AiOutlineSearch className="absolute top-1/2 left-3 transform -translate-y-1/2 text-gray-500" size={20} />
@@ -89,9 +89,9 @@ export default function NicheAnalysis() {
 </div>
 
 
-      <div className='grid grid-cols-1 md:grid-cols-2 gap-3 mb-6 flex-wrap m-auto justify-evenly'>
+      <div className='grid grid-cols-1 md:grid-cols-2 p-4 gap-3 mb-6 flex-wrap m-auto justify-evenly'>
 
-      <div className="bg-white p-4 shadow-md rounded-md">
+      <div className="bg-gray-50 p-4 border-gray-100 border-2 shadow-md rounded-md">
         <p className='font-semibold text-lg px-2  py-4'>Trend Graph for niche growth</p>
         
         <div className='box-content overflow-hidden'>
@@ -100,7 +100,7 @@ export default function NicheAnalysis() {
         
         </div>
         
-        <div className="bg-white p-4  shadow-md rounded-md">
+        <div className="bg-gray-50 p-4  border-gray-100 border-2 shadow-md rounded-md">
           <p className='font-semibold text-lg px-2  py-4'>Top sellers in niche</p>
           <Barchart 
           data={BarData} 
@@ -113,7 +113,7 @@ export default function NicheAnalysis() {
           />
         </div>
         
-        <div className="bg-white p-4 shadow-md rounded-md">
+        <div className="bg-gray-50 border-gray-100 border-2 p-4 shadow-md rounded-md">
           <p className='font-semibold text-lg px-2  py-4'>Niche Saturation Index</p>
           <GaugeChart 
            data={GaugeData} 
@@ -122,7 +122,7 @@ export default function NicheAnalysis() {
           />
         </div>
         
-        <div className="bg-white p-4 shadow-md  rounded-md">
+        <div className="bg-gray-50 border-gray-100 border-2 p-4 shadow-md  rounded-md">
           <p className='font-semibold text-lg px-2  py-4'>Seasonal Demand Chart</p>
           <Treemap
            data={TreeData}

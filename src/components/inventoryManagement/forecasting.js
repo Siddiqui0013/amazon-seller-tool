@@ -35,10 +35,10 @@ export default function App() {
   ];
 
   return (
-    <div className="p-8 bg-gray-50 min-h-screen">
+    <div className="p-6 min-h-screen">
       <h1 className="text-2xl font-bold mb-2">Forecasting</h1>
 
-      <div className="bg-white shadow-md rounded-lg mb-8 p-4">
+      <div className="bg-gray-50 border-gray-100 border-2 shadow-md rounded-lg mb-8 p-4">
         <div className="flex justify-between items-center mb-4">
           <h2 className="text-lg font-semibold">Sales Velocity</h2>
           <div className="flex gap-2">
@@ -59,7 +59,7 @@ export default function App() {
         </div>
       </div>
 
-      <div className="bg-white shadow-md rounded-lg p-6 my-8">
+      <div className="bg-gray-50 border-gray-100 border-2 shadow-md rounded-lg p-6 my-8">
         <h2 className="text-lg font-semibold mb-12">Stockout Risk Heat Map</h2>
 
         <div className="grid grid-cols-6 gap-4">
@@ -109,14 +109,14 @@ export default function App() {
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <div className="bg-white shadow-md rounded-lg p-6">
+        <div className="bg-gray-50 border-gray-100 border-2 shadow-md rounded-lg p-6">
           <h2 className="text-lg font-semibold mb-4">Demand Forecasting Graph</h2>
           <div className=" box-content overflow-hidden">
             <LineChartComponent data={line1data} lines={line1} height={300} width={450} />
           </div>
         </div>
 
-        <div className="bg-white shadow-md rounded-lg p-6">
+        <div className="bg-gray-50 border-gray-100 border-2 shadow-md rounded-lg p-6">
           <h2 className="text-lg font-semibold mb-4">Seasonal Trends Analyzer</h2>
           <div className="">
           <CustomAreaChart

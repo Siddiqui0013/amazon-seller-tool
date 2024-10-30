@@ -13,10 +13,10 @@ const FbaManagement = () => {
 	];
 
 	return (
-		<div className="p-8 space-y-8">
+		<div className="p-6 space-y-8">
 			<h2 className="text-xl font-semibold mb-4">Profitability Comparison</h2>
 
-			<div className="border rounded-lg bg-gray-50 shadow-md p-4">
+			<div className=" border-gray-100 border-2 rounded-lg bg-gray-50 shadow-md p-4">
 				<h3 className="text-lg font-medium mb-2">
 					Analyze FBA vs. FBM Profit Margins
 				</h3>
@@ -28,7 +28,7 @@ const FbaManagement = () => {
 
 			<h2 className="text-xl font-semibold mb-4">Storage Fee Estimator</h2>
 
-			<div className="border rounded-lg shadow-lg p-6">
+			<div className="border rounded-lg border-gray-100 bg-gray-50 shadow-lg p-6">
 				<form className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
 					<div className="grid grid-cols-1 gap-4">
 						<div>

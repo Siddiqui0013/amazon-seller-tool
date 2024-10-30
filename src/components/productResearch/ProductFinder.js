@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import 'react-rater/lib/react-rater.css'
 import EarthbornImg from '../../assets/productFinder.jpg'
 import LineChart from "../charts/linechart"
 import Popup from "./Popup"
@@ -47,9 +46,9 @@ function ProductFinder() {
   };
 
   return (
-    <div className="min-h-screen p-4">
+    <div className="min-h-screen p-6">
       <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-        <div className="bg-white p-4 shadow-md rounded-md">
+        <div className="bg-gray-50 p-4 shadow-md rounded-md">
           <h2 className="text-xl font-semibold mb-4">Filters</h2>
 
           <div className="mb-4">
@@ -167,7 +166,7 @@ function ProductFinder() {
         </div>
 
 
-<div className="bg-white p-4 shadow-md rounded-md">
+<div className="bg-gray-50 p-4 shadow-md rounded-md">
   <h2 className="text-xl font-semibold mb-4">Results</h2>
 
   <div className="flex items-center justify-between mb-4">
@@ -270,7 +269,7 @@ function ProductFinder() {
 
 </div>
 
-  <div className="p-4 shadow-md md:col-span-1 col-span-2 bg-white rounded-md">
+  <div className="p-4 shadow-md md:col-span-1 col-span-2 bg-gray-50 rounded-md">
     <h2 className="text-xl font-semibold mb-4">Detailed View</h2>
     
     <div className='border-2 border-gray-300'>

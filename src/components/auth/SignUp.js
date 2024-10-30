@@ -83,23 +83,23 @@ function SignUp() {
 
   return (
     <div className="min-h-screen flex items-center justify-center ">
-      <div className="flex gap-24">
-        <div className="hidden md:block">
-          <img src={signupImage} alt="Sign Up" className="w-[630px] h-full object-cover" />
+      <div className="flex gap-24 justify-around items-center">
+        <div className="hidden md:block w-[45%] ">
+          <img src={signupImage} alt="Sign Up" width={"800px"} className=" h-full object-cover" />
         </div>
 
-        <div className="p-10 w-full md:w-1/2">
+        <div className="p-10 w-full md:w-[40%]">
           <h2 className="text-3xl font-bold mb-6">Sign Up</h2>
 
           <p className="mb-6">
-            <p>If you already have an account register</p> You can <Link to="/" className="text-blue-500 font-bold">Login here!</Link>
+            <p>If you already have an account register</p> You can <Link to="/" className="text-blue-500 font-semibold">Login here!</Link>
           </p>
 
           <form onSubmit={handleSubmit}>
             <div className="mb-4">
               <label className="block text-sm font-medium mb-1">Email</label>
               <div className="flex justify-center items-center border-b-2 border-black focus:border-blue-700">
-                <TfiEmail />
+                <TfiEmail  />
                 <input
                   type="email"
                   placeholder="Enter your email address"
@@ -113,7 +113,7 @@ function SignUp() {
             <div className="mb-4">
               <label className="block text-sm font-medium mb-1">User name</label>
               <div className="flex justify-center items-center border-b-2 border-black focus:border-blue-700">
-                <CiUser />
+                <CiUser size={20} />
                 <input
                   type="text"
                   placeholder="Enter your User name"

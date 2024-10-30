@@ -35,16 +35,16 @@ function SignIn() {
 
   return (
     <div className="min-h-screen flex items-center justify-center">
-      <div className="flex gap-24">
-        <div>
+      <div className="gap-24 flex">
+        <div className="hidden md:block">
           <img
             src={signinImage}
             alt="Sign In"
-            className="w-[637px] h-full object-cover"
+            className="h-full object-cover"
           />
         </div>
 
-        <div className="p-10 w-1/2">
+        <div className="p-10 md:w-1/2 w-full">
           <h2 className="text-3xl font-bold mb-6">Sign in</h2>
           <FontAwesomeIcon icon="fa-brands fa-facebook" style={{ color: "#0e75c4" }} />
 

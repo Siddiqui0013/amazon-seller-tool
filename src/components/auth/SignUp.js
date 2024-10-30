@@ -84,11 +84,11 @@ function SignUp() {
   return (
     <div className="min-h-screen flex items-center justify-center ">
       <div className="flex gap-24">
-        <div className="">
+        <div className="hidden md:block">
           <img src={signupImage} alt="Sign Up" className="w-[630px] h-full object-cover" />
         </div>
 
-        <div className="p-10 w-1/2">
+        <div className="p-10 w-full md:w-1/2">
           <h2 className="text-3xl font-bold mb-6">Sign Up</h2>
 
           <p className="mb-6">

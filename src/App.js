@@ -13,12 +13,14 @@ import InventoryManagement from "./components/inventoryManagement/InvertoryManag
 import PriceProfit from "./components/priceProfit/PriceProfit";
 import ListingOptimizer from "./components/listingOptimizer/ListingOptimizer";
 import AlertCompliance from "./components/alertsCompliance/AlertCompliance";
+import Settings from "./components/settings/Settings";
+import Analytics from "./components/analytics/Analytics";
 
 import { auth, onAuthStateChanged } from "./firebase";
 
 function App() {
   const [user, setUser] = useState(null);
-  const [loading, setLoading] = useState(true); // Track loading state
+  const [loading, setLoading] = useState(true); 
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -29,12 +31,12 @@ function App() {
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
-      setLoading(false); // Stop loading when user state is resolved
+      setLoading(false); 
 
       if (currentUser && isAuthPage) {
-        navigate("/"); // Redirect to dashboard if already logged in
+        navigate("/"); 
       } else if (!currentUser && !isAuthPage) {
-        navigate("/signin"); // Redirect to sign-in if not logged in
+        navigate("/signin"); 
       }
     });
 
@@ -61,8 +63,8 @@ function App() {
           <Route path="listing-optimizer/*" element={<ListingOptimizer />} />
 
           <Route path="alerts-compliance/*" element={<AlertCompliance />} />
-          {/* <Route path="analytics/*" element={<Analytics />} /> */}
-          {/* <Route path="settings/*" element={<Settings />} /> */}
+          <Route path="analytics/*" element={<Analytics />} /> 
+          <Route path="settings/*" element={<Settings />} />
         </Routes>
       </div>
     </div>

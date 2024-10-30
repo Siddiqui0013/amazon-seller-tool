@@ -11,7 +11,7 @@ export default function Navbar() {
 
   const nav = useNavigate();
   return (
-    <div className=" h-screen sticky top-0 bg-white shadow">
+    <div className=" h-screen sticky top-0  md:w-[18%] bg-white shadow">
       <div className="p-4  cursor-pointer text-xl font-bold text-blue-700" onClick={() => nav('/') }>Logo</div>
       <nav className="flex items-center md:items-stretch flex-col mt-3">
         <NavLink

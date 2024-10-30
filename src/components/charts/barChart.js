@@ -1,15 +1,13 @@
-// BarChartComponent.js
-import React from "react";
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from "recharts";
 
 const BarChartComponent = ({ 
   data, 
-  dataKey = "uv", 
+  bars, 
   width = 400, 
   height = 300, 
   barSize = 30, 
-  color = "#8884d8",
-  orientation = "vertical" // Add orientation prop to control bar direction
+  barRadius = [10, 10, 0, 0], 
+  orientation = "vertical" 
 }) => {
   return (
     <BarChart 
@@ -20,7 +18,6 @@ const BarChartComponent = ({
       layout={orientation === "horizontal" ? "vertical" : "horizontal"}
     >
       <CartesianGrid strokeDasharray="3 3" />
-      {/* Swap XAxis and YAxis based on orientation */}
       {orientation === "horizontal" ? (
         <>
           <YAxis type="category" dataKey="name" />
@@ -34,7 +31,14 @@ const BarChartComponent = ({
       )}
       <Tooltip />
       <Legend />
-      <Bar dataKey={dataKey} fill={color} />
+      {bars.map((bar, index) => (
+        <Bar 
+          key={index} 
+          dataKey={bar.dataKey} 
+          fill={bar.color} 
+          radius={barRadius} // Apply rounding to bar edges
+        />
+      ))}
     </BarChart>
   );
 };

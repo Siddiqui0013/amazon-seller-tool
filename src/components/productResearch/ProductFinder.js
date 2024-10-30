@@ -342,7 +342,7 @@ function ProductFinder() {
 
       <Popup isOpen={isPopupOpen} onClose={closePopup}>
         <h2 className="text-lg font-semibold mb-2">List of All Products</h2>
-        <div className="overflow-auto max-h-96">
+        <div className="overflow-auto md:max-h-96">
           {Array.from({ length: 10 }, (_, index) => (
             <div
               key={index}

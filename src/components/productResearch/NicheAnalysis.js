@@ -20,11 +20,17 @@ export default function NicheAnalysis() {
     { dataKey: "av", stroke: "#ffc658" },
   ];
 
-  const BarData = [
-    { name: "Jan", sales: 1000 },
-    { name: "Feb", sales: 2000 },
-    { name: "Mar", sales: 1500 },
-  ];
+	const BarData = [
+		{ name: "Jan", SalesA: 1000, SalesB: 1200 },
+		{ name: "Feb", SalesA: 2000, SalesB: 1800 },
+		{ name: "Mar", SalesA: 1500, SalesB: 1700 },
+		{ name: "Mar", SalesA: 1500, SalesB: 1700 },
+	  ];
+	
+	  const bars = [
+		{ dataKey: "SalesA", color: "#0E4DA4" },
+		{ dataKey: "SalesB", color: "#FF9900" },
+	  ];
 
   const GaugeData = [
     { name: 'A', value: 80, color: '#ff0000' },
@@ -104,7 +110,7 @@ export default function NicheAnalysis() {
           <p className='font-semibold text-lg px-2  py-4'>Top sellers in niche</p>
           <Barchart 
           data={BarData} 
-          dataKey="sales" 
+          bars={bars}
           width={400} 
           height={300} 
           color="#0E4DA4" 

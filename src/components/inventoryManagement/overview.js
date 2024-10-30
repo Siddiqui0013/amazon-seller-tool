@@ -49,11 +49,17 @@ export default function App() {
     { name: 'C', value: 25, color: '#0000ff' },
   ];
 
-  const BarData = [
-    { name: "Jan", sales: 1000 },
-    { name: "Feb", sales: 2000 },
-    { name: "Mar", sales: 1500 },
-  ];
+	const BarData = [
+		{ name: "Jan", SalesA: 1000, SalesB: 1200 },
+		{ name: "Feb", SalesA: 2000, SalesB: 1800 },
+		{ name: "Mar", SalesA: 1500, SalesB: 1700 },
+		{ name: "Mar", SalesA: 1500, SalesB: 1700 },
+	  ];
+	
+	  const bars = [
+		{ dataKey: "SalesA", color: "#0E4DA4" },
+		{ dataKey: "SalesB", color: "#FF9900" },
+	  ];
 
   return (
     <div className="p-6 min-h-screen">
@@ -82,10 +88,9 @@ export default function App() {
           <div className="h-52">
             <BarChartComponent
                        data={BarData} 
-                       dataKey="sales" 
+                       bars={bars} 
                        width={400} 
                        height={250} 
-                       color="#0E4DA4" 
                        barSize={20} 
              />
           </div>

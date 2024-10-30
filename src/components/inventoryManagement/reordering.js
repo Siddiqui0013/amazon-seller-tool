@@ -1,5 +1,4 @@
-import React from "react";
-import HorizontalBarChart from "../charts/HorizontalBarChart";
+import BarChartComponent from "../charts/barChart"; 
 
 const reorderData = [
   {
@@ -28,22 +27,17 @@ const reorderData = [
   },
 ];
 
-const BarChartdata = [
-  { name: "Page A", uv: 590, pv: 800, amt: 1400, cnt: 490 },
-  { name: "Page B", uv: 868, pv: 967, amt: 1506, cnt: 590 },
-  { name: "Page C", uv: 1397, pv: 1098, amt: 989, cnt: 350 },
-  { name: "Page D", uv: 1480, pv: 1200, amt: 1228, cnt: 480 },
-  { name: "Page E", uv: 1520, pv: 1108, amt: 1100, cnt: 460 },
-  { name: "Page F", uv: 1400, pv: 680, amt: 1700, cnt: 380 },
-];
 
-const BarChartlines = [
-  { dataKey: "uv", stroke: "#ff7300" },
-];
+const BarData = [
+  { name: "Jan", SalesA: 1000, SalesB: 1200 },
+  { name: "Feb", SalesA: 2000, SalesB: 1800 },
+  { name: "Mar", SalesA: 1500, SalesB: 1700 },
+  ];
 
-const BarChartbars = [
-  { dataKey: "pv", fill: "#413ea0", barSize: 20 },
-];
+  const bars = [
+  { dataKey: "SalesA", color: "#0E4DA4" },
+  { dataKey: "SalesB", color: "#FF9900" },
+  ];
 
 export default function App() {
   return (
@@ -95,13 +89,24 @@ export default function App() {
           <h3 className="text-xl font-semibold">Total: <span>31,863</span></h3>
         </div>
         <div className="overflow-hidden">
-          <HorizontalBarChart
+          {/* <HorizontalBarChart
             data={BarChartdata}
             lines={BarChartlines}
             bars={BarChartbars}
             width={1000}
             height={400}
+          /> */}
+
+          <BarChartComponent 
+            data={BarData} 
+            bars={bars}
+            barRadius={[0, 10, 10, 0]} 
+            width={1000} 
+            height={300} 
+            barSize={20} 
+            orientation="horizontal" 
           />
+
         </div>
       </div>
     </div>

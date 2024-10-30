@@ -11,6 +11,10 @@ export default function ListingAnalyzer() {
     { name: "Mar", sales: 1500 },
   ];
 
+  const bars = [
+    { dataKey: "sales", color: "#0E4DA4" },
+  ];
+
   const GaugeData = [
     { name: 'A', value: 80, color: '#ff0000' },
     { name: 'B', value: 45, color: '#00ff00' },
@@ -50,7 +54,8 @@ export default function ListingAnalyzer() {
 
           <BarChartComponent
               data={BarData} 
-              dataKey="sales" 
+              bars={bars}
+              barRadius={[0, 10, 10, 0]}
               width={400} 
               height={300} 
               color="#0E4DA4" 

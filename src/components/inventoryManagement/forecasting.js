@@ -24,15 +24,16 @@ export default function App() {
     { dataKey: "pv", stroke: "#8884d8", activeDot: { r: 8 } },
   ];
 
-  const AreaChartdata = [
-    { name: "Page A", uv: 4000, pv: 2400, amt: 2400 },
-    { name: "Page B", uv: 3000, pv: 1398, amt: 2210 },
-    { name: "Page C", uv: 2000, pv: 9800, amt: 2290 },
-    { name: "Page D", uv: 2780, pv: 3908, amt: 2000 },
-    { name: "Page E", uv: 1890, pv: 4800, amt: 2181 },
-    { name: "Page F", uv: 2390, pv: 3800, amt: 2500 },
-    { name: "Page G", uv: 3490, pv: 4300, amt: 2100 },
-  ];
+  const areaData = [
+		{ name: "Jan", ProfitA: 4000, ProfitB: 2400 },
+		{ name: "Feb", ProfitA: 3000, ProfitB: 1398 },
+		{ name: "Mar", ProfitA: 2000, ProfitB: 9800 },
+		{ name: "Apr", ProfitA: 2780, ProfitB: 3908 },
+		{ name: "May", ProfitA: 1890, ProfitB: 4800 },
+	  ];	
+	  const areasConfig = [
+		{ dataKey: "ProfitB", strokeColor: "#FF9900", fillColor: "#FF990080" },
+	  ];
 
   return (
     <div className="p-6 min-h-screen">
@@ -120,7 +121,8 @@ export default function App() {
           <h2 className="text-lg font-semibold mb-4">Seasonal Trends Analyzer</h2>
           <div className="">
           <CustomAreaChart
-        data={AreaChartdata}
+        data={areaData}
+        areas={areasConfig}
         width={450}
         height={300}
         areaKey="uv" // This is the key for the area chart

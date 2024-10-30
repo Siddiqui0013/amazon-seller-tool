@@ -140,7 +140,6 @@ function Dashboard() {
         width={300}
         height={230}
         colors={PieChartCOLORS}
-        
         />
         </div>
 

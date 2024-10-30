@@ -8,24 +8,35 @@ import {
   Tooltip,
 } from "recharts";
 
-const CustomAreaChart = ({ data, width, height, areaKey, strokeColor, fillColor }) => {
+const CustomAreaChart = ({
+  data,
+  width = 500,
+  height = 300,
+  areas = [], // Array of areas with dataKey, strokeColor, and fillColor
+}) => {
   return (
     <AreaChart
       width={width}
       height={height}
       data={data}
-      margin={{
-        top: 10,
-        right: 30,
-        left: 0,
-        bottom: 0,
-      }}
+      margin={{ top: 10, right: 30, left: 0, bottom: 0 }}
     >
       <CartesianGrid strokeDasharray="3 3" />
       <XAxis dataKey="name" />
       <YAxis />
       <Tooltip />
-      <Area type="monotone" dataKey={areaKey} stroke={strokeColor} fill={fillColor} />
+
+      {/* Dynamically render multiple areas */}
+      {areas.map((area, index) => (
+        <Area
+          key={index}
+          type="monotone"
+          dataKey={area.dataKey}
+          stroke={area.strokeColor}
+          fill={area.fillColor}
+          fillOpacity={area.fillOpacity || 0.3} // Default fill opacity
+        />
+      ))}
     </AreaChart>
   );
 };

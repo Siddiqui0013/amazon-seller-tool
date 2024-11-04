@@ -1,22 +1,163 @@
-import React, { useState } from 'react';
+import { useState, useEffect} from 'react';
 import EarthbornImg from '../../assets/productFinder.jpg'
 import LineChart from "../charts/linechart"
 import Popup from "./Popup"
 
 function ProductFinder() {
 
+
+  const [categories, setCategories] = useState({}); 
+  const [catArray, setCatArray] = useState([]); 
+
+  useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        const response = await fetch('https://api.keepa.com/category?key=2e327hvqq9m6q1umr6c2onbqr71pguhtum53drsopk60d5a9bdn68tu001fpoban&domain=1&category=0');
+        const data = await response.json();
+        setCategories(data); 
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchCategories(); 
+  }, []);
+
+  useEffect(() => {
+      if (categories.categories) { // Check if categories exist
+        console.log(categories.categories)
+        const naam = Array.from(categories.categories)
+      setCatArray(naam) // Convert to array
+      // console.log(CatArray); // Log the categories array
+    }
+  }, [categories]); 
+
+console.log(catArray);
+
+
+
+  // const [categories, setCategories] = useState([])
+
+  // useEffect(() => {
+  // const CategoriesData = async()=>{
+  //   try{
+  //     const response = await fetch('https://api.keepa.com/category?key=2e327hvqq9m6q1umr6c2onbqr71pguhtum53drsopk60d5a9bdn68tu001fpoban&domain=1&category=0');
+  //     const data = await response.json();
+  //     setCategories(data);
+  //     // console.log(data);
+  //   }catch(error){
+  //     console.error(error);
+  //   }    
+  // }
+
+  // CategoriesData();
+  // // const CatArray = Object.values(CategoriesData.categories);
+  // // console.log(CatArray);
+
+
+  // // fetch('https://api.keepa.com/category?key=2e327hvqq9m6q1umr6c2onbqr71pguhtum53drsopk60d5a9bdn68tu001fpoban&domain=1&category=0')
+  // //   .then(response => response.json())
+  // //   .then(data => console.log(data))
+  // //   .catch(error => console.error(error));
+  // }, [])
+  
+  // // console.log(typeof(categories));
+  // // const CatArray = Object.values(categories.categories);
+  // // console.log(CatArray);
+  
+  // useEffect(() => {
+  //     const CatArray = Object.values(categories.categories); 
+  //     console.log(CatArray); 
+  //   }, [categories]);
+
+
   const [isPopupOpen, setIsPopupOpen] = useState(false);
+  const [filters, setFilters] = useState({
+    category: '',
+    priceRange: { min: '', max: '' },
+    salesRank: { min: '', max: '' },
+    deltaRange: { min: '', max: '' },
+    reviewRating: 40,
+    title: '',
+    hasReviews: false,
+    filterErotic: false
+  });
 
   const openPopup = () => {
     setIsPopupOpen(true);
-    console.log(isPopupOpen)
+  };
 
-  }
-  const closePopup = () => 
-    {
-      setIsPopupOpen(false);
-      console.log(isPopupOpen)
+  const closePopup = () => {
+    setIsPopupOpen(false);
+  };
+
+  const handleFilterChange = (e) => {
+    const { name, value, type, checked } = e.target;
+    setFilters((prevFilters) => ({
+      ...prevFilters,
+      [name]: type === 'checkbox' ? checked : value
+    }));
+  };
+
+  const handleRangeChange = (field, minMax, value) => {
+    setFilters((prevFilters) => ({
+      ...prevFilters,
+      [field]: { ...prevFilters[field], [minMax]: value },
+    }));
+  };
+
+  const testing = async () => {
+    const queryJSON = {
+      page: 0,
+      domainId: 1,
+      priceTypes: [0],
+      dateRange: 1
+    };
+
+    if (filters.category) {
+      queryJSON.includeCategories = [parseInt(filters.category)];
     }
+
+    if (filters.priceRange.min || filters.priceRange.max) {
+      queryJSON.currentRange = [
+        filters.priceRange.min ? parseInt(filters.priceRange.min) : null,
+        filters.priceRange.max ? parseInt(filters.priceRange.max) : null
+      ].filter(x => x !== null);
+    }
+
+    if (filters.salesRank.min || filters.salesRank.max) {
+      queryJSON.salesRankRange = [
+        filters.salesRank.min ? parseInt(filters.salesRank.min) : null,
+        filters.salesRank.max ? parseInt(filters.salesRank.max) : null
+      ].filter(x => x !== null);
+    }
+
+    if (filters.deltaRange.min || filters.deltaRange.max) {
+      queryJSON.deltaRange = [
+        filters.deltaRange.min ? parseInt(filters.deltaRange.min) : null,
+        filters.deltaRange.max ? parseInt(filters.deltaRange.max) : null
+      ].filter(x => x !== null);
+    }
+
+    if (filters.reviewRating > 0) {
+      queryJSON.minRating = parseInt(filters.reviewRating);
+    }
+
+    if (filters.title) {
+      queryJSON.titleSearch = filters.title;
+    }
+
+    if (filters.hasReviews) {
+      queryJSON.hasReviews = true;
+    }
+
+    if (filters.filterErotic) {
+      queryJSON.filterErotic = true;
+    }
+
+    console.log(JSON.stringify(queryJSON, null, 2));
+    openPopup();
+  };
 
 
   const lines3data = [
@@ -24,147 +165,282 @@ function ProductFinder() {
     { name: "Page B", LastMonth: 3000, ThisMonth: 1398, amt: 2210 },
     { name: "Page C", LastMonth: 2000, ThisMonth: 9800, amt: 2290 },
   ];
-
   const line3 = [
     { dataKey: "ThisMonth", stroke: "#8884d8", activeDot: { r: 8 } },
     { dataKey: "LastMonth", stroke: "#ffc658" },
   ];
 
-  const [filters, setFilters] = useState({
-    category: '',
-    priceRange: { min: '', max: '' },
-    salesRank: { min: '', max: '' },
-    estimatedSales: { min: '', max: '' },
-    profitMargin: '30',
-    reviewRating: 40,
-    fulfillmentMethod: ''
-  });
 
-  const handleFilterChange = (e) => {
-    const { name, value } = e.target;
-    setFilters({ ...filters, [name]: value });
-  };
 
   return (
     <div className="min-h-screen p-6">
       <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-        <div className="bg-gray-50 p-4 shadow-md rounded-md">
-          <h2 className="text-xl font-semibold mb-4">Filters</h2>
+
+      <div className="bg-gray-50 p-4 shadow-md rounded-md">
+          <h2 className="text-2xl font-semibold mb-4">Filters</h2>
 
           <div className="mb-4">
-            <label className="block mb-2 text-sm font-medium">Multi-level Category</label>
+            <label className="block mb-2 text-lg font-medium">Category</label>
             <select
               name="category"
               className="w-full border border-gray-300 rounded p-2"
               onChange={handleFilterChange}
+              value={filters.category}
             >
-              <option value="">Select Multi-level Category</option>
+              <option value="">Select Root Category</option>
               <option value="category1">Category 1</option>
               <option value="category2">Category 2</option>
             </select>
           </div>
 
           <div className="mb-4">
-            <label className="block mb-2 text-sm font-medium">Price Range</label>
+            <label className="block text-lg font-medium">Price Range</label>
+            <p className='text-md mb-2 text-gray-600'>Set the minimum and maximum current price values for products.</p>
             <div className="flex space-x-2">
               <input
                 type="number"
-                name="minPrice"
-                placeholder="40,000$"
+                placeholder="Min Price"
                 className="w-full border border-gray-300 rounded py-2 px-4"
-                onChange={handleFilterChange}
+                value={filters.priceRange.min}
+                onChange={(e) => handleRangeChange('priceRange', 'min', e.target.value)}
               />
               <span className='pt-2'>-</span>
               <input
                 type="number"
-                name="maxPrice"
+                placeholder="Max Price"
                 className="w-full border border-gray-300 rounded p-2"
-                onChange={handleFilterChange}
+                value={filters.priceRange.max}
+                onChange={(e) => handleRangeChange('priceRange', 'max', e.target.value)}
               />
             </div>
           </div>
 
           <div className="mb-4">
-            <label className="block mb-2 text-sm font-medium">Minimun Sales Rank</label>
-            <input
-              type="number"
-              name="minimunSalesRank"
-              className="w-full border border-gray-300 rounded p-2"
-              placeholder="Minimun Rank"
-              onChange={handleFilterChange}
-            />
-          </div>
-          <div className="mb-4">
-            <label className="block mb-2 text-sm font-medium">Maximum Sales Rank</label>
-            <input
-              type="number"
-              name="maximumSalesRank"
-              className="w-full border border-gray-300 rounded p-2"
-              placeholder="Maximum Rank"
-              onChange={handleFilterChange}
-            />
-          </div>
-          <div className="mb-4">
-            <label className="block mb-2 text-sm font-medium">Estimated Sales</label>
-            <input
-              type="number"
-              name="estimatedSales"
-              className="w-full border border-gray-300 rounded p-2"
-              placeholder="100-500"
-              onChange={handleFilterChange}
-            />
-          </div>
-
-          <div className="my-6">
-            <label className="block mb-1 text-sm font-medium">Profit Margin</label>
-            <input
-              type="range"
-              name="profitMargin"
-              min="0"
-              max="100"
-              value={filters.profitMargin}
-              className="w-full"
-              onChange={handleFilterChange}
-            />
-            <span>{filters.profitMargin}%</span>
+            <label className="block text-lg font-medium">Sales Rank</label>
+            <p className='text-md mb-2 text-gray-600'>Define the range for the product's sales rank.</p>
+            <div className="flex space-x-2">
+              <input
+                type="number"
+                placeholder="Min Sales Rank"
+                className="w-full border border-gray-300 rounded py-2 px-4"
+                value={filters.salesRank.min}
+                onChange={(e) => handleRangeChange('salesRank', 'min', e.target.value)}
+              />
+              <span className='pt-2'>-</span>
+              <input
+                type="number"
+                placeholder="Max Sales Rank"
+                className="w-full border border-gray-300 rounded p-2"
+                value={filters.salesRank.max}
+                onChange={(e) => handleRangeChange('salesRank', 'max', e.target.value)}
+              />
+            </div>
           </div>
 
           <div className="mb-4">
-            <label className="block mb-2 text-sm font-medium">Review Rating</label>
+            <label className="block text-lg font-medium">Delta Range - Price Change</label>
+            <p className='text-md mb-2 text-gray-600'>Set the allowed difference between the current price and its historical average.</p>
+            <div className="flex space-x-2">
+              <input
+                type="number"
+                placeholder="Min Price"
+                className="w-full border border-gray-300 rounded py-2 px-4"
+                value={filters.deltaRange.min}
+                onChange={(e) => handleRangeChange('deltaRange', 'min', e.target.value)}
+              />
+              <span className='pt-2'>-</span>
+              <input
+                type="number"
+                placeholder="Max Price"
+                className="w-full border border-gray-300 rounded p-2"
+                value={filters.deltaRange.max}
+                onChange={(e) => handleRangeChange('deltaRange', 'max', e.target.value)}
+              />
+            </div>
+          </div>
+
+          <div className="flex items-center justify-between mt-2 mb-4">
+            <label className="text-lg font-medium">Include Items with reviews</label>
+            <input 
+              type="checkbox" 
+              name="hasReviews"
+              checked={filters.hasReviews}
+              onChange={handleFilterChange}
+              className="toggle" 
+            />
+          </div>
+
+          {filters.hasReviews && (
+          <div className="mb-4">
+          <label className="block mb-2 text-lg font-medium">Minimum Review Rating</label>
+          <p className='text-md mb-2 text-gray-600'>Set the minimum rating for products, ranging from 0 to 50 (e.g., 45 = 4.5 stars).</p>
+          <input
+            type="range"
+            name="reviewRating"
+            min="0"
+            max="50"
+            value={filters.reviewRating}
+            className="w-full"
+            onChange={handleFilterChange}
+          />
+          <span>{filters.reviewRating}</span>
+        </div>          )}
+
+
+          <div className="mb-4">
+            <label className="block mb-2 text-lg font-medium">Product Title Search</label>
+            <p className='text-md mb-2 text-gray-600'>Search for products by entering keywords in the product title.</p>
+            <input
+              type="text"
+              name="title"
+              value={filters.title}
+              className="w-full p-2 border border-gray-300 rounded outline-none"
+              onChange={handleFilterChange}
+              placeholder='Enter product title'
+            />
+          </div>
+
+          <div className="flex items-center justify-between mb-4">
+            <label className="text-lg font-medium">Include Items listed as Adults</label>
+            <input 
+              type="checkbox" 
+              name="filterErotic"
+              checked={filters.filterErotic}
+              onChange={handleFilterChange}
+              className="toggle" 
+            />
+          </div>
+
+          <button 
+            onClick={testing} 
+            className="bg-[#FF9900] text-white p-2 mt-6 rounded w-full hover:bg-[#FF8800]">
+            Find Products
+          </button>
+        </div>
+
+
+
+
+      {/* <div className="bg-gray-50 p-4 shadow-md rounded-md">
+          <h2 className="text-xl font-semibold mb-4">Filters</h2>
+
+          <div className="mb-4">
+            <label className="block mb-2 text-md font-medium">Category</label>
+            <select
+              name="category"
+              className="w-full border border-gray-300 rounded p-2"
+              onChange={handleFilterChange}
+            >
+              <option value="">Select Root Category</option>
+              <option value="category1">Category 1</option>
+              <option value="category2">Category 2</option>
+            </select>
+          </div>
+
+          <div className="mb-4">
+            <label className="block  text-md font-medium">Price Range</label>
+            <p className='text-sm mb-2 text-gray-600'>Set the minimum and maximum current price values for products.</p>
+            <div className="flex space-x-2">
+              <input
+                type="number"
+                placeholder="Min Price"
+                className="w-full border border-gray-300 rounded py-2 px-4"
+                onChange={(e) => handlePriceChange('min', e.target.value)}
+              />
+              <span className='pt-2'>-</span>
+              <input
+                type="number"
+                placeholder="Max Price"
+                className="w-full border border-gray-300 rounded p-2"
+                onChange={(e) => handlePriceChange('max', e.target.value)}
+              />
+            </div>
+          </div>
+
+          <div className="mb-4">
+            <label className="block text-md font-medium">Sales Rank</label>
+            <p className='text-sm mb-2 text-gray-600'>Define the range for the product's sales rank.</p>
+            <div className="flex space-x-2">
+              <input
+                type="number"
+                placeholder="Min Sales Rank"
+                className="w-full border border-gray-300 rounded py-2 px-4"
+                onChange={(e) => handlePriceChange('min', e.target.value)}
+              />
+              <span className='pt-2'>-</span>
+              <input
+                type="number"
+                placeholder="Max Sales Rank"
+                className="w-full border border-gray-300 rounded p-2"
+                onChange={(e) => handlePriceChange('max', e.target.value)}
+              />
+            </div>
+          </div>
+
+          <div className="mb-4">
+            <label className="block text-md font-medium">Delta Range - Price Change</label>
+            <p className='text-sm mb-2 text-gray-600'>Set the allowed difference between the current price and its historical average..</p>
+            <div className="flex space-x-2">
+              <input
+                type="number"
+                placeholder="Min Price"
+                className="w-full border border-gray-300 rounded py-2 px-4"
+                onChange={(e) => handlePriceChange('min', e.target.value)}
+              />
+              <span className='pt-2'>-</span>
+              <input
+                type="number"
+                placeholder="Max Price"
+                className="w-full border border-gray-300 rounded p-2"
+                onChange={(e) => handlePriceChange('max', e.target.value)}
+              />
+            </div>
+          </div>
+
+          <div className="mb-4">
+            <label className="block mb-2 text-md font-medium">Minimum Review Rating</label>
+            <p className='text-sm mb-2 text-gray-600'>Set the minimum rating for products, ranging from 0 to 50 (e.g., 45 = 4.5 stars).</p>
             <input
               type="range"
               name="reviewRating"
               min="0"
-              max="100"
+              max="50"
               value={filters.reviewRating}
               className="w-full"
               onChange={handleFilterChange}
             />
-            <span>{filters.reviewRating}%</span>
+            <span>{filters.reviewRating}</span>
           </div>
 
-          <div className="mt-4 flex gap-2 flex-col">
-            <label className="block mb-2 mt-4 text-lg font-medium">Fulfillment Method</label>
-            
-            <div className='space-x-2'>
-            <input type="checkbox" className="toggle" />
-            <label className="text-lg ">FBA</label>
-            </div>
-
-            <div className='space-x-2'>
-            <input type="checkbox" className="toggle" />
-            <label className="text-lg ">FBM</label>
-            </div>
-
-            <div className='space-x-2'>
-            <input type="checkbox" className="toggle" />
-            <label className="text-lg ">Amazon</label>
-            </div>
-
+          <div className="mb-4">
+            <label className="block mb-2 text-md font-medium">Product Title Search</label>
+            <p className='text-sm mb-2 text-gray-600'>Search for products by entering keywords in the product title.</p>
+            <input
+              type="text"
+              name="title"
+              value={filters.title}
+              className="w-full p-2 outline-none"
+              onChange={handleFilterChange}
+              placeholder='Enter product title'
+            />
           </div>
-          <button onClick={openPopup} className="bg-[#FF9900] text-white p-2 mt-6 rounded">Find Products</button>
-        </div>
 
+          <div className="flex items-center justify-between mt-2 mb-4">
+    <label className="text-sm font-medium">Include Items with reviews</label>
+    <input type="checkbox" className="toggle" />
+  </div>
+
+  <div className="flex items-center justify-between mb-4">
+    <label className="text-sm font-medium">Include Items listed as Adults</label>
+    <input type="checkbox" className="toggle" />
+  </div>
+
+          <button 
+            onClick={testing} 
+            className="bg-[#FF9900] text-white p-2 mt-6 rounded">
+            Find Products
+          </button>
+        </div> */}
 
 <div className="bg-gray-50 p-4 shadow-md rounded-md">
   <h2 className="text-xl font-semibold mb-4">Results</h2>
@@ -260,13 +536,6 @@ function ProductFinder() {
       <button className='bg-[#FF9900] rounded-md  w-[33%] '>View on Amazon</button>
     </div>
 
-    {/* <div className='flex justify-between text-white'>
-      <button className='bg-[#FF9900] rounded-md py-2 px-[10px]'>Track</button>
-      <button className='bg-[#FF9900] rounded-md py-2  px-[10px]'>Analyze</button>
-      <button className='bg-[#FF9900] rounded-md py-2 px-[10px]'>View on Amazon</button>
-    </div> */}
-
-
 </div>
 
   <div className="p-4 shadow-md md:col-span-1 col-span-2 bg-gray-50 rounded-md">
@@ -340,7 +609,18 @@ function ProductFinder() {
       <button className="bg-[#FF9900] text-white p-2 mt-4 rounded">Calculate Sales</button>
 
 
-      <Popup isOpen={isPopupOpen} onClose={closePopup}>
+
+
+    </div>
+
+
+
+
+  </div>
+
+</div>
+
+<Popup isOpen={isPopupOpen} onClose={closePopup}>
         <h2 className="text-lg font-semibold mb-2">List of All Products</h2>
         <div className="overflow-auto md:max-h-96">
           {Array.from({ length: 10 }, (_, index) => (
@@ -362,14 +642,207 @@ function ProductFinder() {
         </div>
       </Popup>
 
-
-
-    </div>
-  </div>
-</div>
-
     </div>
   );
 }
-
 export default ProductFinder;
+
+
+
+
+// import { useState} from 'react';
+// import EarthbornImg from '../../assets/productFinder.jpg'
+// import Popup from "./Popup"
+
+// function ProductFinder() {
+
+//   const [isPopupOpen, setIsPopupOpen] = useState(false);
+//   const [filters, setFilters] = useState({
+//     category: '',
+//     priceRange: { min: '', max: '' },
+//     salesRank: { min: '', max: '' },
+//     estimatedSales: { min: '', max: '' },
+//     profitMargin: '30',
+//     reviewRating: 40,
+//     fulfillmentMethod: [],
+//   });
+
+//   const openPopup = () => {
+//     setIsPopupOpen(true);
+//   };
+
+//   const closePopup = () => {
+//     setIsPopupOpen(false);
+//   };
+
+//   const handleFilterChange = (e) => {
+//     const { name, value } = e.target;
+//     setFilters((prevFilters) => ({ ...prevFilters, [name]: value }));
+//   };
+
+//   const handlePriceChange = (minMax, value) => {
+//     setFilters((prevFilters) => ({
+//       ...prevFilters,
+//       priceRange: { ...prevFilters.priceRange, [minMax]: value },
+//     }));
+//   };
+
+//   const testing = async () => {
+//     const jsonData = JSON.stringify(filters, null, 2);
+//     console.log(jsonData);
+//   };
+
+//   return (
+//     <div className="min-h-screen p-6">
+//       <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+
+//       <div className="bg-gray-50 p-4 shadow-md rounded-md">
+//           <h2 className="text-xl font-semibold mb-4">Filters</h2>
+
+//           <div className="mb-4">
+//             <label className="block mb-2 text-md font-medium">Category</label>
+//             <select
+//               name="category"
+//               className="w-full border border-gray-300 rounded p-2"
+//               onChange={handleFilterChange}
+//             >
+//               <option value="">Select Root Category</option>
+//               <option value="category1">Category 1</option>
+//               <option value="category2">Category 2</option>
+//             </select>
+//           </div>
+
+//           <div className="mb-4">
+//             <label className="block  text-md font-medium">Price Range</label>
+//             <p className='text-sm mb-2 text-gray-600'>Set the minimum and maximum current price values for products.</p>
+//             <div className="flex space-x-2">
+//               <input
+//                 type="number"
+//                 placeholder="Min Price"
+//                 className="w-full border border-gray-300 rounded py-2 px-4"
+//                 onChange={(e) => handlePriceChange('min', e.target.value)}
+//               />
+//               <span className='pt-2'>-</span>
+//               <input
+//                 type="number"
+//                 placeholder="Max Price"
+//                 className="w-full border border-gray-300 rounded p-2"
+//                 onChange={(e) => handlePriceChange('max', e.target.value)}
+//               />
+//             </div>
+//           </div>
+
+//           <div className="mb-4">
+//             <label className="block text-md font-medium">Sales Rank</label>
+//             <p className='text-sm mb-2 text-gray-600'>Define the range for the product's sales rank.</p>
+//             <div className="flex space-x-2">
+//               <input
+//                 type="number"
+//                 placeholder="Min Sales Rank"
+//                 className="w-full border border-gray-300 rounded py-2 px-4"
+//                 onChange={(e) => handlePriceChange('min', e.target.value)}
+//               />
+//               <span className='pt-2'>-</span>
+//               <input
+//                 type="number"
+//                 placeholder="Max Sales Rank"
+//                 className="w-full border border-gray-300 rounded p-2"
+//                 onChange={(e) => handlePriceChange('max', e.target.value)}
+//               />
+//             </div>
+//           </div>
+
+//           <div className="mb-4">
+//             <label className="block text-md font-medium">Delta Range - Price Change</label>
+//             <p className='text-sm mb-2 text-gray-600'>Set the allowed difference between the current price and its historical average..</p>
+//             <div className="flex space-x-2">
+//               <input
+//                 type="number"
+//                 placeholder="Min Price"
+//                 className="w-full border border-gray-300 rounded py-2 px-4"
+//                 onChange={(e) => handlePriceChange('min', e.target.value)}
+//               />
+//               <span className='pt-2'>-</span>
+//               <input
+//                 type="number"
+//                 placeholder="Max Price"
+//                 className="w-full border border-gray-300 rounded p-2"
+//                 onChange={(e) => handlePriceChange('max', e.target.value)}
+//               />
+//             </div>
+//           </div>
+
+//           <div className="mb-4">
+//             <label className="block mb-2 text-md font-medium">Minimum Review Rating</label>
+//             <p className='text-sm mb-2 text-gray-600'>Set the minimum rating for products, ranging from 0 to 50 (e.g., 45 = 4.5 stars).</p>
+//             <input
+//               type="range"
+//               name="reviewRating"
+//               min="0"
+//               max="50"
+//               value={filters.reviewRating}
+//               className="w-full"
+//               onChange={handleFilterChange}
+//             />
+//             <span>{filters.reviewRating}</span>
+//           </div>
+
+//           <div className="mb-4">
+//             <label className="block mb-2 text-md font-medium">Product Title Search</label>
+//             <p className='text-sm mb-2 text-gray-600'>Search for products by entering keywords in the product title.</p>
+//             <input
+//               type="text"
+//               name="title"
+//               value={filters.title}
+//               className="w-full p-2 outline-none"
+//               onChange={handleFilterChange}
+//               placeholder='Enter product title'
+//             />
+//           </div>
+
+//           <div className="flex items-center justify-between mt-2 mb-4">
+//     <label className="text-sm font-medium">Include Items with reviews</label>
+//     <input type="checkbox" className="toggle" />
+//   </div>
+
+//   <div className="flex items-center justify-between mb-4">
+//     <label className="text-sm font-medium">Include Items listed as Adults</label>
+//     <input type="checkbox" className="toggle" />
+//   </div>
+
+//           <button 
+//             onClick={testing} 
+//             className="bg-[#FF9900] text-white p-2 mt-6 rounded">
+//             Find Products
+//           </button>
+//         </div>
+
+// </div>
+
+// <Popup isOpen={isPopupOpen} onClose={closePopup}>
+//         <h2 className="text-lg font-semibold mb-2">List of All Products</h2>
+//         <div className="overflow-auto md:max-h-96">
+//           {Array.from({ length: 10 }, (_, index) => (
+//             <div
+//               key={index}
+//               className="border-b border-gray-200 py-2 flex items-center"
+//             >
+//               <img
+//                 src={EarthbornImg}
+//                 alt="Product"
+//                 className="w-20 h-20 mr-4"
+//               />
+//               <div>
+//                 <p>Earthborn Holistic Primitive Feline Cat Food</p>
+//                 <p className="text-sm text-gray-500">ASIN: B0051G8KZM</p>
+//               </div>
+//             </div>
+//           ))}
+//         </div>
+//       </Popup>
+
+//     </div>
+//   );
+// }
+
+// export default ProductFinder;

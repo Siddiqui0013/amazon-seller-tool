@@ -37,7 +37,7 @@ const SalesAnalytics = () => {
 
 	return (
 		<div className="p-6 space-y-8">
-			<h2 className="text-xl font-semibold mb-4">Sales Trend</h2>
+			<h2 className="text-2xl font-semibold mb-4">Sales Trend</h2>
 			<div className="border rounded-lg border-gray-100 bg-gray-50 shadow-lg p-6">
 			<AreaChart
           data={areaData}

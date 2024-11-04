@@ -63,7 +63,7 @@ export default function App() {
 
   return (
     <div className="p-6 min-h-screen">
-      <h1 className="text-3xl font-bold mb-1">Inventory Health Dashboard</h1>
+      <h1 className="text-2xl font-bold mb-1">Inventory Health Dashboard</h1>
       <p className="text-gray-500 mb-6">Track and Manage Inventory Levels and Reorders</p>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">

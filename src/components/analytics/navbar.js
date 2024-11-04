@@ -46,13 +46,13 @@ export default function Navbar() {
         </NavLink>
 
         <NavLink
-          to="/analytics/team-management"
+          to="/analytics/custom-reports"
           className={({ isActive }) =>
             `p-3 rounded-lg flex gap-2 items-normal ${isActive ? 'text-blue-500' : ''}`
           }
           end
         >
-          <p className="p-px">Team Management</p>
+          <p className="p-px">Custom Reports</p>
         </NavLink>
       </nav>
     </div>

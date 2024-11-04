@@ -71,7 +71,7 @@ const ProfitAnalytics = () => {
 
   return (
     <div className="p-6">
-      <h2 className="text-xl font-semibold mb-4">Profit Trends</h2>
+      <h2 className="text-2xl font-semibold mb-4">Profit Trends</h2>
 
       <div className="mb-4 bg-gray-50 border-gray-100 border-2 shadow-md rounded-lg">
       <CustomComposedChart
@@ -108,6 +108,8 @@ const ProfitAnalytics = () => {
       />
 
 </div>
+
+
 <div className="border rounded-lg border-gray-100 bg-gray-50 shadow-lg p-6">
 <h2 className="text-xl font-semibold mb-6">Top selling products</h2>
 

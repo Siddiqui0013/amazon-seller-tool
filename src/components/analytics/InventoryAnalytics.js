@@ -1,5 +1,4 @@
 import CustomComposedChart from "../charts/ComposedChart";
-import ScatterChart from "../charts/ScatterChart";
 import GaugeChart from "../charts/gaugeChart";
 import AreaChart from "../charts/AreaChart";
 
@@ -49,7 +48,7 @@ const InventoryAnalytics = () => {
 
   return (
     <div className="p-6">
-      <h2 className="text-xl font-semibold mb-4">Profit Trends</h2>
+      <h2 className="text-2xl font-semibold mb-4">Profit Trends</h2>
 
       {/* <div className="mb-4 bg-gray-50 border-gray-100 border-2 shadow-md rounded-lg">
       <CustomComposedChart

@@ -1,5 +1,3 @@
-// ListingAnalyzer.js
-import React from 'react';
 import GaugeChart from '../charts/gaugeChart';
 import BarChartComponent from '../charts/barChart';
 import RadarChart from '../charts/RadarChart';

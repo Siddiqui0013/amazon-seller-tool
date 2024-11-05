@@ -36,7 +36,7 @@ export default function Navbar() {
         </NavLink>
 
         <NavLink
-          to="/settings/biling"
+          to="/settings/billing"
           className={({ isActive }) =>
             `p-3 rounded-lg flex gap-2 items-normal ${isActive ? 'text-blue-500' : ''}`
           }
@@ -45,15 +45,6 @@ export default function Navbar() {
           <p className="p-px">Billing and Subscription</p>
         </NavLink>
 
-        <NavLink
-          to="/settings/team-management"
-          className={({ isActive }) =>
-            `p-3 rounded-lg flex gap-2 items-normal ${isActive ? 'text-blue-500' : ''}`
-          }
-          end
-        >
-          <p className="p-px">Team Management</p>
-        </NavLink>
       </nav>
     </div>
   );

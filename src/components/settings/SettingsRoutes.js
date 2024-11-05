@@ -4,14 +4,12 @@ import AccountSettings from "./AccountSettings";
 import API from "./API";
 import Billing from "./Biling";
 import Notification from "./Notification";
-import TeamManage from "./TeamManagement";
-
 
 
 function ProductResearchRoutes() {
   return (
     <>
-    <div className="sticky top-[70px] z-50 bg-white">
+    <div className="sticky top-[55px] z-40 bg-white">
     <Navbar/>
     </div>
     <Routes>
@@ -20,7 +18,6 @@ function ProductResearchRoutes() {
       <Route path="api" element={<API />} />
       <Route path="billing" element={<Billing />} />
       <Route path="notification" element={<Notification />} />
-      <Route path="team-management" element={<TeamManage />} />
 
     </Routes>
     </>

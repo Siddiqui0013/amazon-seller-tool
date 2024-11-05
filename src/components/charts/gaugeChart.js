@@ -1,4 +1,3 @@
-import React from "react";
 import { PieChart, Pie, Cell, ResponsiveContainer } from "recharts";
 
 const GaugeChart = ({ data, width, height }) => {
@@ -11,7 +10,7 @@ const GaugeChart = ({ data, width, height }) => {
           cx="50%"
           cy="50%"
           innerRadius="50%"
-          outerRadius="80%"
+          outerRadius="75%"
           fill="#8884d8"
         >
           {data.map((entry, index) => (

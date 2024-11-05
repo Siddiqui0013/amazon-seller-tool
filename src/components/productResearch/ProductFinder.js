@@ -9,30 +9,38 @@ function ProductFinder() {
   const [categories, setCategories] = useState({}); 
   const [catArray, setCatArray] = useState([]); 
 
-  useEffect(() => {
-    const fetchCategories = async () => {
-      try {
-        const response = await fetch('https://api.keepa.com/category?key=2e327hvqq9m6q1umr6c2onbqr71pguhtum53drsopk60d5a9bdn68tu001fpoban&domain=1&category=0');
-        const data = await response.json();
-        setCategories(data); 
-      } catch (error) {
-        console.error(error);
-      }
-    };
+  // useEffect(() => {
+  //   const fetchCategories = async () => {
+  //     try {
+  //       const response = await fetch('https://api.keepa.com/category?key=2e327hvqq9m6q1umr6c2onbqr71pguhtum53drsopk60d5a9bdn68tu001fpoban&domain=1&category=0');
+  //       const data = await response.json();
+  //       setCategories(data); 
+  //     } catch (error) {
+  //       console.error(error);
+  //     }
+  //   };
 
-    fetchCategories(); 
-  }, []);
+  //   fetchCategories(); 
+  // }, []);
 
-  useEffect(() => {
-      if (categories.categories) { // Check if categories exist
-        console.log(categories.categories)
-        const naam = Array.from(categories.categories)
-      setCatArray(naam) // Convert to array
-      // console.log(CatArray); // Log the categories array
-    }
-  }, [categories]); 
+  // useEffect(() => {
+  //     if (categories.categories) { // Check if categories exist
+  //     const newArray = Object.values(categories.categories) 
+  //     // const newmethod = Array.from(categories.categories)
+  //     // console.log(newmethod);
+  //     setCatArray(newArray);
+  //     // setCatArray(newArray);
+  //     // console.log(1);
+  //     // console.log(newArray);
+  //     // console.log(2);
+  //     console.log(catArray);
+      
+      
+  //     // console.log(CatArray); // Log the categories array
+  //   }
+  // }, [categories]); 
 
-console.log(catArray);
+// console.log(catArray);
 
 
 
@@ -91,6 +99,10 @@ console.log(catArray);
     setIsPopupOpen(false);
   };
 
+  const FilterChange = (e) => {
+    console.log(e.target.value);
+  }
+
   const handleFilterChange = (e) => {
     const { name, value, type, checked } = e.target;
     setFilters((prevFilters) => ({
@@ -114,7 +126,11 @@ console.log(catArray);
       dateRange: 1
     };
 
-    if (filters.category) {
+    // if (filters.category) {
+    //   queryJSON.includeCategories = [parseInt(filters.category)];
+    // }
+
+    if (filters.category && filters.category !== '') {
       queryJSON.includeCategories = [parseInt(filters.category)];
     }
 
@@ -184,12 +200,16 @@ console.log(catArray);
             <select
               name="category"
               className="w-full border border-gray-300 rounded p-2"
-              onChange={handleFilterChange}
-              value={filters.category}
+              // onChange={handleFilterChange}
+              onChange={FilterChange}
+              value={filters.category.id}
             >
-              <option value="">Select Root Category</option>
-              <option value="category1">Category 1</option>
-              <option value="category2">Category 2</option>
+              <option value="">Select Category</option>
+              {catArray.map((category) => (
+                <option key={category.id} value={category.id}>{category.name}</option>
+              ))}
+
+
             </select>
           </div>
 

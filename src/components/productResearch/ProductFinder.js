@@ -1,6 +1,5 @@
 import { useState, useEffect} from 'react';
 import EarthbornImg from '../../assets/productFinder.jpg'
-import LineChart from "../charts/linechart"
 import Popup from "./Popup"
 
 function ProductFinder() {
@@ -10,6 +9,19 @@ function ProductFinder() {
   const [catArray, setCatArray] = useState([]); 
 
   const [deals, setDeals] = useState([])
+
+  const [productDetails, setproductDetails] = useState({
+    title: '',
+    BSR: '',
+    img: '',
+    category:'',
+    price: '',
+    reviewRating: '',
+    reviews: '',
+    BSRFlat:'',
+    estimatedSales: '',
+    FBAFee:''
+  })
 
   useEffect(() => {
     const fetchCategories = async () => {
@@ -45,7 +57,7 @@ function ProductFinder() {
     hasReviews: false,
     sortType : '',
     dateRange: '',
-    filterErotic: false
+    filterErotic: true
   });
 
   const openPopup = () => {
@@ -79,7 +91,7 @@ function ProductFinder() {
       "isFilterEnabled": true,
       "isRangeEnabled": true,
       "singleVariation": true,
-
+      "filterErotic": true
     };
 
     if (filters.category && filters.category !== '') {
@@ -134,7 +146,7 @@ function ProductFinder() {
     }
 
     if (filters.filterErotic) {
-      queryJSON.filterErotic = true;
+      queryJSON.filterErotic = false;
     }
 
     console.log(JSON.stringify(queryJSON, null, 2));
@@ -148,20 +160,20 @@ function ProductFinder() {
     setDeals(dealsArray)
     
     openPopup();
+
+    setFilters({
+      category: '',
+      priceRange: { min: '', max: '' },
+      salesRank: { min: '', max: '' },
+      deltaRange: { min: '', max: '' },
+      reviewRating: '',
+      title: '',
+      hasReviews: false,
+      sortType : '',
+      dateRange: '',
+      filterErotic: true
+    });
   };
-
-
-  const lines3data = [
-    { name: "Page A", LastMonth: 4000, ThisMonth: 2400, amt: 2400 },
-    { name: "Page B", LastMonth: 3000, ThisMonth: 1398, amt: 2210 },
-    { name: "Page C", LastMonth: 2000, ThisMonth: 9800, amt: 2290 },
-  ];
-  const line3 = [
-    { dataKey: "ThisMonth", stroke: "#8884d8", activeDot: { r: 8 } },
-    { dataKey: "LastMonth", stroke: "#ffc658" },
-  ];
-
-
 
   return (
     <div className="min-h-screen p-6">
@@ -356,88 +368,62 @@ function ProductFinder() {
 <div className="bg-gray-50 p-4 shadow-md rounded-md">
   <h2 className="text-xl font-semibold mb-4">Results</h2>
 
-  <div className="flex items-center justify-between mb-4">
-    <label className="text-sm font-medium">Card View / List View</label>
-    <input type="checkbox" className="toggle" />
-  </div>
 
-
-<div className="mb-4">
-            <label className="block mb-2 text-sm font-medium">Best Sellers Rank</label>
-            <select
-              name="sellRank"
-              className="w-full border border-gray-300 rounded p-2"
-              onChange={handleFilterChange}
-            >
-              <option value="">Best Sellers Rank</option>
-              <option value="category1">Category 1</option>
-              <option value="category2">Category 2</option>
-            </select>
+          <div className="mb-4">
+            <label className="text-lg font-bold">Price : </label>
+            {
+              <p>{productDetails.price}</p>
+            }
+            </div>
+          <div className="mb-4">
+            <label className="text-lg font-bold">FBA Fee : </label>
+            {
+              <p>{productDetails.FBAFee}</p>
+            }
+            </div>
+          <div className="mb-4">
+            <label className="text-lg font-bold">Total Reviews :  </label>
+            {
+              <p>{productDetails.reviews}</p>
+            }
+            </div>
+          <div className="mb-4">
+            <label className="text-lg font-bold">Rating :  </label>
+            {
+              <p>{productDetails.reviewRating}</p>
+            }
+            </div>
+          <div className="mb-4">
+            <label className="text-lg font-bold">Estimated Sales : </label>
+            {
+              <p></p>
+            }
           </div>
           <div className="mb-4">
-            <label className="block mb-2 text-sm font-medium">Price</label>
-            <select
-              name="price"
-              className="w-full border border-gray-300 rounded p-2"
-              onChange={handleFilterChange}
-            >
-              <option value="">Price</option>
-              <option value="category1">Category 1</option>
-              <option value="category2">Category 2</option>
-            </select>
+            <label className="text-lg font-bold">BSR : </label>
+            {
+              <p>{productDetails.BSRFlat ? productDetails.BSRFlat : 'N/A'}</p>
+            }
           </div>
-          <div className="mb-4">
-            <label className="block mb-2 text-sm font-medium">Estimated Sales</label>
-            <select
-              name="estimatedSales"
-              className="w-full border border-gray-300 rounded p-2"
-              onChange={handleFilterChange}
-            >
-              <option value="">Estimated Sales</option>
-              <option value="category1">Category 1</option>
-              <option value="category2">Category 2</option>
-            </select>
-          </div>
-          <div className="mb-4">
-            <label className="block mb-2 text-sm font-medium">Profit Potential</label>
-            <select
-              name="profitPotential"
-              className="w-full border border-gray-300 rounded p-2"
-              onChange={handleFilterChange}
-            >
-              <option value="">Profit Potential</option>
-              <option value="category1">Category 1</option>
-              <option value="category2">Category 2</option>
-            </select>
-          </div>
-
 
   <div className="bg-gray-50 p-4 rounded-md shadow mb-4">
       <img
-        src={EarthbornImg}
+        src={productDetails.img ? productDetails.img : 'https://via.placeholder.com/150'}
         alt="Earthborn Product"
         className="w-64 rounded-md"
       />
-    </div>
-
-    <div className='flex '>
-      <p>Price : </p>
-      <p> $13.20 </p>
     </div>
 
 
   <div className="bg-gray-50 p-4 rounded-md shadow mb-4">
     <div className="flex items-center space-x-4">
       <div>
-        <h3 className="text-lg font-semibold">Earthborn</h3>
-        <p className="text-sm pb-2">Price: $13.20</p>
-        <div className="flex justify-between m-auto">
-          <p className="text-sm">BSR: 12k (1%)</p>
-          <p className="text-sm">Est. Sales: 12k (1%)</p>
-          <p className="text-sm">Max Cost: $10.15</p>
+        <h3 className="text-lg font-semibold">{productDetails.title}</h3>
+        <div className="flex gap-2 justify-between flex-col m-auto">
+          <p className="text-sm">Price: ${productDetails.price ? productDetails.price : 'N/A'}</p>
+          <p className="text-sm">Est. Sales : {productDetails.estimatedSales ? productDetails.estimatedSales : 'N/A'}</p>
         </div>
-        <p className="text-sm font-semibold text-green-600">Profit Potential: $13.20</p>
-      </div>
+     </div>
     </div>
     </div>
 
@@ -454,20 +440,43 @@ function ProductFinder() {
     
     <div className='border-2 border-gray-300'>
     <img
-      src={EarthbornImg}
+      src={productDetails.img ? productDetails.img  : "https://placehold.co/600x400"}
       alt="Detailed Product"
       className="w-40 h-40 mx-auto rounded-md mb-4"
     />
 
     </div>
     
-    <p className="text-xl pb-2 font-semibold">Earthborn Holistic Primitive Feline Grain-free Dry Cat Food 5 pound (Pack of 1)</p>
-    <p className="text-lg text-gray-700">ASIN: B0051GBKZM</p>
+    <p className="text-xl pb-2 font-semibold">{productDetails.title ? productDetails.title : "Loading..." }</p>
+    <p className="text-lg text-gray-700">`{productDetails.asin ? productDetails.asin : "Loading..." }`</p>
 
     <div className="mt-4 bg-gray-100 rounded p-2">
-      <h3 className="text-lg font-semibold">Sales Rank History</h3>
+      <h3 className="text-lg font-semibold">Price Change History</h3>
       <div className="w-full    mt-2 rounded">
-      <LineChart data={lines3data} lines={line3} width = {300} height = {200}/>        
+
+        <img
+        alt="Graph"
+        src={productDetails.asin ? `https://api.keepa.com/graphimage?key=2e327hvqq9m6q1umr6c2onbqr71pguhtum53drsopk60d5a9bdn68tu001fpoban&domain=1&width=350&height=250&asin=${productDetails.asin}` : "https://placehold.co/600x400"}
+        width={300}
+        height={200}  
+        />
+        </div>
+
+      <div className="flex justify-between">
+      </div>
+
+    </div>
+    
+    <div className="mt-4 bg-gray-100 rounded p-2">
+      <h3 className="text-lg font-semibold">Best Seller Rank</h3>
+      <div className="w-full    mt-2 rounded">
+
+        <img
+        alt="Graph"
+        src={productDetails.asin ? `https://api.keepa.com/graphimage?key=2e327hvqq9m6q1umr6c2onbqr71pguhtum53drsopk60d5a9bdn68tu001fpoban&domain=1&amazon=0&new=0&cSales=3a883a&width=350&height=250&salesrank=1&asin=${productDetails.asin}` : "https://placehold.co/600x400"}
+        width={300}
+        height={200}  
+        />
         </div>
 
       <div className="flex justify-between">
@@ -486,18 +495,10 @@ function ProductFinder() {
     <h3 className='my-2'>Price</h3>
   <input
           type="text"
-          placeholder="Price"
+          placeholder={productDetails.price ? productDetails.price : "N/A"}
+          readOnly
           className="border border-gray-300 p-2 rounded-md w-full"
         />
-    </div>
-    <div>
-    <h3 className='my-2'>Sales Rank</h3>  
-        <input
-          type="text"
-          placeholder="Sales Rank"
-          className="border border-gray-300 p-2 rounded-md w-full"
-        />
-
     </div>
   </div>
 
@@ -506,27 +507,13 @@ function ProductFinder() {
       <h3>Category</h3>
       <input
           type="text"
-          placeholder="Category"
+          readOnly
+          placeholder={productDetails.category ? productDetails.category : "N/A"}
           className="border border-gray-300 p-2 rounded-md w-full"
         />
-      <h3>Sales Velocity</h3>        
-                <input
-        type="text"
-        placeholder="Sales Velocity"
-        className="border border-gray-300 p-2 rounded-md w-full"
-      />
+        
 </div>
-
-      <button className="bg-[#FF9900] text-white p-2 mt-4 rounded">Calculate Sales</button>
-
-
-
-
     </div>
-
-
-
-
   </div>
 
 </div>
@@ -536,8 +523,42 @@ function ProductFinder() {
         <div className="overflow-auto md:max-h-96">
             {deals.map((item) => (
             <div
-              key={item.asin}
-              className="border-b border-gray-200 py-2 flex items-center"
+            key={item.asin}
+            onClick= {
+             () => {
+              setproductDetails( (p) => ({
+                ...p,
+                asin: item.asin,
+                title: item.title,
+                price: parseFloat((item.current[0])/100),
+              }))
+
+              const productDetailskeepa = fetch(`https://api.keepa.com/product?domain=1&key=2e327hvqq9m6q1umr6c2onbqr71pguhtum53drsopk60d5a9bdn68tu001fpoban&asin=${item.asin}`)
+              productDetailskeepa.then((res) => res.json()).then((data) => {
+                console.log(data.products[0])
+                setproductDetails( (p) => ({
+                 ...p,
+                 category: data.products[0].categoryTree[0].name,
+                 FBAFee: data.products[0].fbaFees.pickAndPackFee ? data.products[0].fbaFees.pickAndPackFee : 0,
+                }))
+              })
+
+              const productDetailsRain = fetch(`https://api.rainforestapi.com/request?api_key=9D5CBD8E1EEA44548567C61852F15F69&amazon_domain=amazon.com&asin=${item.asin}&type=product`)
+              productDetailsRain.then((res) => res.json()).then((data) => {
+                setproductDetails( (p) => ({
+                  ...p,
+                  reviewRating: parseFloat(data.product.rating),
+                  reviews: data.product.ratings_total,
+                  img : data.product.main_image.link,
+                  BSRFlat : data.product.bestsellers_rank_flat,
+                }))
+              })
+
+
+
+             }
+            }
+              className={`border-b cursor-pointer border-gray-200 py-2 flex items-center`}
             >
               <img
                 src={`https://images-na.ssl-images-amazon.com/images/I/${String.fromCharCode.apply("", item.image)}`}
@@ -558,6 +579,7 @@ function ProductFinder() {
   );
 }
 export default ProductFinder;
+
 
 
 

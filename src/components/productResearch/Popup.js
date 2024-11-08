@@ -10,7 +10,9 @@ const Popup = ({ isOpen, onClose, children }) => {
         >
           ✖
         </button>
-        <div className="mt-3">{children}</div>
+        <div className="mt-3"
+                  onClick={onClose}
+        >{children}</div>
       </div>
     </div>
   );

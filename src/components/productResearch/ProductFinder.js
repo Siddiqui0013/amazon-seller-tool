@@ -378,7 +378,7 @@ function ProductFinder() {
           <div className="mb-4">
             <label className="text-lg font-bold">FBA Fee : </label>
             {
-              <p>{productDetails.FBAFee}</p>
+              <p>{ parseFloat((productDetails.FBAFee)/100)}</p>
             }
             </div>
           <div className="mb-4">
@@ -396,7 +396,7 @@ function ProductFinder() {
           <div className="mb-4">
             <label className="text-lg font-bold">Estimated Sales : </label>
             {
-              <p></p>
+              <p>{ productDetails.estimatedSales ? productDetails.estimatedSales : 'No Data'}</p>
             }
           </div>
           <div className="mb-4">
@@ -534,6 +534,7 @@ function ProductFinder() {
               }))
 
               const productDetailskeepa = fetch(`https://api.keepa.com/product?domain=1&key=2e327hvqq9m6q1umr6c2onbqr71pguhtum53drsopk60d5a9bdn68tu001fpoban&asin=${item.asin}`)
+              // const productDetailskeepa = fetch(`https://api.keepa.com/product?domain=1&key=2e327hvqq9m6q1umr6c2onbqr71pguhtum53drsopk60d5a9bdn68tu001fpoban&asin=B0B4MWCFV4`)
               productDetailskeepa.then((res) => res.json()).then((data) => {
                 console.log(data.products[0])
                 setproductDetails( (p) => ({
@@ -551,6 +552,7 @@ function ProductFinder() {
                   reviews: data.product.ratings_total,
                   img : data.product.main_image.link,
                   BSRFlat : data.product.bestsellers_rank_flat,
+                  estimatedSales : data.product.recent_sales
                 }))
               })
 

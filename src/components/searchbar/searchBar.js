@@ -2,26 +2,27 @@ import { useState, useEffect } from 'react';
 import { FaBell, FaUserCircle } from "react-icons/fa";
 import { AiOutlineSearch } from "react-icons/ai";
 import { auth, signOut } from "../../firebase"; 
+import { useUser } from '../../UserContext';
 
 export default function SearchBar() {
-  const [userName, setUserName] = useState("");
-  const [userEmail, setUserEmail] = useState("");
+
+  const { user } = useUser();
   const [dropdownOpen, setDropdownOpen] = useState(false);
 
-  useEffect(() => {
-    const unsubscribe = auth.onAuthStateChanged((user) => {
-      if (user) {
-        setUserName(user.displayName || "User");
-        setUserEmail(user.email);
-        console.log("Signed-in user:", user);
-      } else {
-        setUserName("");
-        setUserEmail("");
-      }
-    });
+  // useEffect(() => {
+  //   const unsubscribe = auth.onAuthStateChanged((user) => {
+  //     if (user) {
+  //       setUserName(user.displayName || "User");
+  //       setUserEmail(user.email);
+  //       console.log("Signed-in user:", user);
+  //     } else {
+  //       setUserName("");
+  //       setUserEmail("");
+  //     }
+  //   });
 
-    return () => unsubscribe();
-  }, []);
+  //   return () => unsubscribe();
+  // }, []);
 
   const handleSignOut = async () => {
     try {
@@ -56,12 +57,14 @@ export default function SearchBar() {
               onClick={toggleDropdown}
             >
               <FaUserCircle size={30} />
-              {userName && <p className="text-white">{userName}</p>}
+              { user &&  
+                <p className="text-white">{user.displayName || "User"}</p>
+              }
             </div>
 
             {dropdownOpen && (
               <div className="absolute right-0 mt-2 w-48 z-[51] bg-white rounded-md shadow-lg py-2">
-                <p className="px-4 py-2 text-gray-700">{userEmail}</p>
+                <p className="px-4 py-2 text-gray-700">{user.email}</p>
                 <button
                   onClick={handleSignOut}
                   className="w-full text-left px-4 py-2 text-red-500 hover:bg-gray-100"

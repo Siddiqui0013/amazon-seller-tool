@@ -134,16 +134,16 @@ function BrancProtection() {
 
     <h2 className="text-xl font-semibold mt-8 mb-4">Brand Health Score</h2>
     <div className="bg-gray-50 flex justify-between p-2 shadow-md rounded-lg">
-    <div className='flex flex-col w-[33%] items-center'>
-            <GaugeChart data={GaugeData} width="100%" height={300} />
+    <div className='flex flex-col w-[33%] items-center justify-center m-auto'>
+            <GaugeChart data={GaugeData} width={330} height={250} cx={180} />
             <p className='text-lg font-medium'>Map Compliance</p>
           </div>
     <div className='flex flex-col w-[33%] items-center'>
-            <GaugeChart data={GaugeData} width="100%" height={300} />
+            <GaugeChart data={GaugeData} width={330} height={250} cx={180} />
             <p className='text-lg font-medium'>Content Consistency</p>
           </div>
     <div className='flex flex-col w-[33%] items-center'>
-            <GaugeChart data={GaugeData} width="100%" height={300} />
+            <GaugeChart data={GaugeData} width={330} height={250} cx={180} />
             <p className='text-lg font-medium'>Unauthorized Sellers</p>
           </div>
     </div>

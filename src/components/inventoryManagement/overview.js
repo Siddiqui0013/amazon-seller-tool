@@ -44,9 +44,9 @@ const products = [
 export default function App() {
 
   const GaugeData = [
-    { name: 'A', value: 80, color: '#ff0000' },
+    { name: 'A', value: 20, color: '#ff0000' },
     { name: 'B', value: 45, color: '#00ff00' },
-    { name: 'C', value: 25, color: '#0000ff' },
+    { name: 'C', value: 85, color: '#0000ff' },
   ];
 
 	const BarData = [

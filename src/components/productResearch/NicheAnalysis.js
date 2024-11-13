@@ -8,6 +8,13 @@ import { AiOutlineSearch } from "react-icons/ai";
 
 export default function NicheAnalysis() {
 
+  const GaugeData = [
+    { name: 'A', value: 80, color: '#ff0000' },
+    { name: 'B', value: 45, color: '#00ff00' },
+    { name: 'C', value: 25, color: '#0000ff' },
+  ];
+
+
   const lines3data = [
     { name: "Page A", uv: 4000, pv: 2400, av: 2600, amt: 2400 },
     { name: "Page B", uv: 3000, pv: 1398, av: 2210, amt: 2210 },
@@ -31,12 +38,6 @@ export default function NicheAnalysis() {
 		{ dataKey: "SalesA", color: "#0E4DA4" },
 		{ dataKey: "SalesB", color: "#FF9900" },
 	  ];
-
-  const GaugeData = [
-    { name: 'A', value: 80, color: '#ff0000' },
-    { name: 'B', value: 45, color: '#00ff00' },
-    { name: 'C', value: 25, color: '#0000ff' },
-  ];
 
   const TreeData = [
     {
@@ -121,11 +122,9 @@ export default function NicheAnalysis() {
         
         <div className="bg-gray-50 border-gray-100 border-2 p-4 shadow-md rounded-md">
           <p className='font-semibold text-lg px-2  py-4'>Niche Saturation Index</p>
-          <GaugeChart 
-           data={GaugeData} 
-           width="100%"
-           height={200}  
-          />
+
+<GaugeChart data={GaugeData} width={330} height={250} cx={180} />
+
         </div>
         
         <div className="bg-gray-50 border-gray-100 border-2 p-4 shadow-md  rounded-md">
@@ -133,7 +132,7 @@ export default function NicheAnalysis() {
           <Treemap
            data={TreeData}
            width={400}
-           height={200}
+           height={250}
            colors={TreeColors}
           />
         </div>

@@ -4,6 +4,8 @@ import { useState, useEffect } from "react";
 import SignIn from "./components/auth/SignIn";
 import SignUp from "./components/auth/SignUp";
 
+import { useUser } from "./UserContext";
+
 import SearchBar from "./components/searchbar/searchBar";
 import Navbar from "./components/nav/navbar";
 
@@ -18,11 +20,10 @@ import Analytics from "./components/analytics/Analytics";
 
 import "@fontsource/lato"
 
-import { auth, onAuthStateChanged } from "./firebase";
-
 function App() {
-  const [user, setUser] = useState(null);
-  const [loading, setLoading] = useState(true); 
+
+  const {user, loading} = useUser();
+
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -31,24 +32,39 @@ function App() {
   const isAuthPage = authRoutes.includes(location.pathname);
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-      setUser(currentUser);
-      setLoading(false); 
-
-      if (currentUser && isAuthPage) {
-        navigate("/"); 
-      } else if (!currentUser && !isAuthPage) {
-        navigate("/signin"); 
+    if (!loading) {
+      if (user && isAuthPage) {
+        navigate('/');
+      } else if (!user && !isAuthPage) {
+        navigate('/signin');
       }
-    });
+    }
+  }, [user, loading, navigate, location.pathname, isAuthPage]);
 
-    return () => unsubscribe();
-  }, [navigate, location.pathname, isAuthPage]);
-
-  // Show a loading indicator until Firebase resolves the user state
   if (loading) {
     return <div>Loading...</div>;
   }
+
+
+  // useEffect(() => {
+  //   const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+  //     setUser(currentUser);
+  //     setLoading(false); 
+
+  //     if (currentUser && isAuthPage) {
+  //       navigate("/"); 
+  //     } else if (!currentUser && !isAuthPage) {
+  //       navigate("/signin"); 
+  //     }
+  //   });
+
+  //   return () => unsubscribe();
+  // }, [navigate, location.pathname, isAuthPage]);
+
+  // // Show a loading indicator until Firebase resolves the user state
+  // if (loading) {
+  //   return <div>Loading...</div>;
+  // }
 
   return (
     <div className="flex ">

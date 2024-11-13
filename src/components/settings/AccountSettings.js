@@ -1,4 +1,31 @@
+import { useUser } from "../../UserContext";
+
 function UserDetails() {
+
+const {user} = useUser();
+
+const AMAZON_MARKETPLACES = [
+  { value: "amazon.com", label: "United States (amazon.com)" },
+  { value: "amazon.co.uk", label: "United Kingdom (amazon.co.uk)" },
+  { value: "amazon.de", label: "Germany (amazon.de)" },
+  { value: "amazon.fr", label: "France (amazon.fr)" },
+  { value: "amazon.it", label: "Italy (amazon.it)" },
+  { value: "amazon.es", label: "Spain (amazon.es)" },
+  { value: "amazon.co.jp", label: "Japan (amazon.co.jp)" },
+  { value: "amazon.ca", label: "Canada (amazon.ca)" },
+  { value: "amazon.com.mx", label: "Mexico (amazon.com.mx)" },
+  { value: "amazon.com.br", label: "Brazil (amazon.com.br)" },
+  { value: "amazon.com.au", label: "Australia (amazon.com.au)" },
+  { value: "amazon.in", label: "India (amazon.in)" },
+  { value: "amazon.nl", label: "Netherlands (amazon.nl)" },
+  { value: "amazon.se", label: "Sweden (amazon.se)" },
+  { value: "amazon.pl", label: "Poland (amazon.pl)" },
+  { value: "amazon.sg", label: "Singapore (amazon.sg)" },
+  { value: "amazon.ae", label: "United Arab Emirates (amazon.ae)" },
+  { value: "amazon.sa", label: "Saudi Arabia (amazon.sa)" },
+  { value: "amazon.tr", label: "Turkey (amazon.tr)" }
+];
+
   return (
     <div className="p-6 min-h-screen flex items-center justify-between">
       <div className=" p-8 w-full flex items-start justify-around">
@@ -10,7 +37,7 @@ function UserDetails() {
               <label className="block text-gray-600 text-sm mb-1">Username</label>
               <input
                 type="text"
-                value="lyshipping"
+                value={user.displayName}
                 className="w-full px-4 py-2 border border-gray-300 rounded-md bg-purple-50 text-gray-700"
                 disabled
               />
@@ -20,7 +47,7 @@ function UserDetails() {
               <label className="block text-gray-600 text-sm mb-1">Email</label>
               <input
                 type="email"
-                value="workemail@gmail.com"
+                value={user.email}
                 className="w-full px-4 py-2 border border-gray-300 rounded-md bg-purple-50 text-gray-700"
                 disabled
               />
@@ -37,24 +64,22 @@ function UserDetails() {
             </div>
 
             <div>
-              <label className="block text-gray-600 text-sm mb-1">Password</label>
-              <input
-                type="password"
-                value="Getting Serious"
-                className="w-full px-4 py-2 border border-gray-300 rounded-md bg-purple-50 text-gray-700"
-                disabled
-              />
-            </div>
-
-            <div>
               <label className="block text-gray-600 text-sm mb-1">Home Marketplace</label>
               <select
                 className="w-full px-4 py-2 border border-gray-300 rounded-md bg-purple-50 text-gray-700"
                 defaultValue="amazon.com"
+                
               >
-                <option value="amazon.com">amazon.com</option>
+
+              {AMAZON_MARKETPLACES.map((marketplace) => (
+                <option key={marketplace.value} value={marketplace.value}>
+                  {marketplace.label}
+                </option>
+              ))}
+
+                {/* <option value="amazon.com">amazon.com</option>
                 <option value="amazon.co.uk">amazon.co.uk</option>
-                <option value="amazon.de">amazon.de</option>
+                <option value="amazon.de">amazon.de</option> */}
               </select>
             </div>
 

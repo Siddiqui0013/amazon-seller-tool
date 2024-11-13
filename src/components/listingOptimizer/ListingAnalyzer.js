@@ -15,7 +15,7 @@ export default function ListingAnalyzer() {
 
   const GaugeData = [
     { name: 'A', value: 80, color: '#ff0000' },
-    { name: 'B', value: 45, color: '#00ff00' },
+    { name: 'B', value: 145, color: '#00ff00' },
     { name: 'C', value: 25, color: '#0000ff' },
   ];
 
@@ -41,7 +41,7 @@ export default function ListingAnalyzer() {
         <div className='p-4 bg-gray-50 border-gray-100 border-2 rounded-lg'>
           <h1 className='text-2xl my-2'>Overall Listing Score</h1>
           <div>
-            <GaugeChart data={GaugeData} width="100%" height={300} />
+            <GaugeChart data={GaugeData} width={350} height={280} />
           </div>
           <p>This score is based on your listing's title, images, keywords, and description.</p>
         </div>

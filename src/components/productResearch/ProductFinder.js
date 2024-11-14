@@ -549,7 +549,10 @@ function ProductFinder() {
 						<button className="bg-[#FF9900] rounded-md py-2 w-[33%] ">
 							Analyze
 						</button>
-						<button className="bg-[#FF9900] rounded-md  w-[33%] ">
+						<button className="bg-[#FF9900] rounded-md  w-[33%] "
+						onClick={() => window.open(`https://www.amazon.com/dp/${productDetails.asin}`, "_blank")}
+						// href={`https://www.amazon.com/dp/${productDetails.asin}`}
+						>
 							View on Amazon
 						</button>
 					</div>

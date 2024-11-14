@@ -26,7 +26,7 @@ const calculateNeedle = (maxValue, data, cx, cy, iR, oR, color) => {
   ];
 };
 
-const GaugeChart = ({ data, width, height=200, innerRadius = 70, cx=200, cy= height / 1.5, needleColor = "#d0d000" }) => {
+const GaugeChart = ({ data, width=300, height=200, innerRadius = 70, cx=200, cy= height / 1.5, needleColor = "#d0d000" }) => {
   // Find the maximum value in the data for the needle
   const maxValue = Math.max(...data.map(entry => entry.value));
   

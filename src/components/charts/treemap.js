@@ -1,6 +1,4 @@
-// src/components/CustomTreemap.js
-import React from "react";
-import { Treemap, Tooltip } from "recharts";
+import { Treemap, Tooltip, ResponsiveContainer } from "recharts";
 
 const CustomizedContent = (props) => {
   const { root, depth, x, y, width, height, index, colors, name } = props;
@@ -25,13 +23,10 @@ const CustomizedContent = (props) => {
             x={x + width / 2}
             y={y + height / 2 + 7}
             textAnchor="middle"
-            fill="#fff"
-            fontSize={14}
+            dominantBaseline="central"
+            fontSize={10}
           >
             {name}
-          </text>
-          <text x={x + 4} y={y + 18} fill="#fff" fontSize={16} fillOpacity={0.9}>
-            {index + 1}
           </text>
         </>
       )}
@@ -39,10 +34,10 @@ const CustomizedContent = (props) => {
   );
 };
 
-const CustomTreemap = ({ data, width, height, colors }) => {
+const CustomTreemap = ({ data, height, colors }) => {
   return (
+    <ResponsiveContainer width="100%" height={height}>
     <Treemap
-      width={width}
       height={height}
       data={data}
       dataKey="size"
@@ -52,6 +47,7 @@ const CustomTreemap = ({ data, width, height, colors }) => {
     >
       <Tooltip />
     </Treemap>
+    </ResponsiveContainer>
   );
 };
 

@@ -1,17 +1,16 @@
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from "recharts";
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from "recharts";
 
 const BarChartComponent = ({ 
   data, 
   bars, 
-  width = 400, 
   height = 300, 
   barSize = 30, 
   barRadius = [10, 10, 0, 0], 
   orientation = "vertical" 
 }) => {
   return (
+    <ResponsiveContainer width="100%" height={height}>
     <BarChart 
-      width={width} 
       height={height} 
       data={data} 
       barSize={barSize} 
@@ -40,6 +39,7 @@ const BarChartComponent = ({
         />
       ))}
     </BarChart>
+    </ResponsiveContainer>
   );
 };
 

@@ -235,7 +235,7 @@ function ProductFinder() {
         img: "Fetching",
         // img: rainforestData.product.main_image.link,
         BSRFlat: "Fetching",
-        BSRFlat: rainforestData.product.bestsellers_rank_flat,
+        // BSRFlat: rainforestData.product.bestsellers_rank_flat,
         estimatedSales: "Fetching",
         // estimatedSales: rainforestData.product.recent_sales,
       }))  

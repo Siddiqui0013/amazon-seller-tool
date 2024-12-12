@@ -76,7 +76,6 @@ export default function NicheAnalysis() {
       }
       setGaugeData(newGaugeData);
 
-      // Update tree data
       if (result.data.length >= 4) {
         const newTreeData = result.data.slice(1, 5).map((item, index) => ({
           name: item.attributes.name,

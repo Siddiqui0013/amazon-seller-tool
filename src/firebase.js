@@ -1,6 +1,6 @@
 import {initializeApp} from "firebase/app"
 import { getFirestore } from "firebase/firestore";
-import {getAuth,signOut,onAuthStateChanged } from "firebase/auth"
+import {getAuth,signOut,onAuthStateChanged, browserLocalPersistence, setPersistence } from "firebase/auth"
 
 const firebaseConfig = {
     apiKey: "AIzaSyBqn9spXCzvJIRaiIX-8N4MNPQaalBXSWE",
@@ -14,6 +14,10 @@ const firebaseConfig = {
 
   const app = initializeApp(firebaseConfig);
   const auth = getAuth(app)
+
+  setPersistence(auth, browserLocalPersistence).catch((error) => {
+    console.log(error)
+  })
 
   export {auth, signOut, onAuthStateChanged}
   export const db = getFirestore(app)  

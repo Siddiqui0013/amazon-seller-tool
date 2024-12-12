@@ -213,12 +213,12 @@ function ProductFinder() {
         fetch(
           `https://api.keepa.com/product?domain=1&key=2e327hvqq9m6q1umr6c2onbqr71pguhtum53drsopk60d5a9bdn68tu001fpoban&asin=${item.asin}`
         ),
-        fetch(
-          `https://api.rainforestapi.com/request?api_key=9D5CBD8E1EEA44548567C61852F15F69&amazon_domain=amazon.com&asin=${item.asin}&type=product`
-        )
+        // fetch(
+        //   `https://api.rainforestapi.com/request?api_key=9D5CBD8E1EEA44548567C61852F15F69&amazon_domain=amazon.com&asin=${item.asin}&type=product`
+        // )
       ]);
       const keepaData = await keepaResponse.json();
-      const rainforestData = await rainforestResponse.json();
+      // const rainforestData = await rainforestResponse.json();
       setproductDetails((p) => ({
         ...p,
         category: keepaData.products[0].categoryTree[0].name,
@@ -228,11 +228,16 @@ function ProductFinder() {
       }));
         setproductDetails((p) => ({
         ...p,
-        reviewRating: parseFloat(rainforestData.product.rating),
-        reviews: rainforestData.product.ratings_total,
-        img: rainforestData.product.main_image.link,
-        BSRFlat: rainforestData.product.bestsellers_rank_flat,
-        estimatedSales: rainforestData.product.recent_sales,
+        reviewRating: "Fetching",
+        // reviewRating: parseFloat(rainforestData.product.rating),
+        reviews: "Fetching",
+        // reviews: rainforestData.product.ratings_total,
+        img: "Fetching",
+        // img: rainforestData.product.main_image.link,
+        BSRFlat: "Fetching",
+        // BSRFlat: rainforestData.product.bestsellers_rank_flat,
+        estimatedSales: "Fetching",
+        // estimatedSales: rainforestData.product.recent_sales,
       }))  
     } catch (error) {
       console.error('Error fetching product details:', error);

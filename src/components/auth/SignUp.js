@@ -3,7 +3,7 @@ import { CiUser } from "react-icons/ci";
 import { TfiEmail } from "react-icons/tfi";
 import { SlLock } from "react-icons/sl";
 import { FaRegEye, FaRegEyeSlash } from "react-icons/fa";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate, Link, useLocation } from "react-router-dom";
 
 import signupImage from "../../assets/signup.jpg";
 
@@ -19,6 +19,10 @@ function SignUp() {
   const [passEye, setpassEye] = useState(false);
   const [passEyeConfirm, setpassEyeConfirm] = useState(false);
   const nav = useNavigate();
+  const location = useLocation();
+
+  const isFromExtension = new URLSearchParams(location.search).get('source') === 'extension';
+  
 
   console.log("email", "password")
 
@@ -45,15 +49,44 @@ function SignUp() {
         displayName: username
       });
 
-      console.log("User name :", userCredential.user.displayName );
 
-      nav("/"); 
+
+      if (isFromExtension) {
+        // Send message to extension
+        window.opener?.postMessage(
+          { 
+            type: 'SIGNUP_SUCCESS',
+            data: {
+              email: email,
+              displayName: username
+            }
+          }, 
+          '*'
+        );
+        
+        // Show success message
+        alert("Account created successfully! You can now return to the extension.");
+        
+        // Close the window after a brief delay
+        setTimeout(() => {
+          window.close();
+        }, 1500);
+      } else {
+        nav("/");
+      }
     } catch (error) {
       console.error("Error signing up:", error);
-      alert(`Error: ${error.message}`); 
+      alert(`Error: ${error.message}`);
     }
-  };
-  
+  }
+
+
+
+
+
+
+
+
 
   // const handleSubmit = async (e) => {
 
@@ -83,6 +116,13 @@ function SignUp() {
 
   return (
     <div className="min-h-screen flex items-center justify-center ">
+
+      {isFromExtension && (
+        <div className="absolute top-4 left-1/2 transform -translate-x-1/2 bg-blue-100 text-blue-800 px-4 py-2 rounded-md">
+          You're signing up from the Amazon Seller Tool extension
+        </div>
+      )}
+    
       <div className="flex gap-24 justify-around items-center">
         <div className="hidden md:block w-[45%] ">
           <img src={signupImage} alt="Sign Up" width={"800px"} className=" h-full object-cover" />
@@ -92,7 +132,18 @@ function SignUp() {
           <h2 className="text-3xl font-bold mb-6">Sign Up</h2>
 
           <p className="mb-6">
-            <p>If you already have an account register</p> You can <Link to="/" className="text-blue-500 font-semibold">Login here!</Link>
+            <p>If you already have an account register</p> 
+
+            {isFromExtension ? (
+              <a href="#" onClick={() => window.close()} className="text-blue-500 font-semibold">
+                Return to extension
+              </a>
+            ) : (
+              <Link to="/" className="text-blue-500 font-semibold">
+                Login here!
+              </Link>
+            )}
+        
           </p>
 
           <form onSubmit={handleSubmit}>

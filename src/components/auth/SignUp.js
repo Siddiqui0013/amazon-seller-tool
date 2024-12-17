@@ -118,7 +118,7 @@ function SignUp() {
     <div className="min-h-screen flex items-center justify-center ">
 
       {isFromExtension && (
-        <div className="absolute top-4 left-1/2 transform -translate-x-1/2 bg-blue-100 text-blue-800 px-4 py-2 rounded-md">
+        <div className="absolute top-4 left-12 transform -translate-x-1/2 bg-blue-100 text-blue-800 px-4 py-2 rounded-md">
           You're signing up from the Amazon Seller Tool extension
         </div>
       )}

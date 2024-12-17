@@ -62,12 +62,7 @@ function SignUp() {
             }
           }, 
           '*'
-        );
-        
-        // Show success message
-        alert("Account created successfully! You can now return to the extension.");
-        
-        // Close the window after a brief delay
+        );        
         setTimeout(() => {
           window.close();
         }, 1500);

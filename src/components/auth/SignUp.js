@@ -8,7 +8,7 @@ import { useNavigate, Link, useLocation } from "react-router-dom";
 import signupImage from "../../assets/signup.jpg";
 
 import { auth } from "../../firebase";
-import { createUserWithEmailAndPassword,updateProfile } from "firebase/auth";
+import { createUserWithEmailAndPassword, updateProfile, signOut, onAuthStateChanged } from "firebase/auth";
 
 function SignUp() {
 
@@ -18,11 +18,31 @@ function SignUp() {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [passEye, setpassEye] = useState(false);
   const [passEyeConfirm, setpassEyeConfirm] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+
   const nav = useNavigate();
   const location = useLocation();
 
   const isFromExtension = new URLSearchParams(location.search).get('source') === 'extension';
-  
+
+    useEffect(() => {
+    if (isFromExtension) {
+      const unsubscribe = onAuthStateChanged(auth, async (user) => {
+        if (user) {
+          try {
+            await signOut(auth);
+            console.log("User signed out successfully");
+          } catch (error) {
+            console.error("Error signing out:", error);
+          }
+        }
+        setIsLoading(false);
+      });
+      return () => unsubscribe();
+    } else {
+      setIsLoading(false);
+    }
+  }, [isFromExtension]);
 
   console.log("email", "password")
 
@@ -73,6 +93,14 @@ function SignUp() {
       console.error("Error signing up:", error);
       alert(`Error: ${error.message}`);
     }
+  }
+
+    if (isLoading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="text-lg">Loading...</div>
+      </div>
+    );
   }
 
 

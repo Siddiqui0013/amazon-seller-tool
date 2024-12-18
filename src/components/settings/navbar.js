@@ -45,6 +45,16 @@ export default function Navbar() {
           <p className="p-px">Billing and Subscription</p>
         </NavLink>
 
+        <NavLink
+          to="/settings/additional-settings"
+          className={({ isActive }) =>
+            `p-3 rounded-lg flex gap-2 items-normal ${isActive ? 'text-blue-500' : ''}`
+          }
+          end
+        >
+          <p className="p-px">Additional Settings</p>
+        </NavLink>
+
       </nav>
     </div>
   );

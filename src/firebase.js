@@ -15,6 +15,27 @@ const firebaseConfig = {
   const app = initializeApp(firebaseConfig);
   const auth = getAuth(app)
 
+//   const user = auth.currentUser;
+// if (user) {
+//   chrome.storage.local.set({
+//     'userId': user.uid,
+//     'userEmail': user.email,
+//     'isAuthenticated': true
+//   });
+// }
+
+const user = auth.currentUser;
+if (user) {
+  window.postMessage({
+    type: 'SELLER_TOOL_AUTH',
+    data: {
+      userId: user.uid,
+      userEmail: user.email,
+      isAuthenticated: true
+    }
+  }, '*');
+}
+
   setPersistence(auth, browserLocalPersistence).catch((error) => {
     console.log(error)
   })

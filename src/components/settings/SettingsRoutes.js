@@ -4,6 +4,7 @@ import AccountSettings from "./AccountSettings";
 import API from "./API";
 import Billing from "./Biling";
 import Notification from "./Notification";
+import AdditionalSettings from "./AdditionalSettings";
 
 
 function ProductResearchRoutes() {
@@ -18,7 +19,7 @@ function ProductResearchRoutes() {
       <Route path="api" element={<API />} />
       <Route path="billing" element={<Billing />} />
       <Route path="notification" element={<Notification />} />
-
+      <Route path="additional-settings" element={<AdditionalSettings />} />
     </Routes>
     </>
   );

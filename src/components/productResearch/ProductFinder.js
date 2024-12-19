@@ -199,7 +199,6 @@ function ProductFinder() {
   }
 	}
 
-
   async function handleProductClick(item) {
     try {
       setdetailsLoading(true);

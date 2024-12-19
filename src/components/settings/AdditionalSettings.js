@@ -1,79 +1,131 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+
+import { db } from "../../firebase"
+import { doc, setDoc, getDoc } from 'firebase/firestore';
+import { useUser } from "../../UserContext";
 
 const AdditionalSettings = () => {
+
+  const [loading, setLoading] = useState(true);
+
+  const { user } = useUser();
+  const userPreferencesRef = doc(db, 'userPreferences', user.uid);
+  const [toggles, setToggles] = useState({
+    peakStorageFee: false,
+    CEPStorage: false,
+    topOffers: false,
+    keepaOnSearch: false,
+    showProfit: false,
+    showRoi: false,
+    showOfferSummary: false,
+    pushNotifications: false,
+    showPricesChart: false,
+    showSoldChart: false,
+    showOffersChart: false,
+    showProfitMargin: false,
+    showBreakeven: false,
+    storeGeoLocation: false,
+    darkMode: false,
+  });
+
   const [settings, setSettings] = useState({
-    minBSR: 1.00,
-    maxBSR: 4.00,
-    minProfit: 2.00,
-    minROI: 10.00,
+    minBSR: 0.00,
+    maxBSR: 0.00,
+    minProfit: 0.00,
+    minROI: 0.00,
     prepFee: 0.00,
     miscFee: 0.00,
+    fulfilment: 'FBA',
     miscFeePercentage: 0.00,
     inboundShipping: 0.60,
-    inboundPlacement: 'Amazon Optimized Splits',
-    usePeakStorage: false,
-    enabledCEPStorage: true,
-
-    minBSR: 1.00,
-    maxBSR: 4.00,
-    minProfit: 2.00,
-    minROI: 10.00,
-    
-    prepFee: 0.00,
-    miscFee: 0.00,
-    miscFeePercentage: 0.00,
-    inboundShipping: 0.60,
-    inboundPlacement: 'Amazon Optimized Splits',
-    usePeakStorage: false,
-    enabledCEPStorage: true,
-
     ranksPricesTimeFrame: 'Current',
     buyBoxTimeFrame: '90 Days',
     fbmCost: 0.00,
     storageTime: 0,
-    localFulfillment: 'FBA',
-    europeanFulfillment: 'EFN',
     customROICalc: 35.00,
-
-    topOffers: true,
-    keepa: true,
-    storeGeoLocation: false,
-    darkMode: false,
-
-    showProfit: true,
-    showProfitMargin: false,
-    showROI: true,
-    showBreakeven: false,
-    showOfferSummary: true,
-
-    showPricesChart: true,
-    showSoldChart: true,
-    showOffersChart: true,
-    chartsTimeSpan: 'All Time'
-
+    chartsTimeFrame: 'All Time'
   });
+
+  useEffect(() => {
+
+    const loadPreferences = async () => {
+      try {
+        const docSnap = await getDoc(userPreferencesRef);
+        if (docSnap.exists()) {
+          const data = docSnap.data();
+          if (data.toggles) setToggles(data.toggles);
+          if (data.settings) setSettings(data.settings);
+        }
+      } catch (error) {
+        console.error('Error loading preferences:', error);
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    loadPreferences();
+  }, [user.uid]);
 
   const handleChange = (e) => {
     const { name, value, type } = e.target;
     setSettings(prev => ({
       ...prev,
-      [name]: type === 'checkbox' ? e.target.checked : value
+      [name]: type === 'number' ? parseFloat(value) : value
     }));
   };
 
-  const handleToggleButton = (name, value) => {
-    setSettings(prev => ({
-      ...prev,
-      [name]: value
-    }));
+  const handleToggleChange = (name) => {
+    setToggles(prev => {
+      const newValue = !prev[name];
+      return {
+        ...prev,
+        [name]: newValue
+      };
+    });
+  };
+  
+  const handleSave = async () => {
+    try {
+      await setDoc(userPreferencesRef, {
+        settings,
+        toggles
+      // }, { merge: true });
+      });
+      console.log('Settings saved successfully');
+    } catch (error) {
+      console.error('Error saving settings:', error);
+    }
   };
 
-  const handleSave = () => {
-    console.log('Saving settings:', settings);
-  };
+  const ToggleSwitch = ({ name, value, onChange }) => (
+    <button
+      type="button"
+      onClick={(e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        onChange(name);
+      }}
+      aria-checked={value}
+      role="switch"
+      className={`w-10 h-5 flex items-center rounded-full p-1 transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 ${
+        value ? 'bg-blue-500' : 'bg-gray-300'
+      }`}
+    >
+      <div
+        className={`w-4 h-4 bg-white rounded-full shadow-md transform transition-transform duration-200 ease-in-out ${
+          value ? 'translate-x-5' : 'translate-x-0'
+        }`}
+      />
+    </button>
+  );
 
   return (
     <div className="p-6 max-w-4xl mx-auto space-y-6">
+
+    {loading ? (
+      <div className="text-center w-full h-96 ">Loading...</div>
+    ) : (
+      <div>
 
       <div className="bg-white rounded-lg shadow">
         <div className="bg-gray-100 px-4 py-2 rounded-t-lg border-b">
@@ -112,7 +164,6 @@ const AdditionalSettings = () => {
             <label className="flex items-center justify-between">
               <span className="text-gray-700">Minimum Profit</span>
               <div className="flex items-center">
-                <span className="mr-2 text-gray-600">$</span>
                 <input
                   type="number"
                   name="minProfit"
@@ -121,6 +172,7 @@ const AdditionalSettings = () => {
                   className="w-24 px-3 py-2 border rounded-lg focus:ring-blue-600 focus:border-blue-600"
                   step="0.01"
                 />
+                <span className="ml-2 text-gray-600">$</span>
               </div>
             </label>
             <label className="flex items-center justify-between">
@@ -141,6 +193,7 @@ const AdditionalSettings = () => {
         </div>
       </div>
 
+        {/* Additional Costs */}
       <div className="bg-white rounded-lg shadow">
         <div className="bg-gray-100 px-4 py-2 rounded-t-lg border-b">
           <h2 className="text-lg font-semibold text-gray-800">Additional Costs</h2>
@@ -150,7 +203,6 @@ const AdditionalSettings = () => {
             <label className="flex items-center justify-between">
               <span className="text-gray-700">Prep Fee</span>
               <div className="flex items-center">
-                <span className="mr-2 text-gray-600">$</span>
                 <input
                   type="number"
                   name="prepFee"
@@ -159,12 +211,12 @@ const AdditionalSettings = () => {
                   className="w-24 px-3 py-2 border rounded-lg focus:ring-blue-600 focus:border-blue-600"
                   step="0.01"
                 />
+                <span className="ml-2 text-gray-600">$</span>
               </div>
             </label>
             <label className="flex items-center justify-between">
               <span className="text-gray-700">Misc Fee</span>
               <div className="flex items-center">
-                <span className="mr-2 text-gray-600">$</span>
                 <input
                   type="number"
                   name="miscFee"
@@ -173,6 +225,8 @@ const AdditionalSettings = () => {
                   className="w-24 px-3 py-2 border rounded-lg focus:ring-blue-600 focus:border-blue-600"
                   step="0.01"
                 />
+                <span className="ml-2 text-gray-600">$</span>
+
               </div>
             </label>
             <label className="flex items-center justify-between">
@@ -190,9 +244,8 @@ const AdditionalSettings = () => {
               </div>
             </label>
             <label className="flex items-center justify-between">
-              <span className="text-gray-700">Inbound Shipping</span>
+              <span className="text-gray-700">Inbound Shipping (per pound)</span>
               <div className="flex items-center">
-                <span className="mr-2 text-gray-600">$</span>
                 <input
                   type="number"
                   name="inboundShipping"
@@ -201,45 +254,19 @@ const AdditionalSettings = () => {
                   className="w-24 px-3 py-2 border rounded-lg focus:ring-blue-600 focus:border-blue-600"
                   step="0.01"
                 />
-                <span className="ml-2 text-gray-600">per pound</span>
+                <span className="ml-2 text-gray-600">$</span>
               </div>
             </label>
-            <label className="flex items-center justify-between col-span-2">
-              <span className="text-gray-700">Inbound Placement (.com only)</span>
-              <select
-                name="inboundPlacement"
-                value={settings.inboundPlacement}
-                onChange={handleChange}
-                className="w-64 px-3 py-2 border rounded-lg focus:ring-blue-600 focus:border-blue-600"
-              >
-                <option value="Amazon Optimized Splits">Amazon Optimized Splits</option>
-                <option value="Inventory Placement">Inventory Placement</option>
-              </select>
-            </label>
+            <div className='flex flex-col gap-4'>
             <label className="flex items-center justify-between">
               <span className="text-gray-700">Use Peak Storage Fees</span>
-              <div className="flex items-center">
-                <input
-                  type="checkbox"
-                  name="usePeakStorage"
-                  checked={settings.usePeakStorage}
-                  onChange={handleChange}
-                  className="w-5 h-5 text-blue-600 border-gray-300 rounded focus:ring-blue-600"
-                />
-              </div>
+              <ToggleSwitch name="peakStorageFee" value={toggles.peakStorageFee} onChange={handleToggleChange} />
             </label>
             <label className="flex items-center justify-between">
-              <span className="text-gray-700">Enabled CEP Storage</span>
-              <div className="flex items-center">
-                <input
-                  type="checkbox"
-                  name="enabledCEPStorage"
-                  checked={settings.enabledCEPStorage}
-                  onChange={handleChange}
-                  className="w-5 h-5 text-blue-600 border-gray-300 rounded focus:ring-blue-600"
-                />
-              </div>
-            </label>
+  <span className="text-gray-700">Enable CEP Storage</span>
+  <ToggleSwitch name="CEPStorage" value={toggles.CEPStorage} onChange={handleToggleChange} />
+</label>
+            </div>
           </div>
         </div>
       </div>
@@ -282,7 +309,6 @@ const AdditionalSettings = () => {
             <label className="flex items-center justify-between">
               <span className="text-gray-700">FBM Cost</span>
               <div className="flex items-center">
-                <span className="mr-2 text-gray-600">$</span>
                 <input
                   type="number"
                   name="fbmCost"
@@ -291,6 +317,8 @@ const AdditionalSettings = () => {
                   className="w-24 px-3 py-2 border rounded-lg focus:ring-blue-600 focus:border-blue-600"
                   step="0.01"
                 />
+                <span className="ml-2 text-gray-600">$</span>
+
               </div>
             </label>
 
@@ -309,37 +337,16 @@ const AdditionalSettings = () => {
             </label>
 
             <label className="flex items-center justify-between">
-              <span className="text-gray-700">Local Fulfillment</span>
-              <div className="flex gap-2">
-                <button
-                  type="button"
-                  onClick={() => handleToggleButton('localFulfillment', 'FBA')}
-                  className={`px-4 py-2 rounded ${
-                    settings.localFulfillment === 'FBA'
-                      ? 'bg-blue-600 text-white'
-                      : 'bg-gray-200 text-gray-700'
-                  }`}
-                >
-                  FBA
-                </button>
-              </div>
-            </label>
-
-            <label className="flex items-center justify-between">
-              <span className="text-gray-700">European Fulfillment</span>
-              <div className="flex gap-2">
-                <button
-                  type="button"
-                  onClick={() => handleToggleButton('europeanFulfillment', 'EFN')}
-                  className={`px-4 py-2 rounded ${
-                    settings.europeanFulfillment === 'EFN'
-                      ? 'bg-blue-600 text-white'
-                      : 'bg-gray-200 text-gray-700'
-                  }`}
-                >
-                  EFN
-                </button>
-              </div>
+              <span className="text-gray-700">Fulfillment</span>
+              <select
+                name="fulfilment"
+                value={settings.fulfilment}
+                onChange={handleChange}
+                className="w-48 px-3 py-2 border rounded-lg focus:ring-blue-600 focus:border-blue-600"
+              >
+                <option value="FBA">FBA</option>
+                <option value="FBM">FBM</option>
+              </select>
             </label>
 
             <label className="flex items-center justify-between">
@@ -366,69 +373,30 @@ const AdditionalSettings = () => {
         </div>
         <div className="p-4 space-y-4">
           <div className="grid grid-cols-2 gap-4">
-            <label className="flex items-center justify-between">
-              <span className="text-gray-700">Top Offers on Search Results</span>
-              <div className="flex gap-2">
-                <button
-                  type="button"
-                  onClick={() => handleToggleButton('topOffers', true)}
-                  className={`px-4 py-2 rounded ${
-                    settings.topOffers ? 'bg-blue-600 text-white' : 'bg-gray-200 text-gray-700'
-                  }`}
-                >
-                  Yes
-                </button>
-              </div>
-            </label>
+          <label className="flex items-center justify-between">
+  <span className="text-gray-700">Top Offers on Search Results</span>
+  <ToggleSwitch name="topOffers" value={toggles.topOffers} onChange={handleToggleChange} />
+</label>
 
-            <label className="flex items-center justify-between">
-              <span className="text-gray-700">Keepa on Search Results</span>
-              <div className="flex gap-2">
-                <button
-                  type="button"
-                  onClick={() => handleToggleButton('keepa', true)}
-                  className={`px-4 py-2 rounded ${
-                    settings.keepa ? 'bg-blue-600 text-white' : 'bg-gray-200 text-gray-700'
-                  }`}
-                >
-                  Yes
-                </button>
-              </div>
-            </label>
+<label className="flex items-center justify-between">
+  <span className="text-gray-700">Keepa on Search Results</span>
+  <ToggleSwitch name="keepaOnSearch" value={toggles.keepaOnSearch} onChange={handleToggleChange} />
+</label>
 
-            <label className="flex items-center justify-between">
-              <span className="text-gray-700">Store Geo Location</span>
-              <div className="flex gap-2">
-                <button
-                  type="button"
-                  onClick={() => handleToggleButton('storeGeoLocation', false)}
-                  className={`px-4 py-2 rounded ${
-                    !settings.storeGeoLocation ? 'bg-blue-600 text-white' : 'bg-gray-200 text-gray-700'
-                  }`}
-                >
-                  No
-                </button>
-              </div>
-            </label>
+<label className="flex items-center justify-between">
+  <span className="text-gray-700">Store Geo Location</span>
+  <ToggleSwitch name="storeGeoLocation" value={toggles.storeGeoLocation} onChange={handleToggleChange} />
+</label>
 
-            <label className="flex items-center justify-between">
-              <span className="text-gray-700">Dark Mode (Beta)</span>
-              <div className="flex gap-2">
-                <button
-                  type="button"
-                  onClick={() => handleToggleButton('darkMode', false)}
-                  className={`px-4 py-2 rounded ${
-                    !settings.darkMode ? 'bg-blue-600 text-white' : 'bg-gray-200 text-gray-700'
-                  }`}
-                >
-                  No
-                </button>
-              </div>
-            </label>
+<label className="flex items-center justify-between">
+  <span className="text-gray-700">Dark Mode (Beta)</span>
+  <ToggleSwitch name="darkMode" value={toggles.darkMode} onChange={handleToggleChange} />
+</label>
           </div>
         </div>
       </div>
 
+      {/* Quick Info Section */}
       <div className="bg-white rounded-lg shadow">
         <div className="bg-gray-100 px-4 py-2 rounded-t-lg border-b">
           <h2 className="text-lg font-semibold text-gray-800">Quick Info</h2>
@@ -437,82 +405,33 @@ const AdditionalSettings = () => {
           <div className="grid grid-cols-2 gap-4">
             <label className="flex items-center justify-between">
               <span className="text-gray-700">Show Profit</span>
-              <div className="flex gap-2">
-                <button
-                  type="button"
-                  onClick={() => handleToggleButton('showProfit', true)}
-                  className={`px-4 py-2 rounded ${
-                    settings.showProfit ? 'bg-blue-600 text-white' : 'bg-gray-200 text-gray-700'
-                  }`}
-                >
-                  Yes
-                </button>
-              </div>
+              <ToggleSwitch name="showProfit" value={toggles.showProfit} onChange={handleToggleChange} />
             </label>
 
             <label className="flex items-center justify-between">
               <span className="text-gray-700">Show Profit Margin</span>
-              <div className="flex gap-2">
-                <button
-                  type="button"
-                  onClick={() => handleToggleButton('showProfitMargin', false)}
-                  className={`px-4 py-2 rounded ${
-                    !settings.showProfitMargin ? 'bg-blue-600 text-white' : 'bg-gray-200 text-gray-700'
-                  }`}
-                >
-                  No
-                </button>
-              </div>
+              <ToggleSwitch name="showProfitMargin" value={toggles.showProfitMargin} onChange={handleToggleChange} />
             </label>
 
             <label className="flex items-center justify-between">
               <span className="text-gray-700">Show ROI</span>
-              <div className="flex gap-2">
-                <button
-                  type="button"
-                  onClick={() => handleToggleButton('showROI', true)}
-                  className={`px-4 py-2 rounded ${
-                    settings.showROI ? 'bg-blue-600 text-white' : 'bg-gray-200 text-gray-700'
-                  }`}
-                >
-                  Yes
-                </button>
-              </div>
+              <ToggleSwitch name="showROI" value={toggles.showROI} onChange={handleToggleChange} />
             </label>
 
             <label className="flex items-center justify-between">
               <span className="text-gray-700">Show Breakeven</span>
-              <div className="flex gap-2">
-                <button
-                  type="button"
-                  onClick={() => handleToggleButton('showBreakeven', false)}
-                  className={`px-4 py-2 rounded ${
-                    !settings.showBreakeven ? 'bg-blue-600 text-white' : 'bg-gray-200 text-gray-700'
-                  }`}
-                >
-                  No
-                </button>
-              </div>
+              <ToggleSwitch name="showBreakeven" value={toggles.showBreakeven} onChange={handleToggleChange} />
             </label>
 
             <label className="flex items-center justify-between">
               <span className="text-gray-700">Show Offer Summary</span>
-              <div className="flex gap-2">
-                <button
-                  type="button"
-                  onClick={() => handleToggleButton('showOfferSummary', true)}
-                  className={`px-4 py-2 rounded ${
-                    settings.showOfferSummary ? 'bg-blue-600 text-white' : 'bg-gray-200 text-gray-700'
-                  }`}
-                >
-                  Yes
-                </button>
-              </div>
+              <ToggleSwitch name="showOfferSummary" value={toggles.showOfferSummary} onChange={handleToggleChange} />
             </label>
           </div>
         </div>
       </div>
 
+      {/* Charts Section */}
       <div className="bg-white rounded-lg shadow">
         <div className="bg-gray-100 px-4 py-2 rounded-t-lg border-b">
           <h2 className="text-lg font-semibold text-gray-800">Charts</h2>
@@ -521,47 +440,17 @@ const AdditionalSettings = () => {
           <div className="grid grid-cols-2 gap-4">
             <label className="flex items-center justify-between">
               <span className="text-gray-700">Show Prices Chart</span>
-              <div className="flex gap-2">
-                <button
-                  type="button"
-                  onClick={() => handleToggleButton('showPricesChart', true)}
-                  className={`px-4 py-2 rounded ${
-                    settings.showPricesChart ? 'bg-blue-600 text-white' : 'bg-gray-200 text-gray-700'
-                  }`}
-                >
-                  Yes
-                </button>
-              </div>
+              <ToggleSwitch name="showPricesChart" value={toggles.showPricesChart} onChange={handleToggleChange} />
             </label>
 
             <label className="flex items-center justify-between">
               <span className="text-gray-700">Show Sold Chart</span>
-              <div className="flex gap-2">
-                <button
-                  type="button"
-                  onClick={() => handleToggleButton('showSoldChart', true)}
-                  className={`px-4 py-2 rounded ${
-                    settings.showSoldChart ? 'bg-blue-600 text-white' : 'bg-gray-200 text-gray-700'
-                  }`}
-                >
-                  Yes
-                </button>
-              </div>
+              <ToggleSwitch name="showSoldChart" value={toggles.showSoldChart} onChange={handleToggleChange} />
             </label>
 
             <label className="flex items-center justify-between">
               <span className="text-gray-700">Show Offers Chart</span>
-              <div className="flex gap-2">
-                <button
-                  type="button"
-                  onClick={() => handleToggleButton('showOffersChart', true)}
-                  className={`px-4 py-2 rounded ${
-                    settings.showOffersChart ? 'bg-blue-600 text-white' : 'bg-gray-200 text-gray-700'
-                  }`}
-                >
-                  Yes
-                </button>
-              </div>
+              <ToggleSwitch name="showOffersChart" value={toggles.showOffersChart} onChange={handleToggleChange} />
             </label>
 
             <label className="flex items-center justify-between">
@@ -587,10 +476,10 @@ const AdditionalSettings = () => {
         <button
           onClick={handleSave}
           className="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors"
-        >
-          Save Settings
-        </button>
+        > Save Settings </button>
       </div>
+      </div>
+    )}
 
     </div>
   );

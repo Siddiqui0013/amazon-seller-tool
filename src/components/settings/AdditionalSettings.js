@@ -4,28 +4,22 @@ import { db } from "../../firebase"
 import { doc, setDoc, getDoc } from 'firebase/firestore';
 import { useUser } from "../../UserContext";
 
+import { ToastContainer, toast } from 'react-toastify';
+
+
 const AdditionalSettings = () => {
 
   const [loading, setLoading] = useState(true);
+  const [ saveLoading, setSaveLoading ] = useState(false);
 
   const { user } = useUser();
   const userPreferencesRef = doc(db, 'userPreferences', user.uid);
   const [toggles, setToggles] = useState({
-    peakStorageFee: false,
-    CEPStorage: false,
-    topOffers: false,
-    keepaOnSearch: false,
     showProfit: false,
     showRoi: false,
-    showOfferSummary: false,
-    pushNotifications: false,
     showPricesChart: false,
-    showSoldChart: false,
-    showOffersChart: false,
-    showProfitMargin: false,
-    showBreakeven: false,
-    storeGeoLocation: false,
-    darkMode: false,
+    showSalesChart: false,
+    showBBChart : false,
   });
 
   const [settings, setSettings] = useState({
@@ -35,15 +29,10 @@ const AdditionalSettings = () => {
     minROI: 0.00,
     prepFee: 0.00,
     miscFee: 0.00,
-    fulfilment: 'FBA',
-    miscFeePercentage: 0.00,
     inboundShipping: 0.60,
-    ranksPricesTimeFrame: 'Current',
-    buyBoxTimeFrame: '90 Days',
     fbmCost: 0.00,
     storageTime: 0,
-    customROICalc: 35.00,
-    chartsTimeFrame: 'All Time'
+    chartsTimeSpan: 1,
   });
 
   useEffect(() => {
@@ -85,6 +74,7 @@ const AdditionalSettings = () => {
   };
   
   const handleSave = async () => {
+    setSaveLoading(true);
     try {
       await setDoc(userPreferencesRef, {
         settings,
@@ -92,6 +82,8 @@ const AdditionalSettings = () => {
       // }, { merge: true });
       });
       console.log('Settings saved successfully');
+      toast.success('Settings saved successfully');
+      setSaveLoading(false);
     } catch (error) {
       console.error('Error saving settings:', error);
     }
@@ -120,13 +112,35 @@ const AdditionalSettings = () => {
   );
 
   return (
-    <div className="p-6 max-w-4xl mx-auto space-y-6">
+    <div className="p-6 relative max-w-4xl mx-auto">
+      <ToastContainer
+        position="top-center"
+        autoClose={3000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
+
+      {saveLoading && (
+        <div className="fixed inset-0 flex items-center justify-center z-50">
+          <div className="absolute inset-0 bg-gray-900 opacity-80" />
+          <div className="bg-white rounded-lg">
+            <div className="flex items-center justify-center">
+              <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-gray-900" />
+            </div>
+          </div>
+        </div>)}
 
     {loading ? (
       <div className="text-center w-full h-96 ">Loading...</div>
     ) : (
-      <div>
+      <div className='space-y-6'>
 
+      {/* Buying Criteria */}
       <div className="bg-white rounded-lg shadow">
         <div className="bg-gray-100 px-4 py-2 rounded-t-lg border-b">
           <h2 className="text-lg font-semibold text-gray-800">Buying Criteria</h2>
@@ -200,6 +214,7 @@ const AdditionalSettings = () => {
         </div>
         <div className="p-4 space-y-4">
           <div className="grid grid-cols-2 gap-4">
+
             <label className="flex items-center justify-between">
               <span className="text-gray-700">Prep Fee</span>
               <div className="flex items-center">
@@ -214,6 +229,7 @@ const AdditionalSettings = () => {
                 <span className="ml-2 text-gray-600">$</span>
               </div>
             </label>
+
             <label className="flex items-center justify-between">
               <span className="text-gray-700">Misc Fee</span>
               <div className="flex items-center">
@@ -229,7 +245,8 @@ const AdditionalSettings = () => {
 
               </div>
             </label>
-            <label className="flex items-center justify-between">
+
+            {/* <label className="flex items-center justify-between">
               <span className="text-gray-700">Misc Fee (%)</span>
               <div className="flex items-center">
                 <input
@@ -242,7 +259,8 @@ const AdditionalSettings = () => {
                 />
                 <span className="ml-2 text-gray-600">%</span>
               </div>
-            </label>
+            </label> */}
+
             <label className="flex items-center justify-between">
               <span className="text-gray-700">Inbound Shipping (per pound)</span>
               <div className="flex items-center">
@@ -257,7 +275,10 @@ const AdditionalSettings = () => {
                 <span className="ml-2 text-gray-600">$</span>
               </div>
             </label>
-            <div className='flex flex-col gap-4'>
+
+            </div>
+
+            {/* <div className='flex flex-col gap-4'>
             <label className="flex items-center justify-between">
               <span className="text-gray-700">Use Peak Storage Fees</span>
               <ToggleSwitch name="peakStorageFee" value={toggles.peakStorageFee} onChange={handleToggleChange} />
@@ -266,18 +287,19 @@ const AdditionalSettings = () => {
   <span className="text-gray-700">Enable CEP Storage</span>
   <ToggleSwitch name="CEPStorage" value={toggles.CEPStorage} onChange={handleToggleChange} />
 </label>
-            </div>
-          </div>
+            </div> */}
         </div>
       </div>
 
+        {/* Default Values */}
       <div className="bg-white rounded-lg shadow">
         <div className="bg-gray-100 px-4 py-2 rounded-t-lg border-b">
           <h2 className="text-lg font-semibold text-gray-800">Default Values</h2>
         </div>
         <div className="p-4 space-y-4">
           <div className="grid grid-cols-2 gap-4">
-            <label className="flex items-center justify-between">
+
+            {/* <label className="flex items-center justify-between">
               <span className="text-gray-700">Ranks & Prices Time Frame</span>
               <select
                 name="ranksPricesTimeFrame"
@@ -290,9 +312,9 @@ const AdditionalSettings = () => {
                 <option value="30 Days">30 Days</option>
                 <option value="90 Days">90 Days</option>
               </select>
-            </label>
+            </label> */}
             
-            <label className="flex items-center justify-between">
+            {/* <label className="flex items-center justify-between">
               <span className="text-gray-700">Buy Box Time Frame</span>
               <select
                 name="buyBoxTimeFrame"
@@ -304,7 +326,7 @@ const AdditionalSettings = () => {
                 <option value="30 Days">30 Days</option>
                 <option value="7 Days">7 Days</option>
               </select>
-            </label>
+            </label> */}
 
             <label className="flex items-center justify-between">
               <span className="text-gray-700">FBM Cost</span>
@@ -318,7 +340,6 @@ const AdditionalSettings = () => {
                   step="0.01"
                 />
                 <span className="ml-2 text-gray-600">$</span>
-
               </div>
             </label>
 
@@ -336,7 +357,7 @@ const AdditionalSettings = () => {
               </div>
             </label>
 
-            <label className="flex items-center justify-between">
+            {/* <label className="flex items-center justify-between">
               <span className="text-gray-700">Fulfillment</span>
               <select
                 name="fulfilment"
@@ -347,9 +368,9 @@ const AdditionalSettings = () => {
                 <option value="FBA">FBA</option>
                 <option value="FBM">FBM</option>
               </select>
-            </label>
+            </label> */}
 
-            <label className="flex items-center justify-between">
+            {/* <label className="flex items-center justify-between">
               <span className="text-gray-700">Custom ROI Calc</span>
               <div className="flex items-center">
                 <input
@@ -362,17 +383,20 @@ const AdditionalSettings = () => {
                 />
                 <span className="ml-2 text-gray-600">%</span>
               </div>
-            </label>
+            </label> */}
+
           </div>
         </div>
       </div>
 
-      <div className="bg-white rounded-lg shadow">
+        {/* Misc */}
+      {/* <div className="bg-white rounded-lg shadow">
         <div className="bg-gray-100 px-4 py-2 rounded-t-lg border-b">
           <h2 className="text-lg font-semibold text-gray-800">Miscellaneous</h2>
         </div>
         <div className="p-4 space-y-4">
           <div className="grid grid-cols-2 gap-4">
+
           <label className="flex items-center justify-between">
   <span className="text-gray-700">Top Offers on Search Results</span>
   <ToggleSwitch name="topOffers" value={toggles.topOffers} onChange={handleToggleChange} />
@@ -394,7 +418,7 @@ const AdditionalSettings = () => {
 </label>
           </div>
         </div>
-      </div>
+      </div> */}
 
       {/* Quick Info Section */}
       <div className="bg-white rounded-lg shadow">
@@ -402,31 +426,17 @@ const AdditionalSettings = () => {
           <h2 className="text-lg font-semibold text-gray-800">Quick Info</h2>
         </div>
         <div className="p-4 space-y-4">
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 gap-4 md:w-[30%]">
             <label className="flex items-center justify-between">
               <span className="text-gray-700">Show Profit</span>
               <ToggleSwitch name="showProfit" value={toggles.showProfit} onChange={handleToggleChange} />
             </label>
 
             <label className="flex items-center justify-between">
-              <span className="text-gray-700">Show Profit Margin</span>
-              <ToggleSwitch name="showProfitMargin" value={toggles.showProfitMargin} onChange={handleToggleChange} />
-            </label>
-
-            <label className="flex items-center justify-between">
               <span className="text-gray-700">Show ROI</span>
-              <ToggleSwitch name="showROI" value={toggles.showROI} onChange={handleToggleChange} />
+              <ToggleSwitch name="showRoi" value={toggles.showRoi} onChange={handleToggleChange} />
             </label>
 
-            <label className="flex items-center justify-between">
-              <span className="text-gray-700">Show Breakeven</span>
-              <ToggleSwitch name="showBreakeven" value={toggles.showBreakeven} onChange={handleToggleChange} />
-            </label>
-
-            <label className="flex items-center justify-between">
-              <span className="text-gray-700">Show Offer Summary</span>
-              <ToggleSwitch name="showOfferSummary" value={toggles.showOfferSummary} onChange={handleToggleChange} />
-            </label>
           </div>
         </div>
       </div>
@@ -437,23 +447,23 @@ const AdditionalSettings = () => {
           <h2 className="text-lg font-semibold text-gray-800">Charts</h2>
         </div>
         <div className="p-4 space-y-4">
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 w-[30%] gap-4">
             <label className="flex items-center justify-between">
               <span className="text-gray-700">Show Prices Chart</span>
               <ToggleSwitch name="showPricesChart" value={toggles.showPricesChart} onChange={handleToggleChange} />
             </label>
 
             <label className="flex items-center justify-between">
-              <span className="text-gray-700">Show Sold Chart</span>
-              <ToggleSwitch name="showSoldChart" value={toggles.showSoldChart} onChange={handleToggleChange} />
+              <span className="text-gray-700">Show Sales-Rank Chart</span>
+              <ToggleSwitch name="showSalesChart" value={toggles.showSalesChart} onChange={handleToggleChange} />
             </label>
 
             <label className="flex items-center justify-between">
-              <span className="text-gray-700">Show Offers Chart</span>
-              <ToggleSwitch name="showOffersChart" value={toggles.showOffersChart} onChange={handleToggleChange} />
+              <span className="text-gray-700">Show BuyBox Chart</span>
+              <ToggleSwitch name="showBBChart" value={toggles.showBBChart} onChange={handleToggleChange} />
             </label>
-
-            <label className="flex items-center justify-between">
+          </div>
+          <label className="flex items-center justify-start gap-20">
               <span className="text-gray-700">Charts Time Span</span>
               <select
                 name="chartsTimeSpan"
@@ -461,14 +471,13 @@ const AdditionalSettings = () => {
                 onChange={handleChange}
                 className="w-48 px-3 py-2 border rounded-lg focus:ring-blue-600 focus:border-blue-600"
               >
-                <option value="All Time">All Time</option>
-                <option value="1 Year">1 Year</option>
-                <option value="6 Months">6 Months</option>
-                <option value="3 Months">3 Months</option>
-                <option value="1 Month">1 Month</option>
+                <option value="1">Today</option>
+                <option value="7">1 Week</option>
+                <option value="31">1 Month</option>
+                <option value="90">3 Months</option>
+                <option value="365">1 Year</option>
               </select>
             </label>
-          </div>
         </div>
       </div>
 
@@ -477,6 +486,7 @@ const AdditionalSettings = () => {
           onClick={handleSave}
           className="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors"
         > Save Settings </button>
+
       </div>
       </div>
     )}

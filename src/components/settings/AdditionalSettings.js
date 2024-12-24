@@ -1,11 +1,8 @@
-import { useState, useEffect } from 'react';
-
+import { useState, useEffect, useMemo, useCallback } from 'react';
 import { db } from "../../firebase"
 import { doc, setDoc, getDoc } from 'firebase/firestore';
 import { useUser } from "../../UserContext";
-
 import { ToastContainer, toast } from 'react-toastify';
-
 
 const AdditionalSettings = () => {
 
@@ -13,7 +10,9 @@ const AdditionalSettings = () => {
   const [ saveLoading, setSaveLoading ] = useState(false);
 
   const { user } = useUser();
-  const userPreferencesRef = doc(db, 'userPreferences', user.uid);
+
+  const userPreferencesRef = useMemo(() => doc(db, 'userPreferences', user.uid), [user.uid]);
+
   const [toggles, setToggles] = useState({
     showProfit: false,
     showRoi: false,
@@ -53,17 +52,17 @@ const AdditionalSettings = () => {
     }
 
     loadPreferences();
-  }, [user.uid]);
+  }, []);
 
-  const handleChange = (e) => {
+  const handleChange = useCallback((e) => {
     const { name, value, type } = e.target;
     setSettings(prev => ({
       ...prev,
       [name]: type === 'number' ? parseFloat(value) : value
     }));
-  };
+  }, []);
 
-  const handleToggleChange = (name) => {
+  const handleToggleChange = useCallback((name) => {
     setToggles(prev => {
       const newValue = !prev[name];
       return {
@@ -71,7 +70,7 @@ const AdditionalSettings = () => {
         [name]: newValue
       };
     });
-  };
+  }, []);
   
   const handleSave = async () => {
     setSaveLoading(true);
@@ -113,17 +112,7 @@ const AdditionalSettings = () => {
 
   return (
     <div className="p-6 relative max-w-4xl mx-auto">
-      <ToastContainer
-        position="top-center"
-        autoClose={3000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-      />
+      <ToastContainer/>
 
       {saveLoading && (
         <div className="fixed inset-0 flex items-center justify-center z-50">
@@ -389,37 +378,6 @@ const AdditionalSettings = () => {
         </div>
       </div>
 
-        {/* Misc */}
-      {/* <div className="bg-white rounded-lg shadow">
-        <div className="bg-gray-100 px-4 py-2 rounded-t-lg border-b">
-          <h2 className="text-lg font-semibold text-gray-800">Miscellaneous</h2>
-        </div>
-        <div className="p-4 space-y-4">
-          <div className="grid grid-cols-2 gap-4">
-
-          <label className="flex items-center justify-between">
-  <span className="text-gray-700">Top Offers on Search Results</span>
-  <ToggleSwitch name="topOffers" value={toggles.topOffers} onChange={handleToggleChange} />
-</label>
-
-<label className="flex items-center justify-between">
-  <span className="text-gray-700">Keepa on Search Results</span>
-  <ToggleSwitch name="keepaOnSearch" value={toggles.keepaOnSearch} onChange={handleToggleChange} />
-</label>
-
-<label className="flex items-center justify-between">
-  <span className="text-gray-700">Store Geo Location</span>
-  <ToggleSwitch name="storeGeoLocation" value={toggles.storeGeoLocation} onChange={handleToggleChange} />
-</label>
-
-<label className="flex items-center justify-between">
-  <span className="text-gray-700">Dark Mode (Beta)</span>
-  <ToggleSwitch name="darkMode" value={toggles.darkMode} onChange={handleToggleChange} />
-</label>
-          </div>
-        </div>
-      </div> */}
-
       {/* Quick Info Section */}
       <div className="bg-white rounded-lg shadow">
         <div className="bg-gray-100 px-4 py-2 rounded-t-lg border-b">
@@ -486,11 +444,9 @@ const AdditionalSettings = () => {
           onClick={handleSave}
           className="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors"
         > Save Settings </button>
-
       </div>
       </div>
     )}
-
     </div>
   );
 };

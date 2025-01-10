@@ -4,6 +4,7 @@ import { CiHome, CiBoxes, CiCalendar, CiSettings,CiMoneyBill,CiClock2  } from "r
 import { HiOutlineCube } from "react-icons/hi2";
 import { IoIosTrendingUp  } from "react-icons/io";
 import { } from "firebase/auth"
+import logo from "../../assets/logo.png"
 
 export default function Navbar() {
 
@@ -12,7 +13,9 @@ export default function Navbar() {
   const nav = useNavigate();
   return (
     <div className=" h-screen sticky top-0  md:w-[18%] bg-white shadow">
-      <div className="p-4  cursor-pointer text-xl font-bold text-blue-700" onClick={() => nav('/') }>Logo</div>
+      <div className="p-4  cursor-pointer text-xl font-bold text-blue-700" onClick={() => nav('/') }>
+        <img src={logo} alt="logo" className="w-1/2" />
+      </div>
       <nav className="flex items-center md:items-stretch flex-col mt-3">
         <NavLink
           to="/"

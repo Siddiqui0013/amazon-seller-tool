@@ -66,7 +66,7 @@ const ProfitAnalytics = () => {
     { name: "Mar", SalesA: 1500, SalesB: 1700 },
     ];
     const bars = [
-    { dataKey: "SalesB", color: "#FF9900" },
+    { dataKey: "SalesB", color: "#5ABDF5" },
     ];
 
   return (
@@ -84,7 +84,7 @@ const ProfitAnalytics = () => {
         areaKey="amt"
         areaColor="#82ca9d"
         barKey="pv"
-        barColor="#8884d8"
+        barColor="#5ABDF5"
         barSize={30}
       />
       </div>

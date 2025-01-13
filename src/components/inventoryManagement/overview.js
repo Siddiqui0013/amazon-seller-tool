@@ -100,9 +100,9 @@ export default function App() {
 <div className="flex justify-between pt-4">
 <h1 className="text-xl font-semibold">Product List with Key Metrics</h1>
       <div className="flex gap-4 mb-4">
-        <button className="px-4 py-2 border-[2px] border-blue-500 rounded-full">Category</button>
-        <button className="px-4 py-2 border-[2px] border-blue-500 rounded-full">Supplier</button>
-        <button className="px-4 py-2 border-[2px] border-blue-500 rounded-full">Fulfillment Method</button>
+        <button className="px-4 py-2 border-[2px] border-primary rounded-full">Category</button>
+        <button className="px-4 py-2 border-[2px] border-primary rounded-full">Supplier</button>
+        <button className="px-4 py-2 border-[2px] border-primary rounded-full">Fulfillment Method</button>
       </div>
 
 </div>

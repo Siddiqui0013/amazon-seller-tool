@@ -56,7 +56,7 @@ function Dashboard() {
     },
   ];
   const TreeColors = [
-    "#8889DD",
+    "#187AA9",
     "#9597E4",
     "#8DC77B",
     "#A5D297",
@@ -68,7 +68,7 @@ function Dashboard() {
     { name: "Completed", value: 70 },
     { name: "Remaining", value: 30 },
   ];
-  const ProgressColors = ["#0E4DA4", "#D3D3D3"]; 
+  const ProgressColors = ["#5ABDF5", "#D3D3D3"]; 
 
 
   return (

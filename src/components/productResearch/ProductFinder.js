@@ -476,6 +476,13 @@ function ProductFinder() {
 					>
 						Find Products
 					</button>
+					
+					{/* <button
+						onClick={testing}
+						className="bg-[#FF9900] text-white p-2 mt-6 rounded w-full hover:bg-[#FF8800]"
+					>
+						Find Products
+					</button> */}
 				</div>
 
 				<div className="bg-gray-50 p-4 shadow-md rounded-md">
@@ -547,12 +554,18 @@ function ProductFinder() {
 					</div>
 
 					<div className="flex justify-between text-white gap-1">
-						<button className="bg-[#FF9900] rounded-md py-2 w-[33%] ">
+						<button className="bg-secondary hover:bg-primary hover:text-black rounded-md py-2 w-[33%] ">
 							Track
 						</button>
-						<button className="bg-[#FF9900] rounded-md py-2 w-[33%] ">
+						{/* <button className="bg-[#FF9900] rounded-md py-2 w-[33%] ">
+							Track
+						</button> */}
+						<button className="bg-primary text-black font-bold rounded-md py-2 w-[33%] ">
 							Analyze
 						</button>
+						{/* <button className="bg-[#FF9900] rounded-md py-2 w-[33%] ">
+							Analyze
+						</button> */}
 						<button className="bg-[#FF9900] rounded-md  w-[33%] "
 						onClick={() => window.open(`https://www.amazon.com/dp/${productDetails.asin}`, "_blank")}
 						// href={`https://www.amazon.com/dp/${productDetails.asin}`}

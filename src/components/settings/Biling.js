@@ -27,7 +27,7 @@ function BillingSubscription() {
           <div className="mt-4">
             <p className="text-sm text-gray-600 mb-1">Usage</p>
             <div className="w-full bg-gray-200 rounded-full h-2">
-              <div className="bg-purple-600 h-2 rounded-full" style={{ width: "97%" }}></div>
+              <div className="bg-secondary h-2 rounded-full" style={{ width: "97%" }}></div>
             </div>
             <p className="text-sm text-gray-600 mt-1">4850 out of 5K monthly active users</p>
           </div>

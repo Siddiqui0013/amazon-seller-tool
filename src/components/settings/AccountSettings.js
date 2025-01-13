@@ -34,39 +34,39 @@ const AMAZON_MARKETPLACES = [
           
           <form className="space-y-4">
             <div>
-              <label className="block text-gray-600 text-sm mb-1">Username</label>
+              <label className="block text-gray-600 text-bold text-lg mb-1">Username</label>
               <input
                 type="text"
                 value={user.displayName}
-                className="w-full px-4 py-2 border border-gray-300 rounded-md bg-purple-50 text-gray-700"
+                className="w-full px-4 py-2 border border-gray-300 rounded-md bg-primary bg-opacity-60 text-gray-700"
                 disabled
               />
             </div>
 
             <div>
-              <label className="block text-gray-600 text-sm mb-1">Email</label>
+              <label className="block text-gray-600 text-bold text-lg mb-1">Email</label>
               <input
                 type="email"
                 value={user.email}
-                className="w-full px-4 py-2 border border-gray-300 rounded-md bg-purple-50 text-gray-700"
+                className="w-full px-4 py-2 border border-gray-300 rounded-md bg-opacity-60 bg-primary text-gray-700"
                 disabled
               />
             </div>
 
             <div>
-              <label className="block text-gray-600 text-sm mb-1">Subscription</label>
+              <label className="block text-gray-600 text-bold text-lg mb-1">Subscription</label>
               <input
                 type="text"
                 value="Getting Serious"
-                className="w-full px-4 py-2 border border-gray-300 rounded-md bg-purple-50 text-gray-700"
+                className="w-full px-4 py-2 border border-gray-300 rounded-md bg-primary bg-opacity-60 text-gray-700"
                 disabled
               />
             </div>
 
             <div>
-              <label className="block text-gray-600 text-sm mb-1">Home Marketplace</label>
+              <label className="block text-gray-600 text-bold text-lg mb-1">Home Marketplace</label>
               <select
-                className="w-full px-4 py-2 border border-gray-300 rounded-md bg-purple-50 text-gray-700"
+                className="w-full px-4 py-2 border border-gray-300 rounded-md bg-primary  bg-opacity-60 text-gray-700"
                 defaultValue="amazon.com"
                 
               >
@@ -84,11 +84,11 @@ const AMAZON_MARKETPLACES = [
             </div>
 
             <div>
-              <label className="block text-gray-600 text-sm mb-1">Merchant Token</label>
+              <label className="block text-gray-600 text-bold text-lg mb-1">Merchant Token</label>
               <input
                 type="text"
                 value="Getting Serious"
-                className="w-full px-4 py-2 border border-gray-300 rounded-md bg-purple-50 text-gray-700"
+                className="w-full px-4 py-2 border border-gray-300 rounded-md bg-opacity-60 bg-primary text-gray-700"
                 disabled
               />
             </div>

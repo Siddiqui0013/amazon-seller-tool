@@ -5,11 +5,11 @@ export default function ApiIntegrationSettings() {
       
       <p className="mb-2">
         Your active subscription level generates 5 tokens per minute and will be renewed on Nov 5, 2024, at 1:59 
-        <a href="#" className="text-blue-600 ml-1">Data Subscription</a>.
+        <a href="#" className="text-secondary ml-1 font-bold">Data Subscription</a>.
       </p>
       <p className="mb-4">
         You can increase your token rate by 
-        <a href="#" className="text-blue-600 ml-1">adding an API subscription</a>.
+        <a href="#" className="text-secondary ml-1 font-bold">adding an API subscription</a>.
       </p>
 
       <div className="mb-4">
@@ -22,7 +22,7 @@ export default function ApiIntegrationSettings() {
         <input
           type="text"
           placeholder="http://..."
-          className="border rounded-lg px-4 py-2 w-60 focus:outline-none focus:ring-2 focus:ring-blue-600"
+          className="border rounded-lg px-4 py-2 w-60 focus:outline-none focus:ring-2 focus:ring-secondary"
         />
         <button className="ml-2 p-2 bg-gray-200 rounded hover:bg-gray-300">
           <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">

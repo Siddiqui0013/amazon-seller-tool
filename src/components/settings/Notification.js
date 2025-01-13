@@ -33,7 +33,7 @@ export default function Notifications() {
             <button
               onClick={() => handleToggleChange('inventoryAlerts')}
               className={`w-10 h-5 flex items-center rounded-full p-1 ${
-                toggles.inventoryAlerts ? 'bg-blue-500' : 'bg-gray-300'
+                toggles.inventoryAlerts ? 'bg-primary' : 'bg-gray-300'
               }`}
             >
               <div
@@ -48,7 +48,7 @@ export default function Notifications() {
             <button
               onClick={() => handleToggleChange('priceChangeAlerts')}
               className={`w-10 h-5 flex items-center rounded-full p-1 ${
-                toggles.priceChangeAlerts ? 'bg-blue-500' : 'bg-gray-300'
+                toggles.priceChangeAlerts ? 'bg-primary' : 'bg-gray-300'
               }`}
             >
               <div
@@ -63,7 +63,7 @@ export default function Notifications() {
             <button
               onClick={() => handleToggleChange('salesPerformance')}
               className={`w-10 h-5 flex items-center rounded-full p-1 ${
-                toggles.salesPerformance ? 'bg-blue-500' : 'bg-gray-300'
+                toggles.salesPerformance ? 'bg-primary' : 'bg-gray-300'
               }`}
             >
               <div
@@ -78,7 +78,7 @@ export default function Notifications() {
             <button
               onClick={() => handleToggleChange('complianceWarnings')}
               className={`w-10 h-5 flex items-center rounded-full p-1 ${
-                toggles.complianceWarnings ? 'bg-blue-500' : 'bg-gray-300'
+                toggles.complianceWarnings ? 'bg-primary' : 'bg-gray-300'
               }`}
             >
               <div
@@ -93,7 +93,7 @@ export default function Notifications() {
             <button
               onClick={() => handleToggleChange('systemDowntime')}
               className={`w-10 h-5 flex items-center rounded-full p-1 ${
-                toggles.systemDowntime ? 'bg-blue-500' : 'bg-gray-300'
+                toggles.systemDowntime ? 'bg-primary' : 'bg-gray-300'
               }`}
             >
               <div
@@ -114,7 +114,7 @@ export default function Notifications() {
             <button
               onClick={() => handleToggleChange('dashboardAlerts')}
               className={`w-10 h-5 flex items-center rounded-full p-1 ${
-                toggles.dashboardAlerts ? 'bg-blue-500' : 'bg-gray-300'
+                toggles.dashboardAlerts ? 'bg-primary' : 'bg-gray-300'
               }`}
             >
               <div
@@ -129,7 +129,7 @@ export default function Notifications() {
             <button
               onClick={() => handleToggleChange('email')}
               className={`w-10 h-5 flex items-center rounded-full p-1 ${
-                toggles.email ? 'bg-blue-500' : 'bg-gray-300'
+                toggles.email ? 'bg-primary' : 'bg-gray-300'
               }`}
             >
               <div
@@ -144,7 +144,7 @@ export default function Notifications() {
             <button
               onClick={() => handleToggleChange('sms')}
               className={`w-10 h-5 flex items-center rounded-full p-1 ${
-                toggles.sms ? 'bg-blue-500' : 'bg-gray-300'
+                toggles.sms ? 'bg-primary' : 'bg-gray-300'
               }`}
             >
               <div
@@ -159,7 +159,7 @@ export default function Notifications() {
             <button
               onClick={() => handleToggleChange('pushNotifications')}
               className={`w-10 h-5 flex items-center rounded-full p-1 ${
-                toggles.pushNotifications ? 'bg-blue-500' : 'bg-gray-300'
+                toggles.pushNotifications ? 'bg-primary' : 'bg-gray-300'
               }`}
             >
               <div

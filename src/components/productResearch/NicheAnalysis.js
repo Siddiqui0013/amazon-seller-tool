@@ -133,7 +133,7 @@ export default function NicheAnalysis() {
             />
           </div>
           <button
-            className="px-4 py-2 bg-blue-500 text-white rounded-r-3xl hover:bg-blue-600"
+            className="px-4 py-2 bg-primary text-white rounded-r-3xl"
             onClick={termsearch}
           >
             Search
@@ -168,6 +168,36 @@ export default function NicheAnalysis() {
       </div>
     </div>      
       )}
+
+      
+      <div className='grid grid-cols-1 p-4 gap-3 mb-6 flex-wrap m-auto justify-evenly'>
+      <div className="bg-gray-50 p-4 border-gray-100 border-2 shadow-md rounded-md">
+        <p className='font-semibold text-lg px-2 py-4'>Trend Graph for niche growth</p>
+        <div className='box-content overflow-hidden'>
+          <Barchart data={termBar} bars={termBars} height={300} color="#0E4DA4" barSize={20} />
+        </div>
+      </div>
+      
+      <div className="bg-gray-50 p-4 border-gray-100 border-2 shadow-md rounded-md">
+        <p className='font-semibold text-lg px-2 py-4'>Top sellers in niche</p>
+        <Barchart data={termsBar} bars={termsBars} height={300} color="#0E4DA4" barSize={20} />
+      </div>
+
+      <div className="bg-gray-50 border-gray-100 border-2 p-4 shadow-md rounded-md">
+        <p className='font-semibold text-lg px-2 py-4'>Niche Saturation Index</p>
+        <GaugeChart data={gaugeData} height={250} cx={180} />
+      </div>
+      
+      <div className="bg-gray-50 border-gray-100 border-2 p-4 shadow-md rounded-md">
+        <p className='font-semibold text-lg px-2 py-4'>Seasonal Demand Chart</p>
+        {treeData.length > 0 && (
+          <Treemap data={treeData} width={400} height={250} colors={TreeColors} />
+        )}
+      </div>
+    </div>      
+      
+
+
 
       {/* {searchData.length > 0 && (
         <div className="mt-6 p-4 bg-gray-50 border border-gray-200 rounded-md">

@@ -38,7 +38,7 @@ export default function SearchBar() {
 
   return (
     <div className="sticky top-0 z-50">
-      <div className="bg-blue-600 p-2 flex items-center">
+      <div className="bg-primary p-2 flex items-center">
         <div className="relative flex w-[40%] mx-auto">
           <input
             type="text"
@@ -53,7 +53,7 @@ export default function SearchBar() {
 
           <div className="relative">
             <div
-              className="border-2 border-gray-500 rounded-full flex items-center gap-2 p-1 cursor-pointer"
+              className="border-2 border-secondary rounded-full flex items-center gap-2 p-1 cursor-pointer"
               onClick={toggleDropdown}
             >
               <FaUserCircle size={30} />

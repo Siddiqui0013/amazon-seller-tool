@@ -56,7 +56,7 @@ const PriceTracker = () => {
               type="number"
               onChange={(e) => setPurchasePrice(e.target.value)}
               placeholder="Enter price"
-              className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-secondary"
             />
             <p className="text-gray-500 text-sm mt-1">Enter the cost at which you purchased the product.</p>
           </div>
@@ -67,7 +67,7 @@ const PriceTracker = () => {
               type="number"
               onChange={(e) => setSalePrice(e.target.value)}
               placeholder="Enter price"
-              className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-secondary"
             />
             <p className="text-gray-500 text-sm mt-1">Enter the cost at which you selled the product.</p>
           </div>
@@ -78,7 +78,7 @@ const PriceTracker = () => {
               type="number"
               onChange={(e) => setFbaFee(e.target.value)}
               placeholder="Enter fee"
-              className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-secondary"
             />
             <p className="text-gray-500 text-sm mt-1">Enter the FBA fulfillment fee or suggested value.</p>
           </div>
@@ -89,7 +89,7 @@ const PriceTracker = () => {
               type="number"
               onChange={(e) => setShippingCost(e.target.value)}
               placeholder="Enter cost"
-              className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-secondary"
             />
             <p className="text-gray-500 text-sm mt-1">Enter the shipping costs associated with the product.</p>
           </div>
@@ -99,7 +99,7 @@ const PriceTracker = () => {
           <div className="p-6 bg-gray-50 border-gray-100 border-2 text-center rounded-lg">
             <div className="my-8">
               <h3 className="text-lg font-semibold">Total Costs</h3>
-              <p className="text-3xl font-bold text-blue-600">${totalCost}</p>
+              <p className="text-3xl font-bold text-primary ">${totalCost}</p>
             </div>
             <div className="mt-4 flex justify-between">
               <div>
@@ -116,7 +116,7 @@ const PriceTracker = () => {
           <div className="flex items-end">
             <button
               onClick={handleSave}
-              className="w-full bg-blue-600 text-white py-3 mb-6 rounded-md text-lg font-medium"
+              className="w-full bg-primary font-bold py-3 mb-6 rounded-md text-lg"
             >
               Save
             </button>
@@ -148,7 +148,7 @@ const PriceTracker = () => {
               data={Bardata}
               width={500}
               height={250}
-              barColors={["#0E4DA4"]}
+              barColors={["#5ABDF5"]}
             />
           </div>
         </div>
@@ -222,7 +222,7 @@ export default PriceTracker;
 //             value={purchasePrice}
 //             placeholder="Enter price"
 //             onChange={(e) => setPurchasePrice(e.target.value)}
-//             className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+//             className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-secondary"
 //           />
 //           <p className="text-gray-500 text-sm mt-1">Enter the cost at which you purchased the product.</p>
 //         </div>
@@ -234,7 +234,7 @@ export default PriceTracker;
 //             value={salePrice}
 //             onChange={(e) => setSalePrice(e.target.value)}
 //             placeholder="Enter price"
-//             className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+//             className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-secondary"
 //           />
 //           <p className="text-gray-500 text-sm mt-1">Enter the expected selling price on Amazon.</p>
 //         </div>
@@ -246,7 +246,7 @@ export default PriceTracker;
 //             onChange={(e) => setFbaFEee(e.target.value)}
 //             value={fbaFEe}
 //             placeholder="Enter price"
-//             className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+//             className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-secondary"
 //           />
 //           <p className="text-gray-500 text-sm mt-1">Enter the FBA fulfillment fee or suggested value.</p>
 //         </div>
@@ -258,7 +258,7 @@ export default PriceTracker;
 //             onChange={(e) => setShippingcost(e.target.value)}
 //             value={shippingcost}
 //             placeholder="Enter price"
-//             className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+//             className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-secondary"
 //           />
 //           <p className="text-gray-500 text-sm mt-1">Enter the shipping costs associated with the product.</p>
 //         </div>
